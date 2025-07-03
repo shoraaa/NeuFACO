@@ -3,7 +3,7 @@ mkdir concorde
 cd concorde
 mkdir qsopt
 cd qsopt
-# Download qsopt
+Download qsopt
 if [[ "$OSTYPE" == "darwin"* ]]; then
     curl -O http://www.math.uwaterloo.ca/~bico/qsopt/beta/codes/mac64/qsopt.a
     curl -O http://www.math.uwaterloo.ca/~bico/qsopt/beta/codes/mac64/qsopt.h
@@ -20,7 +20,7 @@ cd concorde
 if [[ "$OSTYPE" == "darwin"* ]]; then
     ./configure --with-qsopt=$(pwd)/../qsopt --host=powerpc-apple-macos
 else
-    ./configure --with-qsopt=$(realpath ../qsopt)
+    ./configure --with-qsopt=$(realpath ../qsopt) --host=x86_64-unknown-linux-gnu
 fi
 make
 TSP/concorde -s 99 -k 100
