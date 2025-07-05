@@ -30,7 +30,7 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse):
         heuristic=heu_mat,
         k_sparse=k_sparse,
         device="cpu",
-        local_search_type="nls",
+        local_search_type=None,
         elitist=ACOALG == "ELITIST",
         maxmin=ACOALG == "MAXMIN",
         rank_based=ACOALG == "RANK",
