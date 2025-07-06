@@ -1,0 +1,44 @@
+# Example configuration for TSP-200 baseline
+nodes: 200
+k_sparse: 20
+
+# Training parameters
+lr: 0.001
+batch_size: 20
+steps: 20
+epochs: 50
+val_size: 20
+val_interval: 5
+
+# ACO parameters
+ants: 30
+val_ants: 50
+
+# PPO parameters
+clip_ratio_min: 0.1
+clip_ratio_max: 0.2
+clip_ratio_flat_epochs: 5
+value_coeff: 0.5
+entropy_coeff: 0.01
+
+# Temperature scheduling
+invtemp_min: 1.0
+invtemp_max: 1.0
+invtemp_flat_epochs: 5
+
+# Cost weighting
+cost_w_min: 0.5
+cost_w_max: 0.99
+cost_w_flat_epochs: 5
+
+# Flags
+guided_exploration: true
+shared_energy_norm: true
+
+# I/O
+pretrained: null
+savepath: "../pretrained/tsp_ppo"
+run_name: "baseline"
+disable_wandb: false
+seed: 0
+device: "cuda:0"

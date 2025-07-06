@@ -1,0 +1,11 @@
+# Fast convergence configuration
+nodes: 200
+lr: 0.003  # Higher learning rate
+batch_size: 50  # Larger batches
+steps: 30  # More steps per epoch
+entropy_coeff: 0.005  # Lower entropy for exploitation
+clip_ratio_min: 0.15  # Larger clip ratio
+clip_ratio_max: 0.25
+value_coeff: 0.8  # Higher value function weight
+guided_exploration: false  # Disable guided exploration for speed
+run_name: "fast_convergence"

@@ -29,7 +29,7 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse):
         n_ants,
         heuristic=heu_mat,
         k_sparse=k_sparse,
-        device="cpu",
+        device="cuda",
         local_search_type=None,
         elitist=ACOALG == "ELITIST",
         maxmin=ACOALG == "MAXMIN",

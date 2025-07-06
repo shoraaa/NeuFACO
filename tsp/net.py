@@ -83,19 +83,27 @@ class ParNet(MLP):
     
 
 class Net(nn.Module):
-    def __init__(self, gfn=False, Z_out_dim=1, start_node=None):
+    def __init__(self, gfn=False, Z_out_dim=1, value_head=False, start_node=None):
         super().__init__()
         self.emb_net = EmbNet(feats=2 if start_node is None else 1)
         self.par_net_heu = ParNet()
 
         self.gfn = gfn
+        self.value_head = value_head
+        
         self.Z_net = nn.Sequential(
             nn.Linear(32, 32),
             nn.ReLU(),
             nn.Linear(32, Z_out_dim),
         ) if gfn else None
 
-    def forward(self, pyg, return_logZ=False):
+        self.value_net = nn.Sequential(
+            nn.Linear(32, 32),
+            nn.ReLU(),
+            nn.Linear(32, 1),
+        ) if value_head else None
+
+    def forward(self, pyg, return_logZ=False, return_value=False):
         x, edge_index, edge_attr = pyg.x, pyg.edge_index, pyg.edge_attr
         emb = self.emb_net(x, edge_index, edge_attr)
         heu = self.par_net_heu(emb)
@@ -104,6 +112,11 @@ class Net(nn.Module):
             assert self.gfn and self.Z_net is not None
             logZ = self.Z_net(emb).mean(0)
             return heu, logZ
+
+        if return_value:
+            assert self.value_head and self.value_net is not None
+            value = self.value_net(emb).mean(0)
+            return heu, value
 
         return heu
 

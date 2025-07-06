@@ -1,0 +1,83 @@
+program: train.py
+method: bayes  # or 'grid', 'random'
+metric:
+  name: val_best_aco_T
+  goal: minimize
+
+parameters:
+  # Problem size (fixed for each sweep)
+  nodes:
+    value: 200
+  
+  # Core training parameters
+  lr:
+    distribution: log_uniform_values
+    min: 1e-5
+    max: 1e-2
+  
+  batch_size:
+    values: [10, 20, 30, 50]
+  
+  epochs:
+    value: 50
+  
+  steps:
+    values: [10, 20, 30]
+  
+  # PPO-specific parameters
+  clip_ratio_min:
+    distribution: uniform
+    min: 0.05
+    max: 0.2
+  
+  clip_ratio_max:
+    distribution: uniform
+    min: 0.1
+    max: 0.3
+  
+  value_coeff:
+    distribution: uniform
+    min: 0.1
+    max: 1.0
+  
+  entropy_coeff:
+    distribution: log_uniform_values
+    min: 0.001
+    max: 0.1
+  
+  # ACO parameters
+  ants:
+    values: [20, 30, 50]
+  
+  invtemp_min:
+    distribution: uniform
+    min: 0.5
+    max: 1.0
+  
+  invtemp_max:
+    distribution: uniform
+    min: 1.0
+    max: 2.0
+  
+  # Cost weighting for guided exploration
+  cost_w_min:
+    distribution: uniform
+    min: 0.3
+    max: 0.7
+  
+  cost_w_max:
+    distribution: uniform
+    min: 0.8
+    max: 0.99
+  
+  # Boolean parameters
+  disable_guided_exp:
+    values: [true, false]
+  
+  disable_shared_energy_norm:
+    values: [true, false]
+
+# Early termination
+early_terminate:
+  type: hyperband
+  min_iter: 10

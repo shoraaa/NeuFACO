@@ -33,7 +33,7 @@ class ACO():
         smoothing_delta=0.5,
         shift_cost=True,
         local_search_type: str | None = 'nls',
-        device='cpu',
+        device='cuda',
     ):
         self.problem_size = len(distances)
         self.distances = distances.to(device)
