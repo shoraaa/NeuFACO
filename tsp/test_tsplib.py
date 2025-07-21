@@ -7,7 +7,7 @@ import pandas as pd
 import torch
 
 from net import Net
-from aco import ACO
+from mfaco import ACO
 from utils import load_tsplib_dataset
 
 
@@ -28,8 +28,7 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff):
         distances.cpu(),
         n_ants,
         heuristic=heu_mat.cpu() if heu_mat is not None else heu_mat,
-        device='cpu',
-        local_search_type='nls',
+        device=DEVICE,
     )
 
     results = torch.zeros(size=(len(t_aco_diff),))
@@ -38,6 +37,7 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff):
         cost, _, t = aco.run(t, start_node=START_NODE)
         results[i] = cost
         elapsed_time += t
+        print(f"Iteration {i+1}/{len(t_aco_diff)}: Cost = {cost}, Time = {t:.2f}s")
     return results, aco.shortest_path, elapsed_time
 
 
@@ -80,8 +80,12 @@ def make_tsplib_data(filename, episode):
     return instance_data, cost, instance_name
 
 
-def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=100, n_iter=10, guided_exploration=False, seed=0):
+def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=None, n_iter=10, guided_exploration=False, seed=0):
     test_list, scale_list, name_list = load_tsplib_dataset(n_nodes, k_sparse_factor, DEVICE, start_node=START_NODE)
+
+    if n_ants is None:
+        n_ants = int(4 * np.sqrt(n_nodes))
+        n_ants = max(64, ((n_ants + 63) // 64) * 64)
 
     t_aco = list(range(1, n_iter + 1))
     print("problem scale:", n_nodes)
@@ -92,7 +96,8 @@ def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=100, n_iter=10, guided_e
     print("seed:", seed)
 
     if ckpt_path is not None:
-        net = Net(gfn=True, Z_out_dim=2 if guided_exploration else 1, start_node=START_NODE).to(DEVICE)
+        net = Net(gfn=True, Z_out_dim=2 if guided_exploration else 1, start_node=START_NODE).to(DEVICE) if GFACS else \
+              Net(gfn=False, value_head=True, start_node=START_NODE).to(DEVICE) 
         net.load_state_dict(torch.load(ckpt_path, map_location=DEVICE))
     else:
         net = None
@@ -107,7 +112,7 @@ def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=100, n_iter=10, guided_e
     results_df = pd.DataFrame(columns=["Length"])
     for inst, path in zip(tsplib_instances, best_paths):
         coords, _, tsp_name = inst
-        tour_coords = np.concatenate([coords[path], coords[path[0]].reshape(1, 2)], axis=0)
+        tour_coords = np.concatenate([coords[path.cpu().numpy()], coords[path[0].cpu().numpy()].reshape(1, 2)], axis=0)
         tour_length = np.linalg.norm(tour_coords[1:] - tour_coords[:-1], axis=1)
         # round up to the nearest integer
         tour_length = np.ceil(tour_length).astype(int)
@@ -118,7 +123,7 @@ def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=100, n_iter=10, guided_e
 
     # Save result in directory that contains model_file
     filename = os.path.splitext(os.path.basename(ckpt_path))[0] if ckpt_path is not None else 'none'
-    dirname = os.path.dirname(ckpt_path) if ckpt_path is not None else f'../pretrained/tsp_nls/{args.nodes}/no_model'
+    dirname = os.path.dirname(ckpt_path) if ckpt_path is not None else f'../pretrained/tsp_ppo/{args.nodes}/no_model'
     os.makedirs(dirname, exist_ok=True)
 
     result_filename = f"test_result_ckpt{filename}-tsplib{n_nodes}-nants{n_ants}-niter{n_iter}-seed{seed}"
@@ -131,8 +136,8 @@ if __name__ == "__main__":
     parser.add_argument("nodes", type=int, help="Problem scale")
     parser.add_argument("-k", "--k_sparse_factor", type=int, default=10, help="k_sparse factor")
     parser.add_argument("-p", "--path", type=str, default=None, help="Path to checkpoint file")
-    parser.add_argument("-i", "--n_iter", type=int, default=10, help="Number of iterations of ACO to run")
-    parser.add_argument("-n", "--n_ants", type=int, default=100, help="Number of ants")
+    parser.add_argument("-i", "--n_iter", type=int, default=50, help="Number of iterations of ACO to run")
+    parser.add_argument("-n", "--n_ants", type=int, default=None, help="Number of ants")
     parser.add_argument("-d", "--device", type=str,
                         default=("cuda:0" if torch.cuda.is_available() else "cpu"), 
                         help="The device to train NNs")
@@ -140,9 +145,11 @@ if __name__ == "__main__":
     parser.add_argument("--disable_guided_exp", action='store_true', help='True for model w/o guided exploration.')
     ### Seed
     parser.add_argument("--seed", type=int, default=0, help="Random seed")
+    parser.add_argument("-g", "--gfacs", action='store_true', help="Loading GFACS model")
     args = parser.parse_args()
 
     DEVICE = args.device if torch.cuda.is_available() else 'cpu'
+    GFACS = args.gfacs
 
     # seed everything
     torch.manual_seed(args.seed)

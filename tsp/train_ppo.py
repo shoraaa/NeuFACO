@@ -6,6 +6,7 @@ import time
 from tqdm import tqdm
 import numpy as np
 import torch
+import torch.nn.functional as F
 
 from net import Net
 from aco import ACO, ACO_NP
@@ -17,6 +18,7 @@ import wandb
 EPS = 1e-10
 T = 50  # ACO iterations for validation
 START_NODE = None  # GFACS uses node coords as model input and the start_node is randomly chosen.
+local_search_type = None  # Local search type for ACO, can be 'nls', '2opt', or None (no local search)
 
 
 def train_instance(
@@ -30,9 +32,16 @@ def train_instance(
         shared_energy_norm=False,
         beta=100.0,
         it=0,
+        clip_ratio=0.2,
+        ppo_epochs=4,
+        value_coeff=0.5,
+        entropy_coeff=0.01,
     ):
     model.train()
 
+    # Collect experience from all instances
+    all_experiences = []
+    
     ##################################################
     # wandb
     _train_mean_cost = 0.0
@@ -43,55 +52,47 @@ def train_instance(
     _logZ_mean = torch.tensor(0.0, device=DEVICE)
     _logZ_nls_mean = torch.tensor(0.0, device=DEVICE)
     ##################################################
-    sum_loss = torch.tensor(0.0, device=DEVICE)
-    sum_loss_nls = torch.tensor(0.0, device=DEVICE)
+    
     count = 0
 
+    # First pass: collect experiences
     for pyg_data, distances in data:
-        heu_vec, logZs = model(pyg_data, return_logZ=True)
-        heu_mat = model.reshape(pyg_data, heu_vec) + EPS
-        if guided_exploration:
-            logZ, logZ_nls = logZs
-        else:
-            logZ = logZs[0]
+        with torch.no_grad():
+            heu_vec, values = model(pyg_data, return_value=True)
+            heu_mat = model.reshape(pyg_data, heu_vec) + EPS
 
-        aco = ACO(distances, n_ants, heuristic=heu_mat, device=DEVICE, local_search_type='nls')
-
+        aco = ACO(distances, n_ants, heuristic=heu_mat, device=DEVICE, local_search_type=local_search_type)
         costs, log_probs, paths = aco.sample(invtemp=invtemp, start_node=START_NODE)
-        advantage = (costs - (costs.mean() if shared_energy_norm else 0.0))
-
+        
+        # Store baseline (mean cost for advantage calculation)
+        baseline = costs.mean() if shared_energy_norm else values.expand(n_ants)
+        advantage = costs - baseline.detach()
+        
+        # Store experience
+        experience = {
+            'pyg_data': pyg_data,
+            'distances': distances,
+            'paths': paths,
+            'old_log_probs': log_probs.sum(0).detach(),  # Sum over path length
+            'costs': costs,
+            'advantages': -advantage,  # Negative because lower cost is better
+            'values': values.expand(n_ants),
+            'heu_mat': heu_mat.detach(),
+        }
+        
         if guided_exploration:
             paths_nls = aco.local_search(paths, inference=False)
             costs_nls = aco.gen_path_costs(paths_nls)
-            advantage_nls = (costs_nls - (costs_nls.mean() if shared_energy_norm else 0.0))
-            weighted_advantage = cost_w * advantage_nls + (1 - cost_w) * advantage
-        else:
-            weighted_advantage = advantage
-
-        ##################################################
-        # Loss from paths before local search
-        forward_flow = log_probs.sum(0) + logZ.expand(n_ants)  # type: ignore
-        backward_flow = math.log(1 / (2 * pyg_data.x.shape[0])) - weighted_advantage.detach() * beta
-        tb_loss = torch.pow(forward_flow - backward_flow, 2).mean()
-        sum_loss += tb_loss
-
-        ##################################################
-        # Loss from paths after local search
-        if guided_exploration:
-            _, log_probs_nls = aco.gen_path(
-                invtemp=1.0,  # invtemp is 1.0 here, otherwise gradients from offpolicy data will be overestimated
-                require_prob=True,
-                paths=paths_nls,  # type: ignore
-                start_node=START_NODE,
-            )
-
-            forward_flow_nls = log_probs_nls.sum(0) + logZ_nls.expand(n_ants)  # type: ignore
-            backward_flow_nls = math.log(1 / (2 * pyg_data.x.shape[0])) - advantage_nls.detach() * beta  # type: ignore
-            tb_loss_nls = torch.pow(forward_flow_nls - backward_flow_nls, 2).mean()
-            sum_loss_nls += tb_loss_nls
-
-        count += 1
-
+            advantage_nls = costs_nls - (costs_nls.mean() if shared_energy_norm else values.expand(n_ants))
+            
+            experience.update({
+                'paths_nls': paths_nls,
+                'costs_nls': costs_nls,
+                'advantages_nls': -advantage_nls,
+            })
+        
+        all_experiences.append(experience)
+        
         ##################################################
         # wandb
         if USE_WANDB:
@@ -102,21 +103,94 @@ def train_instance(
             entropy = -(normed_heumat * torch.log(normed_heumat)).sum(dim=1).mean()
             _train_entropy += entropy.item()
 
-            _logZ_mean += logZ
             if guided_exploration:
                 _train_mean_cost_nls += costs_nls.mean().item()
                 _train_min_cost_nls += costs_nls.min().item()
-                _logZ_nls_mean += logZ_nls
         ##################################################
-
-    sum_loss = sum_loss / count
-    sum_loss_nls = sum_loss_nls / count if guided_exploration else torch.tensor(0.0, device=DEVICE)
-    loss = sum_loss + sum_loss_nls
-
-    optimizer.zero_grad()
-    loss.backward()
-    torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=3.0, norm_type=2)  # type: ignore
-    optimizer.step()
+        
+        count += 1
+    
+    # PPO training epochs
+    total_policy_loss = 0.0
+    total_value_loss = 0.0
+    total_entropy_loss = 0.0
+    
+    for epoch in range(ppo_epochs):
+        epoch_policy_loss = 0.0
+        epoch_value_loss = 0.0
+        epoch_entropy_loss = 0.0
+        
+        for experience in all_experiences:
+            pyg_data = experience['pyg_data']
+            distances = experience['distances']
+            paths = experience['paths']
+            old_log_probs = experience['old_log_probs']
+            advantages = experience['advantages']
+            values_target = experience['costs']  # Use actual costs as value targets
+            
+            # Forward pass with current policy
+            heu_vec, values = model(pyg_data, return_value=True)
+            heu_mat = model.reshape(pyg_data, heu_vec) + EPS
+            
+            # Re-evaluate paths with current policy
+            aco = ACO(distances, n_ants, heuristic=heu_mat, device=DEVICE, local_search_type=local_search_type)
+            _, new_log_probs = aco.gen_path(
+                invtemp=invtemp,
+                require_prob=True,
+                paths=paths,
+                start_node=START_NODE,
+            )
+            
+            new_log_probs_sum = new_log_probs.sum(0)
+            
+            # Importance sampling ratio
+            ratio = torch.exp(new_log_probs_sum - old_log_probs)
+            
+            # Clipped surrogate loss
+            surr1 = ratio * advantages
+            surr2 = torch.clamp(ratio, 1 - clip_ratio, 1 + clip_ratio) * advantages
+            policy_loss = -torch.min(surr1, surr2).mean()
+            
+            # Value function loss
+            value_loss = F.mse_loss(values.expand(n_ants), values_target)
+            
+            # Entropy loss for exploration
+            normed_heumat = heu_mat / heu_mat.sum(dim=1, keepdim=True)
+            entropy = -(normed_heumat * torch.log(normed_heumat + EPS)).sum(dim=1).mean()
+            entropy_loss = -entropy
+            
+            # Handle guided exploration
+            if guided_exploration and 'paths_nls' in experience:
+                paths_nls = experience['paths_nls']
+                advantages_nls = experience['advantages_nls']
+                
+                _, new_log_probs_nls = aco.gen_path(
+                    invtemp=1.0,
+                    require_prob=True,
+                    paths=paths_nls,
+                    start_node=START_NODE,
+                )
+                
+                # For NLS paths, we don't have old_log_probs, so use a simpler loss
+                policy_loss_nls = -(new_log_probs_nls.sum(0) * advantages_nls.detach()).mean()
+                policy_loss = cost_w * policy_loss_nls + (1 - cost_w) * policy_loss
+            
+            epoch_policy_loss += policy_loss.item()
+            epoch_value_loss += value_loss.item()
+            epoch_entropy_loss += entropy_loss.item()
+            
+            # Combine losses
+            total_loss = policy_loss + value_coeff * value_loss + entropy_coeff * entropy_loss
+            
+            # Backward pass
+            optimizer.zero_grad()
+            total_loss.backward()
+            torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=3.0, norm_type=2)
+            optimizer.step()
+        
+        total_policy_loss += epoch_policy_loss / len(all_experiences)
+        total_value_loss += epoch_value_loss / len(all_experiences)
+        total_entropy_loss += epoch_entropy_loss / len(all_experiences)
 
     ##################################################
     # wandb
@@ -128,13 +202,14 @@ def train_instance(
                 "train_mean_cost_nls": _train_mean_cost_nls / count,
                 "train_min_cost_nls": _train_min_cost_nls / count,
                 "train_entropy": _train_entropy / count,
-                "train_loss": sum_loss.item(),
-                "train_loss_nls": sum_loss_nls.item(),
+                "train_policy_loss": total_policy_loss / ppo_epochs,
+                "train_value_loss": total_value_loss / ppo_epochs,
+                "train_entropy_loss": total_entropy_loss / ppo_epochs,
                 "cost_w": cost_w,
                 "invtemp": invtemp,
-                "logZ": _logZ_mean.item() / count,
-                "logZ_nls": _logZ_nls_mean.item() / count,
-                "beta": beta,
+                "clip_ratio": clip_ratio,
+                "value_coeff": value_coeff,
+                "entropy_coeff": entropy_coeff,
             },
             step=it,
         )
@@ -150,7 +225,7 @@ def infer_instance(model, pyg_data, distances, n_ants):
         distances.cpu().numpy(),
         n_ants,
         heuristic=heu_mat.cpu().numpy(),
-        local_search_type='nls'
+        local_search_type=local_search_type
     )
 
     costs = aco.sample(inference=True, start_node=START_NODE)[0]
@@ -181,11 +256,19 @@ def train_epoch(
     guided_exploration=False,
     shared_energy_norm=False,
     beta=100.0,
+    clip_ratio=0.2,
+    ppo_epochs=4,
+    value_coeff=0.5,
+    entropy_coeff=0.01,
 ):
     for i in tqdm(range(steps_per_epoch), desc="Train", dynamic_ncols=True):
         it = (epoch - 1) * steps_per_epoch + i
         data = generate_traindata(batch_size, n_node, k_sparse)
-        train_instance(net, optimizer, data, n_ants, cost_w, invtemp, guided_exploration, shared_energy_norm, beta, it)
+        train_instance(
+            net, optimizer, data, n_ants, cost_w, invtemp, 
+            guided_exploration, shared_energy_norm, beta, it,
+            clip_ratio, ppo_epochs, value_coeff, entropy_coeff
+        )
 
 
 @torch.no_grad()
@@ -228,18 +311,23 @@ def train(
         val_size=None,
         val_interval=5,
         pretrained=None,
-        savepath="../pretrained/tsp_nls",
+        savepath="../pretrained/tsp_ppo_new",
         run_name="",
         cost_w_schedule_params=(0.5, 1.0, 5),  # (cost_w_min, cost_w_max, cost_w_flat_epochs)
         invtemp_schedule_params=(0.8, 1.0, 5),  # (invtemp_min, invtemp_max, invtemp_flat_epochs)
         guided_exploration=False,
         shared_energy_norm=False,
         beta_schedule_params=(50, 500, 5),  # (beta_min, beta_max, beta_flat_epochs)
+        clip_ratio=0.2,
+        ppo_epochs=4,
+        value_coeff=0.5,
+        entropy_coeff=0.01,
     ):
     savepath = os.path.join(savepath, str(n_nodes), run_name)
     os.makedirs(savepath, exist_ok=True)
 
-    net = Net(gfn=True, Z_out_dim=2 if guided_exploration else 1, start_node=START_NODE).to(DEVICE)
+    # Use value head for PPO
+    net = Net(gfn=False, value_head=True, start_node=START_NODE).to(DEVICE)
     if pretrained:
         net.load_state_dict(torch.load(pretrained, map_location=DEVICE))
     optimizer = torch.optim.AdamW(net.parameters(), lr=lr)
@@ -279,6 +367,10 @@ def train(
             guided_exploration,
             shared_energy_norm,
             beta,
+            clip_ratio,
+            ppo_epochs,
+            value_coeff,
+            entropy_coeff,
         )
         sum_time += time.time() - start
 
@@ -309,9 +401,10 @@ if __name__ == "__main__":
     parser.add_argument("-va", "--val_ants", type=int, default=50, help="Number of ants for validation")
     parser.add_argument("-b", "--batch_size", type=int, default=20, help="Batch size")
     parser.add_argument("-s", "--steps", type=int, default=20, help="Steps per epoch")
-    parser.add_argument("-e", "--epochs", type=int, default=20, help="Epochs to run")
+    parser.add_argument("-e", "--epochs", type=int, default=50, help="Epochs to run")
+    parser.add_argument("-ls", "--local_search_type", type=str, default=None, help="Local search type (nls, 2opt, or None)")
     parser.add_argument("-v", "--val_size", type=int, default=20, help="Number of instances for validation")
-    parser.add_argument("-o", "--output", type=str, default="../pretrained/tsp_nls",
+    parser.add_argument("-o", "--output", type=str, default="../pretrained/tsp_ppo",
                         help="The directory to store checkpoints")
     parser.add_argument("--val_interval", type=int, default=1, help="The interval to validate model")
     ### Logging
@@ -331,20 +424,29 @@ if __name__ == "__main__":
     parser.add_argument("--cost_w_min", type=float, default=None, help='Cost weight min for GFACS')
     parser.add_argument("--cost_w_max", type=float, default=0.99, help='Cost weight max for GFACS')
     parser.add_argument("--cost_w_flat_epochs", type=int, default=5, help='Cost weight flat epochs for GFACS')
+    ### PPO Parameters
+    parser.add_argument("--clip_ratio", type=float, default=0.2, help='PPO clipping ratio')
+    parser.add_argument("--ppo_epochs", type=int, default=4, help='Number of PPO epochs per training step')
+    parser.add_argument("--value_coeff", type=float, default=0.5, help='Value function loss coefficient')
+    parser.add_argument("--entropy_coeff", type=float, default=0.01, help='Entropy loss coefficient')
     ### Seed
     parser.add_argument("--seed", type=int, default=0, help="Random seed")
 
     args = parser.parse_args()
+
+    local_search_type = args.local_search_type
 
     if args.k_sparse is None:
         args.k_sparse = args.nodes // 10
 
     if args.beta_min is None:
         beta_min_map = {200: 200, 500: 200, 1000: 200 if args.pretrained is None else 1000}
-        args.beta_min = beta_min_map[args.nodes]
+        args.beta_min = 200
+        # args.beta_min = beta_min_map[args.nodes]
     if args.beta_max is None:
         beta_max_map = {200: 1000, 500: 1000, 1000: 1000}
-        args.beta_max = beta_max_map[args.nodes]
+        args.beta_max = 1000
+        # args.beta_max = beta_max_map[args.nodes]
 
     if args.cost_w_min is None:
         args.cost_w_min = 0.5 if args.pretrained is None else 0.8
@@ -368,9 +470,9 @@ if __name__ == "__main__":
     )
     run_name += f"{'' if pretrained_name is None else '_fromckpt-'+pretrained_name}"
     if USE_WANDB:
-        wandb.init(project="neufaco_data", name=run_name)
+        wandb.init(project="neufaco", name=run_name)
         wandb.config.update(args)
-        wandb.config.update({"T": T, "model": "GFACS"})
+        wandb.config.update({"T": T, "model": "PPO"})
     ##################################################
 
     train(
@@ -392,4 +494,8 @@ if __name__ == "__main__":
         guided_exploration=(not args.disable_guided_exp),
         shared_energy_norm=(not args.disable_shared_energy_norm),
         beta_schedule_params=(args.beta_min, args.beta_max, args.beta_flat_epochs),
+        clip_ratio=args.clip_ratio,
+        ppo_epochs=args.ppo_epochs,
+        value_coeff=args.value_coeff,
+        entropy_coeff=args.entropy_coeff,
     )

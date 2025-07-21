@@ -15,7 +15,7 @@ import wandb
 
 
 EPS = 1e-10
-T = 5  # ACO iterations for validation
+T = 50  # ACO iterations for validation
 START_NODE = None  # GFACS uses node coords as model input and the start_node is randomly chosen.
 
 
@@ -348,7 +348,7 @@ if __name__ == "__main__":
     parser.add_argument("-v", "--val_size", type=int, default=20, help="Number of instances for validation")
     parser.add_argument("-o", "--output", type=str, default="../pretrained/tsp_ppo",
                         help="The directory to store checkpoints")
-    parser.add_argument("--val_interval", type=int, default=5, help="The interval to validate model")
+    parser.add_argument("--val_interval", type=int, default=1, help="The interval to validate model")
     ### Logging
     parser.add_argument("--disable_wandb", action="store_true", help="Disable wandb logging")
     parser.add_argument("--run_name", type=str, default="", help="Run name")
@@ -398,7 +398,7 @@ if __name__ == "__main__":
     )
     run_name += f"{'' if pretrained_name is None else '_fromckpt-'+pretrained_name}"
     if USE_WANDB:
-        wandb.init(project="neufaco", name=run_name)
+        wandb.init(project="neufaco_data", name=run_name)
         wandb.config.update(args)
         wandb.config.update({"T": T, "model": "PPO"})
     ##################################################

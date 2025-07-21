@@ -5,10 +5,9 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 import torch
-from math import sqrt
 
 from net import Net
-from mfaco import ACO
+from aco import ACO
 from utils import load_test_dataset
 
 
@@ -30,7 +29,7 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse):
         n_ants,
         heuristic=heu_mat,
         k_sparse=k_sparse,
-        device=DEVICE,
+        device="cuda",
         local_search_type=None,
         elitist=ACOALG == "ELITIST",
         maxmin=ACOALG == "MAXMIN",
@@ -62,13 +61,9 @@ def test(dataset, model, n_ants, t_aco, k_sparse):
     return sum_results / len(dataset), sum_diversities / len(dataset), sum_times / len(dataset)
 
 
-def main(ckpt_path, n_nodes, k_sparse, size=None, n_ants=None, n_iter=1000, guided_exploration=False, seed=0, test_name=""):
+def main(ckpt_path, n_nodes, k_sparse, size=None, n_ants=100, n_iter=10, guided_exploration=False, seed=0, test_name=""):
     test_list = load_test_dataset(n_nodes, k_sparse, DEVICE, start_node=START_NODE)
     test_list = test_list[:(size or len(test_list))]
-
-    if n_ants is None:
-        n_ants = int(4 * sqrt(n_nodes))
-        n_ants = max(64, ((n_ants + 63) // 64) * 64)
 
     t_aco = list(range(1, n_iter + 1))
     print("problem scale:", n_nodes)
@@ -79,8 +74,7 @@ def main(ckpt_path, n_nodes, k_sparse, size=None, n_ants=None, n_iter=1000, guid
     print("seed:", seed)
 
     if ckpt_path is not None:
-        net = Net(gfn=True, Z_out_dim=2 if guided_exploration else 1, start_node=START_NODE).to(DEVICE) if GFACS else \
-              Net(gfn=False, value_head=True, start_node=START_NODE).to(DEVICE) 
+        net = Net(gfn=True, Z_out_dim=2 if guided_exploration else 1, start_node=START_NODE).to(DEVICE)
         net.load_state_dict(torch.load(ckpt_path, map_location=DEVICE))
     else:
         net = None
@@ -122,7 +116,7 @@ if __name__ == "__main__":
     parser.add_argument("-k", "--k_sparse", type=int, default=None, help="k_sparse")
     parser.add_argument("-p", "--path", type=str, default=None, help="Path to checkpoint file")
     parser.add_argument("-i", "--n_iter", type=int, default=10, help="Number of iterations of ACO to run")
-    parser.add_argument("-n", "--n_ants", type=int, default=None, help="Number of ants")
+    parser.add_argument("-n", "--n_ants", type=int, default=100, help="Number of ants")
     parser.add_argument("-d", "--device", type=str,
                         default=("cuda:0" if torch.cuda.is_available() else "cpu"), 
                         help="The device to train NNs")
@@ -134,7 +128,6 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=0, help="Random seed")
     ### ACO
     parser.add_argument("--aco", type=str, default="AS", choices=["AS", "ELITIST", "MAXMIN", "RANK"], help="ACO algorithm")
-    parser.add_argument("-g", "--gfacs", action='store_true', help="Loading GFACS model")
     args = parser.parse_args()
 
     if args.k_sparse is None:
@@ -142,7 +135,6 @@ if __name__ == "__main__":
 
     DEVICE = args.device if torch.cuda.is_available() else 'cpu'
     ACOALG = args.aco
-    GFACS = args.gfacs
 
     # seed everything
     torch.manual_seed(args.seed)
