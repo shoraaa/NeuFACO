@@ -1,4 +1,4 @@
-# Hybrid Deep Ant Colony - Genetic algorithm Optimization
+# Neural Focused Ant Colony Optimization
 
 ## Dependencies
 - Python 3.11.5
@@ -8,7 +8,7 @@
 We strongly recommend using [uv](https://github.com/astral-sh/uv) for virtual environment in this project.
 
 ```
-uv venv python=3.11.5
+uv venv python=3.11
 ```
 
 ```
