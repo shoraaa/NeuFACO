@@ -368,7 +368,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("nodes", type=int, help="Problem scale")
-    parser.add_argument("-k", "--k_sparse_factor", type=int, default=None, help="k_sparse factor")
+    parser.add_argument("-k", "--k_sparse_factor", type=int, default=10, help="k_sparse factor")
     parser.add_argument("-p", "--path", type=str, default=None, help="Path to checkpoint file")
     parser.add_argument("-i", "--n_iter", type=int, default=100, help="Number of iterations of MFACO to run")
     parser.add_argument("-n", "--n_ants", type=int, default=100, help="Number of ants")
