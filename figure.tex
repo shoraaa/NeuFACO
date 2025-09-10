@@ -1,0 +1,343 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{bm}
+\title{ELEMENT}
+\author{Trần Quang Khải }
+\date{July 2025}
+
+\usepackage{pdflscape}
+\documentclass{article}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{adjustbox} % để co bảng cho vừa trang
+
+\begin{document}
+\pagenumbering{gobble} % tắt đánh số trang toàn văn bản
+
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=1.5\textwidth}{%
+
+\begin{tabular}{c cccc cccc cccc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{ Testlib200}} & 
+\multicolumn{4}{c}{\textbf{GFACS}} & 
+\multicolumn{4}{c}{\textbf{DeepACO}} & 
+\multicolumn{4}{c}{\textbf{NeuFACO}} \\
+\cline{2-13}
+ & min & mean & max & avg time & min & mean & max & avg time & min & mean & max & avg time \\
+\hline
+a280 & \makecell{2670 \\ (3.53\%)} & \makecell{2674 \\ (3.68\%)} & \makecell{2682 \\ (3.99\%)} & \makecell{16.76} & \makecell{2653 \\ (2.87\%)} & \makecell{2665 \\ (3.37\%)} & \makecell{2673 \\ (3.64\%)} & \makecell{16.99} & \makecell{\textbf{2642} \\ (2.44\%)} & \makecell{\textbf{2646} \\ (2.61\%)} & \makecell{\textbf{2663} \\ (3.26\%)} & \makecell{\textbf{0.67}} \\
+bier127 & \makecell{\textbf{118368} \\ (0.07\%)} & \makecell{\textbf{118368} \\ (0.07\%)} & \makecell{\textbf{118368} \\ (0.07\%)} & \makecell{5.20} & \makecell{\textbf{118368} \\ (0.07\%)} & \makecell{118450 \\ (0.14\%)} & \makecell{118575 \\ (0.25\%)} & \makecell{5.29} & \makecell{\textbf{118368} \\ (0.07\%)} & \makecell{\textbf{118368} \\ (0.07\%)} & \makecell{\textbf{118368} \\ (0.07\%)} & \makecell{\textbf{0.44}} \\
+ch130 & \makecell{6182 \\ (1.18\%)} & \makecell{\textbf{6186} \\ (1.25\%)} & \makecell{\textbf{6203} \\ (1.52\%)} & \makecell{5.41} & \makecell{6184 \\ (1.21\%)} & \makecell{6195 \\ (1.39\%)} & \makecell{6208 \\ (1.60\%)} & \makecell{5.31} & \makecell{\textbf{6177} \\ (1.10\%)} & \makecell{6188 \\ (1.29\%)} & \makecell{6232 \\ (2.00\%)} & \makecell{\textbf{0.43}} \\
+ch150 & \makecell{6631 \\ (1.58\%)} & \makecell{6638 \\ (1.69\%)} & \makecell{6646 \\ (1.81\%)} & \makecell{5.91} & \makecell{6639 \\ (1.70\%)} & \makecell{6652 \\ (1.91\%)} & \makecell{6678 \\ (2.30\%)} & \makecell{5.97} & \makecell{\textbf{6609} \\ (1.24\%)} & \makecell{\textbf{6619} \\ (1.40\%)} & \makecell{\textbf{6634} \\ (1.62\%)} & \makecell{\textbf{0.46}} \\
+d198 & \makecell{15930 \\ (0.95\%)} & \makecell{15937 \\ (1.00\%)} & \makecell{15945 \\ (1.05\%)} & \makecell{10.50} & \makecell{15933 \\ (0.97\%)} & \makecell{15965 \\ (1.18\%)} & \makecell{15990 \\ (1.33\%)} & \makecell{10.49} & \makecell{\textbf{15904} \\ (0.79\%)} & \makecell{\textbf{15911} \\ (0.83\%)} & \makecell{\textbf{15924} \\ (0.91\%)} & \makecell{\textbf{0.58}} \\
+eil101 & \makecell{\textbf{702} \\ (11.61\%)} & \makecell{703 \\ (11.91\%)} & \makecell{706 \\ (12.24\%)} & \makecell{4.36} & \makecell{\textbf{702} \\ (11.61\%)} & \makecell{706 \\ (12.24\%)} & \makecell{708 \\ (12.56\%)} & \makecell{4.33} & \makecell{\textbf{702} \\ (11.61\%)} & \makecell{\textbf{702} \\ (11.67\%)} & \makecell{\textbf{703} \\ (11.76\%)} & \makecell{\textbf{0.43}} \\
+gil262 & \makecell{2557 \\ (7.53\%)} & \makecell{2567 \\ (7.99\%)} & \makecell{2573 \\ (8.20\%)} & \makecell{15.01} & \makecell{2566 \\ (7.91\%)} & \makecell{2574 \\ (8.25\%)} & \makecell{2582 \\ (8.58\%)} & \makecell{15.28} & \makecell{\textbf{2542} \\ (6.90\%)} & \makecell{\textbf{2550} \\ (7.25\%)} & \makecell{\textbf{2558} \\ (7.57\%)} & \makecell{\textbf{0.59}} \\
+kroA100 & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{4.41} & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{4.33} & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{\textbf{21346} \\ (0.30\%)} & \makecell{\textbf{0.52}} \\
+kroB100 & \makecell{\textbf{22185} \\ (0.20\%)} & \makecell{\textbf{22197} \\ (0.26\%)} & \makecell{\textbf{22225} \\ (0.38\%)} & \makecell{4.33} & \makecell{\textbf{22185} \\ (0.20\%)} & \makecell{22210 \\ (0.31\%)} & \makecell{22236 \\ (0.43\%)} & \makecell{4.32} & \makecell{\textbf{22185} \\ (0.20\%)} & \makecell{22201 \\ (0.27\%)} & \makecell{22243 \\ (0.46\%)} & \makecell{\textbf{0.54}} \\
+kroC100 & \makecell{\textbf{20802} \\ (0.26\%)} & \makecell{\textbf{20802} \\ (0.26\%)} & \makecell{\textbf{20802} \\ (0.26\%)} & \makecell{4.35} & \makecell{\textbf{20802} \\ (0.26\%)} & \makecell{20806 \\ (0.28\%)} & \makecell{20822 \\ (0.35\%)} & \makecell{4.36} & \makecell{\textbf{20802} \\ (0.26\%)} & \makecell{\textbf{20802} \\ (0.26\%)} & \makecell{\textbf{20802} \\ (0.26\%)} & \makecell{\textbf{0.51}} \\
+kroD100 & \makecell{\textbf{21347} \\ (0.25\%)} & \makecell{21373 \\ (0.37\%)} & \makecell{21403 \\ (0.51\%)} & \makecell{4.30} & \makecell{\textbf{21347} \\ (0.25\%)} & \makecell{21410 \\ (0.55\%)} & \makecell{21429 \\ (0.63\%)} & \makecell{4.38} & \makecell{\textbf{21347} \\ (0.25\%)} & \makecell{\textbf{21347} \\ (0.25\%)} & \makecell{\textbf{21347} \\ (0.25\%)} & \makecell{\textbf{0.51}} \\
+kroE100 & \makecell{22152 \\ (0.38\%)} & \makecell{22170 \\ (0.47\%)} & \makecell{22183 \\ (0.52\%)} & \makecell{4.32} & \makecell{\textbf{22123} \\ (0.25\%)} & \makecell{\textbf{22134} \\ (0.30\%)} & \makecell{\textbf{22161} \\ (0.42\%)} & \makecell{4.36} & \makecell{22152 \\ (0.38\%)} & \makecell{22170 \\ (0.46\%)} & \makecell{22174 \\ (0.48\%)} & \makecell{\textbf{0.52}} \\
+kroA150 & \makecell{\textbf{26609} \\ (0.32\%)} & \makecell{26648 \\ (0.47\%)} & \makecell{26729 \\ (0.77\%)} & \makecell{6.24} & \makecell{\textbf{26609} \\ (0.32\%)} & \makecell{26629 \\ (0.40\%)} & \makecell{26673 \\ (0.56\%)} & \makecell{6.11} & \makecell{\textbf{26609} \\ (0.32\%)} & \makecell{\textbf{26609} \\ (0.32\%)} & \makecell{\textbf{26609} \\ (0.32\%)} & \makecell{\textbf{0.45}} \\
+kroB150 & \makecell{26240 \\ (0.42\%)} & \makecell{26274 \\ (0.55\%)} & \makecell{26290 \\ (0.61\%)} & \makecell{6.12} & \makecell{26271 \\ (0.54\%)} & \makecell{26310 \\ (0.69\%)} & \makecell{26366 \\ (0.90\%)} & \makecell{6.15} & \makecell{\textbf{26207} \\ (0.29\%)} & \makecell{\textbf{26208} \\ (0.30\%)} & \makecell{\textbf{26209} \\ (0.30\%)} & \makecell{\textbf{0.46}} \\
+kroA200 & \makecell{29529 \\ (0.55\%)} & \makecell{29551 \\ (0.62\%)} & \makecell{29609 \\ (0.82\%)} & \makecell{9.39} & \makecell{29518 \\ (0.51\%)} & \makecell{29613 \\ (0.84\%)} & \makecell{29677 \\ (1.05\%)} & \makecell{9.46} & \makecell{\textbf{29480} \\ (0.38\%)} & \makecell{\textbf{29480} \\ (0.38\%)} & \makecell{\textbf{29480} \\ (0.38\%)} & \makecell{\textbf{0.60}} \\
+kroB200 & \makecell{29794 \\ (1.21\%)} & \makecell{29914 \\ (1.62\%)} & \makecell{30043 \\ (2.06\%)} & \makecell{9.40} & \makecell{29719 \\ (0.96\%)} & \makecell{29898 \\ (1.57\%)} & \makecell{30010 \\ (1.95\%)} & \makecell{9.56} & \makecell{\textbf{29552} \\ (0.39\%)} & \makecell{\textbf{29586} \\ (0.51\%)} & \makecell{\textbf{29844} \\ (1.38\%)} & \makecell{\textbf{0.60}} \\
+lin105 & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{4.61} & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{4.47} & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{\textbf{14441} \\ (0.43\%)} & \makecell{\textbf{0.42}} \\
+pr107 & \makecell{\textbf{44329} \\ (0.06\%)} & \makecell{\textbf{44329} \\ (0.06\%)} & \makecell{\textbf{44329} \\ (0.06\%)} & \makecell{4.48} & \makecell{\textbf{44329} \\ (0.06\%)} & \makecell{\textbf{44329} \\ (0.06\%)} & \makecell{\textbf{44329} \\ (0.06\%)} & \makecell{4.53} & \makecell{\textbf{44329} \\ (0.06\%)} & \makecell{44337 \\ (0.08\%)} & \makecell{44415 \\ (0.25\%)} & \makecell{\textbf{0.42}} \\
+pr124 & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{4.91} & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{4.94} & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{\textbf{59102} \\ (0.12\%)} & \makecell{\textbf{0.48}} \\
+pr136 & \makecell{\textbf{96832} \\ (0.06\%)} & \makecell{96923 \\ (0.16\%)} & \makecell{97021 \\ (0.26\%)} & \makecell{5.39} & \makecell{96839 \\ (0.07\%)} & \makecell{96942 \\ (0.18\%)} & \makecell{97014 \\ (0.25\%)} & \makecell{5.33} & \makecell{\textbf{96832} \\ (0.06\%)} & \makecell{\textbf{96850} \\ (0.08\%)} & \makecell{\textbf{96930} \\ (0.16\%)} & \makecell{\textbf{0.49}} \\
+pr144 & \makecell{\textbf{58641} \\ (0.18\%)} & \makecell{58644 \\ (0.18\%)} & \makecell{58675 \\ (0.24\%)} & \makecell{5.81} & \makecell{\textbf{58641} \\ (0.18\%)} & \makecell{\textbf{58641} \\ (0.18\%)} & \makecell{\textbf{58641} \\ (0.18\%)} & \makecell{5.98} & \makecell{\textbf{58641} \\ (0.18\%)} & \makecell{\textbf{58641} \\ (0.18\%)} & \makecell{\textbf{58641} \\ (0.18\%)} & \makecell{\textbf{0.67}} \\
+pr152 & \makecell{\textbf{73769} \\ (0.12\%)} & \makecell{\textbf{73769} \\ (0.12\%)} & \makecell{\textbf{73769} \\ (0.12\%)} & \makecell{6.25} & \makecell{\textbf{73769} \\ (0.12\%)} & \makecell{73769 \\ (0.12\%)} & \makecell{73772 \\ (0.12\%)} & \makecell{6.28} & \makecell{\textbf{73769} \\ (0.12\%)} & \makecell{73824 \\ (0.19\%)} & \makecell{73908 \\ (0.31\%)} & \makecell{\textbf{0.46}} \\
+pr226 & \makecell{80498 \\ (0.16\%)} & \makecell{80542 \\ (0.22\%)} & \makecell{80629 \\ (0.32\%)} & \makecell{12.06} & \makecell{80539 \\ (0.21\%)} & \makecell{80571 \\ (0.25\%)} & \makecell{80611 \\ (0.30\%)} & \makecell{12.04} & \makecell{\textbf{80457} \\ (0.11\%)} & \makecell{\textbf{80457} \\ (0.11\%)} & \makecell{\textbf{80457} \\ (0.11\%)} & \makecell{\textbf{0.58}} \\
+pr264 & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{14.95} & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{15.34} & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{\textbf{49264} \\ (0.26\%)} & \makecell{\textbf{0.63}} \\
+pr299 & \makecell{48541 \\ (0.73\%)} & \makecell{48659 \\ (0.97\%)} & \makecell{48762 \\ (1.18\%)} & \makecell{20.72} & \makecell{48714 \\ (1.09\%)} & \makecell{48782 \\ (1.23\%)} & \makecell{48841 \\ (1.35\%)} & \makecell{20.30} & \makecell{\textbf{48334} \\ (0.30\%)} & \makecell{\textbf{48345} \\ (0.32\%)} & \makecell{\textbf{48432} \\ (0.50\%)} & \makecell{\textbf{0.68}} \\
+rat195 & \makecell{2470 \\ (6.33\%)} & \makecell{2476 \\ (6.62\%)} & \makecell{2484 \\ (6.93\%)} & \makecell{8.28} & \makecell{2485 \\ (6.97\%)} & \makecell{2495 \\ (7.43\%)} & \makecell{2506 \\ (7.88\%)} & \makecell{8.38} & \makecell{\textbf{2457} \\ (5.77\%)} & \makecell{\textbf{2457} \\ (5.78\%)} & \makecell{\textbf{2458} \\ (5.81\%)} & \makecell{\textbf{0.58}} \\
+rd100 & \makecell{\textbf{7958} \\ (0.61\%)} & \makecell{7959 \\ (0.63\%)} & \makecell{7964 \\ (0.68\%)} & \makecell{4.35} & \makecell{\textbf{7958} \\ (0.61\%)} & \makecell{7958 \\ (0.61\%)} & \makecell{7959 \\ (0.62\%)} & \makecell{4.34} & \makecell{\textbf{7958} \\ (0.61\%)} & \makecell{\textbf{7958} \\ (0.61\%)} & \makecell{\textbf{7958} \\ (0.61\%)} & \makecell{\textbf{0.53}} \\
+ts225 & \makecell{126927 \\ (0.22\%)} & \makecell{127092 \\ (0.35\%)} & \makecell{127218 \\ (0.45\%)} & \makecell{11.24} & \makecell{126930 \\ (0.23\%)} & \makecell{127086 \\ (0.35\%)} & \makecell{127219 \\ (0.45\%)} & \makecell{11.35} & \makecell{\textbf{126760} \\ (0.09\%)} & \makecell{\textbf{126774} \\ (0.10\%)} & \makecell{\textbf{126828} \\ (0.15\%)} & \makecell{\textbf{0.63}} \\
+tsp225 & \makecell{3958 \\ (1.07\%)} & \makecell{3969 \\ (1.36\%)} & \makecell{3986 \\ (1.79\%)} & \makecell{10.78} & \makecell{3970 \\ (1.38\%)} & \makecell{3975 \\ (1.52\%)} & \makecell{3987 \\ (1.81\%)} & \makecell{10.95} & \makecell{\textbf{3954} \\ (0.97\%)} & \makecell{\textbf{3959} \\ (1.10\%)} & \makecell{\textbf{3979} \\ (1.61\%)} & \makecell{\textbf{0.64}} \\
+u159 & \makecell{\textbf{42107} \\ (0.06\%)} & \makecell{42255 \\ (0.42\%)} & \makecell{42402 \\ (0.77\%)} & \makecell{6.47} & \makecell{\textbf{42107} \\ (0.06\%)} & \makecell{\textbf{42107} \\ (0.06\%)} & \makecell{\textbf{42107} \\ (0.06\%)} & \makecell{6.39} & \makecell{\textbf{42107} \\ (0.06\%)} & \makecell{\textbf{42107} \\ (0.06\%)} & \makecell{\textbf{42107} \\ (0.06\%)} & \makecell{\textbf{0.52}} \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}}}
+\end{table}
+
+
+\newpage
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{
+\adjustbox{max width=1.5\textwidth}{%
+\begin{tabular}{c cccc cccc cccc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{ Testlib500}} & 
+\multicolumn{4}{c}{\textbf{GFACS}} & 
+\multicolumn{4}{c}{\textbf{DeepACO}} & 
+\multicolumn{4}{c}{\textbf{NeuFACO}} \\
+\cline{2-13}
+ & min & mean & max & avg time & min & mean & max & avg time & min & mean & max & avg time \\
+\hline
+d493 & \makecell{35779 \\ (2.22\%)} & \makecell{35841 \\ (2.40\%)} & \makecell{35929 \\ (2.65\%)} & \makecell{66.22} & \makecell{35974 \\ (2.78\%)} & \makecell{36116 \\ (3.18\%)} & \makecell{36249 \\ (3.56\%)} & \makecell{71.86} & \makecell{\textbf{35338} \\ (0.96\%)} & \makecell{\textbf{35453} \\ (1.29\%)} & \makecell{\textbf{35513} \\ (1.46\%)} & \makecell{\textbf{1.10}} \\
+d657 & \makecell{50159 \\ (2.55\%)} & \makecell{50272 \\ (2.78\%)} & \makecell{50366 \\ (2.97\%)} & \makecell{140.31} & \makecell{50446 \\ (3.14\%)} & \makecell{50933 \\ (4.13\%)} & \makecell{51189 \\ (4.66\%)} & \makecell{140.61} & \makecell{\textbf{49476} \\ (1.15\%)} & \makecell{\textbf{49581} \\ (1.37\%)} & \makecell{\textbf{49644} \\ (1.50\%)} & \makecell{\textbf{1.35}} \\
+fl417 & \makecell{12174 \\ (2.64\%)} & \makecell{12184 \\ (2.72\%)} & \makecell{12190 \\ (2.77\%)} & \makecell{50.21} & \makecell{12185 \\ (2.73\%)} & \makecell{12195 \\ (2.82\%)} & \makecell{12206 \\ (2.91\%)} & \makecell{54.33} & \makecell{\textbf{12119} \\ (2.18\%)} & \makecell{\textbf{12122} \\ (2.20\%)} & \makecell{\textbf{12127} \\ (2.24\%)} & \makecell{\textbf{0.99}} \\
+lin318 & \makecell{42437 \\ (0.97\%)} & \makecell{42537 \\ (1.21\%)} & \makecell{\textbf{42654} \\ (1.49\%)} & \makecell{25.93} & \makecell{42811 \\ (1.86\%)} & \makecell{42891 \\ (2.05\%)} & \makecell{42950 \\ (2.19\%)} & \makecell{25.03} & \makecell{\textbf{42194} \\ (0.39\%)} & \makecell{\textbf{42439} \\ (0.98\%)} & \makecell{42696 \\ (1.59\%)} & \makecell{\textbf{0.83}} \\
+p654 & \makecell{34748 \\ (0.30\%)} & \makecell{35070 \\ (1.23\%)} & \makecell{35143 \\ (1.44\%)} & \makecell{164.44} & \makecell{\textbf{34512} \\ (-0.38\%)} & \makecell{35036 \\ (1.13\%)} & \makecell{35161 \\ (1.50\%)} & \makecell{162.94} & \makecell{34919 \\ (0.80\%)} & \makecell{\textbf{34930} \\ (0.83\%)} & \makecell{\textbf{34944} \\ (0.87\%)} & \makecell{\textbf{1.31}} \\
+pcb442 & \makecell{51469 \\ (1.36\%)} & \makecell{51606 \\ (1.63\%)} & \makecell{\textbf{51690} \\ (1.80\%)} & \makecell{50.51} & \makecell{51818 \\ (2.05\%)} & \makecell{51940 \\ (2.29\%)} & \makecell{52037 \\ (2.48\%)} & \makecell{44.47} & \makecell{\textbf{51232} \\ (0.89\%)} & \makecell{\textbf{51593} \\ (1.61\%)} & \makecell{51969 \\ (2.35\%)} & \makecell{\textbf{1.05}} \\
+pr439 & \makecell{107911 \\ (0.65\%)} & \makecell{\textbf{108104} \\ (0.83\%)} & \makecell{\textbf{108196} \\ (0.91\%)} & \makecell{50.94} & \makecell{108332 \\ (1.04\%)} & \makecell{108585 \\ (1.28\%)} & \makecell{108799 \\ (1.48\%)} & \makecell{47.12} & \makecell{\textbf{107469} \\ (0.24\%)} & \makecell{108129 \\ (0.85\%)} & \makecell{109522 \\ (2.15\%)} & \makecell{\textbf{1.13}} \\
+rat575 & \makecell{7226 \\ (6.69\%)} & \makecell{7246 \\ (6.98\%)} & \makecell{7266 \\ (7.28\%)} & \makecell{89.26} & \makecell{7378 \\ (8.93\%)} & \makecell{7399 \\ (9.24\%)} & \makecell{7413 \\ (9.45\%)} & \makecell{83.53} & \makecell{\textbf{7190} \\ (6.16\%)} & \makecell{\textbf{7209} \\ (6.44\%)} & \makecell{\textbf{7233} \\ (6.79\%)} & \makecell{\textbf{1.18}} \\
+rd400 & \makecell{15620 \\ (2.22\%)} & \makecell{15659 \\ (2.47\%)} & \makecell{15696 \\ (2.72\%)} & \makecell{43.26} & \makecell{15816 \\ (3.50\%)} & \makecell{15894 \\ (4.01\%)} & \makecell{15937 \\ (4.29\%)} & \makecell{37.70} & \makecell{\textbf{15521} \\ (1.57\%)} & \makecell{\textbf{15586} \\ (2.00\%)} & \makecell{\textbf{15648} \\ (2.40\%)} & \makecell{\textbf{0.96}} \\
+u574 & \makecell{37837 \\ (2.53\%)} & \makecell{37963 \\ (2.87\%)} & \makecell{38066 \\ (3.15\%)} & \makecell{94.13} & \makecell{38441 \\ (4.16\%)} & \makecell{38528 \\ (4.40\%)} & \makecell{38652 \\ (4.73\%)} & \makecell{88.98} & \makecell{\textbf{37343} \\ (1.19\%)} & \makecell{\textbf{37625} \\ (1.95\%)} & \makecell{\textbf{37749} \\ (2.29\%)} & \makecell{\textbf{1.16}} \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}}}
+\end{table}
+
+
+
+
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=0.78\textwidth}{%
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{c cc cc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{Method}} &
+\multicolumn{2}{c}{\textbf{Testlib200}} &
+\multicolumn{2}{c}{\textbf{Testlib500}} \\
+\cline{2-5}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} \\
+\hline
+DeepACO & 1.55 & 7.91  & 3.45 & 75.66 \\
+GFACS   & 1.48 & 7.88  & 2.51 & 77.52 \\
+NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\endgroup
+}}
+\end{table}
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=0.78\textwidth}{%
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{c cc cc cc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{Method}} &
+\multicolumn{2}{c}{\textbf{Testlib200}} &
+\multicolumn{2}{c}{\textbf{Testlib500}} &
+\multicolumn{2}{c}{\textbf{Test500}} \\
+\cline{2-7}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} \\
+\hline
+DeepACO & 1.55 & 7.91  & 3.45 & 75.66 & 1.98 & 64.16 \\
+GFACS   & 1.48 & 7.88  & 2.51 & 77.52 & 0.60 & 71.37 \\
+NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & 0.74 & \textbf{0.56} \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\endgroup
+}}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=0.78\textwidth}{%
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{c cc cc cc cc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{Method}} &
+\multicolumn{2}{c}{\textbf{Testlib200}} &
+\multicolumn{2}{c}{\textbf{Testlib500}} &
+\multicolumn{2}{c}{\textbf{Test500}} &
+\multicolumn{2}{c}{\textbf{Test200}} \\
+\cline{2-3}\cline{4-5}\cline{6-7}\cline{8-9}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} \\
+\hline
+DeepACO & 1.55 & 7.91  & 3.45 & 75.66 & 1.98 & 64.16 & 0.97 & 9.44 \\
+GFACS   & 1.48 & 7.88  & 2.51 & 77.52 & 0.60 & 71.37 & 0.84 & 9.40 \\
+NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & 0.74 & \textbf{0.56} & \textbf{0.16} & \textbf{0.65} \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\endgroup
+}}
+\end{table}
+
+
+% cần: \usepackage{makecell,adjustbox,multirow}
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=0.9\textwidth}{%
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{c cc cc ccc ccc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{Method}} &
+\multicolumn{2}{c}{\textbf{Testlib200}} &
+\multicolumn{2}{c}{\textbf{Testlib500}} &
+\multicolumn{3}{c}{\textbf{Test200}} &
+\multicolumn{3}{c}{\textbf{Test500}} \\
+\cline{2-3}\cline{4-5}\cline{6-8}\cline{9-11}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} & \makecell{\textbf{Avg cost}}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} & \makecell{\textbf{Avg cost}} \\
+\hline
+DeepACO & 1.55 & 7.91  & 3.45 & 75.66 & 0.97 & 9.44 & 10.80 & 1.98 & 64.16 & 17.03 \\
+GFACS   & 1.48 & 7.88  & 2.51 & 77.52 & 0.84 & 9.40 & 10.78 & 0.60 & 71.37 & 16.80 \\
+NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & \textbf{0.16} & \textbf{0.65} & \textbf{10.71} & 0.74 & \textbf{0.56} & 16.83 \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\endgroup
+}}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=0.78\textwidth}{%
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{c c c c c}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{Suite}} & \multirow{2}{*}{\textbf{Metric}} &
+\multicolumn{3}{c}{\textbf{Method}} \\
+\cline{3-5}
+ &  & \textbf{DeepACO} & \textbf{GFACS} & \textbf{NeuFACO} \\
+\hline
+\multirow{2}{*}{\textbf{Testlib200}} &
+\makecell{\textbf{Avg gap}\\(\%)} & 1.55 & 1.48 & \textbf{1.25} \\
+& \makecell{\textbf{Avg time}\\(s)} & 7.91 & 7.88 & \textbf{0.53} \\
+\hline
+\multirow{2}{*}{\textbf{Testlib500}} &
+\makecell{\textbf{Avg gap}\\(\%)} & 3.45 & 2.51 & \textbf{1.95} \\
+& \makecell{\textbf{Avg time}\\(s)} & 75.66 & 77.52 & \textbf{1.11} \\
+\hline
+\multirow{3}{*}{\textbf{Test200}} &
+\makecell{\textbf{Avg gap}\\(\%)} & 0.97 & 0.84 & \textbf{0.16} \\
+& \makecell{\textbf{Avg time}\\(s)} & 9.44 & 9.40 & \textbf{0.65} \\
+& \makecell{\textbf{Avg cost}}     & 10.80 & 10.78 & \textbf{10.71} \\
+\hline
+\multirow{3}{*}{\textbf{Test500}} &
+\makecell{\textbf{Avg gap}\\(\%)} & 1.98 & \textbf{0.60} & 0.74 \\
+& \makecell{\textbf{Avg time}\\(s)} & 64.16 & 71.37 & \textbf{0.56} \\
+& \makecell{\textbf{Avg cost}}     & 17.03 & \textbf{16.80} & 16.83 \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\endgroup
+}}
+\end{table}
+
+% cần: \usepackage{makecell,adjustbox,multirow}
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=0.78\textwidth}{%
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{c c c c}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{Suite}} & \multicolumn{3}{c}{\textbf{Method}} \\
+\cline{2-4}
+ & \textbf{DeepACO} & \textbf{GFACS} & \textbf{NeuFACO} \\
+\hline
+\textbf{Testlib200} &
+\makecell{Gap: 1.55\%\\Time: 7.91s} &
+\makecell{Gap: 1.48\%\\Time: 7.88s} &
+\makecell{Gap: \textbf{1.25\%}\\Time: \textbf{0.53}s} \\
+\textbf{Testlib500} &
+\makecell{Gap: 3.45\%\\Time: 75.66s} &
+\makecell{Gap: 2.51\%\\Time: 77.52s} &
+\makecell{Gap: \textbf{1.95\%}\\Time: \textbf{1.11}s} \\
+\textbf{Test200} &
+\makecell{Gap: 0.97\%\\Time: 9.44s\\Cost: 10.80} &
+\makecell{Gap: 0.84\%\\Time: 9.40s\\Cost: 10.78} &
+\makecell{Gap: \textbf{0.16\%}\\Time: \textbf{0.65}s\\Cost: \textbf{10.71}} \\
+\textbf{Test500} &
+\makecell{Gap: 1.98\%\\Time: 64.16s\\Cost: 17.03} &
+\makecell{Gap: \textbf{0.60\%}\\Time: 71.37s\\Cost: \textbf{16.80}} &
+\makecell{Gap: 0.74\%\\Time: \textbf{0.56}s\\Cost: 16.83} \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\endgroup
+}}
+\end{table}
+
+
+% cần: \usepackage{makecell,adjustbox,multirow}
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=1.1\textwidth}{%
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{c ccc ccc ccc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\multirow{2}{*}{\textbf{Suite}} &
+\multicolumn{3}{c}{\textbf{GFACS}} &
+\multicolumn{3}{c}{\textbf{DeepACO}} &
+\multicolumn{3}{c}{\textbf{NeuFACO}} \\
+\cline{2-10}
+ & \makecell{\textbf{Avg gap} (\%)} 
+ & \makecell{\textbf{Avg time} (s)} 
+ & \makecell{\textbf{Avg cost}} 
+ & \makecell{\textbf{Avg gap} (\%)} 
+ & \makecell{\textbf{Avg time} (s)} 
+ & \makecell{\textbf{Avg cost}} 
+ & \makecell{\textbf{Avg gap} (\%)} 
+ & \makecell{\textbf{Avg time} (s)} 
+ & \makecell{\textbf{Avg cost}} \\
+\hline
+\textbf{Testlib200} & 1.48 & 7.88 & \textemdash & 1.55 & 7.91 & \textemdash & \textbf{1.25} & \textbf{0.53} & \textemdash \\
+\textbf{Testlib500} & 2.51 & 77.52 & \textemdash & 3.45 & 75.66 & \textemdash & \textbf{1.95} & \textbf{1.11} & \textemdash \\
+\textbf{Test200}    & 0.84 & 9.40 & 10.78 & 0.97 & 9.44 & 10.80 & \textbf{0.16} & \textbf{0.65} & \textbf{10.71} \\
+\textbf{Test500}    & \textbf{0.60} & 71.37 & \textbf{16.80} & 1.98 & 64.16 & 17.03 & 0.74 & \textbf{0.56} & 16.83 \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\endgroup
+}}
+\end{table}
+
+
+
+\end{document}
+
+
+
+
+
+\end{document}
+
+\end{document}
+
+
