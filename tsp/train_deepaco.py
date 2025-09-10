@@ -20,122 +20,115 @@ T = 50  # ACO iterations for validation
 START_NODE = None  # GFACS uses node coords as model input and the start_node is randomly chosen.
 
 
-def train_instance(
+def train_instance_reinforce(
         model,
         optimizer,
         data,
         n_ants,
-        cost_w=1.0,
-        invtemp=1.0,
-        guided_exploration=False,
-        shared_energy_norm=False,
-        beta=100.0,
+        baseline_type='mean',  # 'mean', 'critic', or 'greedy'
+        critic_model=None,
         it=0,
     ):
+    """
+    REINFORCE training algorithm for the TSP neural heuristic model.
+    
+    Args:
+        model: Neural network model that outputs heuristics
+        optimizer: Optimizer for the model
+        data: Training data (pyg_data, distances) pairs
+        n_ants: Number of ants for sampling
+        baseline_type: Type of baseline ('mean', 'critic', 'greedy')
+        critic_model: Critic network for baseline (if baseline_type='critic')
+        it: Current iteration for logging
+    """
     model.train()
+    if critic_model is not None:
+        critic_model.train()
 
     ##################################################
-    # wandb
+    # wandb tracking
     _train_mean_cost = 0.0
     _train_min_cost = 0.0
-    _train_mean_cost_nls = 0.0
-    _train_min_cost_nls = 0.0
     _train_entropy = 0.0
-    _logZ_mean = torch.tensor(0.0, device=DEVICE)
-    _logZ_nls_mean = torch.tensor(0.0, device=DEVICE)
+    _train_baseline = 0.0
     ##################################################
+    
     sum_loss = torch.tensor(0.0, device=DEVICE)
-    sum_loss_nls = torch.tensor(0.0, device=DEVICE)
     count = 0
 
     for pyg_data, distances in data:
-        heu_vec, logZs = model(pyg_data, return_logZ=True)
+        # Forward pass through the neural network to get heuristics
+        heu_vec = model(pyg_data)
         heu_mat = model.reshape(pyg_data, heu_vec) + EPS
-        if guided_exploration:
-            logZ, logZ_nls = logZs
+        
+        # Create ACO solver with learned heuristics
+        aco = ACO(distances, n_ants, heuristic=heu_mat, device=DEVICE, local_search_type=None)
+        
+        # Sample paths and get log probabilities
+        costs, log_probs, paths = aco.sample(invtemp=1.0, inference=False, start_node=START_NODE)
+        
+        # Calculate rewards (negative costs for maximization)
+        rewards = -costs
+        
+        # Calculate baseline for variance reduction
+        if baseline_type == 'mean':
+            baseline = rewards.mean()
+        elif baseline_type == 'critic' and critic_model is not None:
+            baseline = critic_model(pyg_data)[0]  # Use first output if critic returns multiple values
+        elif baseline_type == 'greedy':
+            # Use greedy rollout as baseline (single ant with greedy policy)
+            greedy_aco = ACO(distances, 1, heuristic=heu_mat, device=DEVICE, local_search_type=None)
+            greedy_costs, _, _ = greedy_aco.sample(invtemp=10.0, inference=False, start_node=START_NODE)
+            baseline = -greedy_costs[0]
         else:
-            logZ = logZs[0]
-
-        aco = ACO(distances, n_ants, heuristic=heu_mat, device=DEVICE, local_search_type='nls')
-
-        costs, log_probs, paths = aco.sample(invtemp=invtemp, start_node=START_NODE)
-        advantage = (costs - (costs.mean() if shared_energy_norm else 0.0))
-
-        if guided_exploration:
-            paths_nls = aco.local_search(paths, inference=False)
-            costs_nls = aco.gen_path_costs(paths_nls)
-            advantage_nls = (costs_nls - (costs_nls.mean() if shared_energy_norm else 0.0))
-            weighted_advantage = cost_w * advantage_nls + (1 - cost_w) * advantage
-        else:
-            weighted_advantage = advantage
-
-        ##################################################
-        # Loss from paths before local search
-        forward_flow = log_probs.sum(0) + logZ.expand(n_ants)  # type: ignore
-        backward_flow = math.log(1 / (2 * pyg_data.x.shape[0])) - weighted_advantage.detach() * beta
-        tb_loss = torch.pow(forward_flow - backward_flow, 2).mean()
-        sum_loss += tb_loss
-
-        ##################################################
-        # Loss from paths after local search
-        if guided_exploration:
-            _, log_probs_nls = aco.gen_path(
-                invtemp=1.0,  # invtemp is 1.0 here, otherwise gradients from offpolicy data will be overestimated
-                require_prob=True,
-                paths=paths_nls,  # type: ignore
-                start_node=START_NODE,
-            )
-
-            forward_flow_nls = log_probs_nls.sum(0) + logZ_nls.expand(n_ants)  # type: ignore
-            backward_flow_nls = math.log(1 / (2 * pyg_data.x.shape[0])) - advantage_nls.detach() * beta  # type: ignore
-            tb_loss_nls = torch.pow(forward_flow_nls - backward_flow_nls, 2).mean()
-            sum_loss_nls += tb_loss_nls
-
+            baseline = 0.0
+        
+        # Calculate advantages
+        advantages = rewards - baseline
+        
+        # REINFORCE loss: -log_prob * advantage
+        # Sum log_probs over the sequence (each step of the tour)
+        total_log_probs = log_probs.sum(0)  # Sum over sequence length, shape: (n_ants,)
+        
+        # Policy gradient loss
+        policy_loss = -(total_log_probs * advantages.detach()).mean()
+        
+        sum_loss += policy_loss
         count += 1
 
         ##################################################
-        # wandb
+        # wandb logging
         if USE_WANDB:
             _train_mean_cost += costs.mean().item()
             _train_min_cost += costs.min().item()
-
+            _train_baseline += (baseline.item() if isinstance(baseline, torch.Tensor) else baseline)
+            
+            # Calculate entropy for exploration tracking
             normed_heumat = heu_mat / heu_mat.sum(dim=1, keepdim=True)
-            entropy = -(normed_heumat * torch.log(normed_heumat)).sum(dim=1).mean()
+            entropy = -(normed_heumat * torch.log(normed_heumat + EPS)).sum(dim=1).mean()
             _train_entropy += entropy.item()
-
-            _logZ_mean += logZ
-            if guided_exploration:
-                _train_mean_cost_nls += costs_nls.mean().item()
-                _train_min_cost_nls += costs_nls.min().item()
-                _logZ_nls_mean += logZ_nls
         ##################################################
 
-    sum_loss = sum_loss / count
-    sum_loss_nls = sum_loss_nls / count if guided_exploration else torch.tensor(0.0, device=DEVICE)
-    loss = sum_loss + sum_loss_nls
-
+    # Average loss over all instances in the batch
+    avg_loss = sum_loss / count
+    
+    # Backward pass and optimization
     optimizer.zero_grad()
-    loss.backward()
-    torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=3.0, norm_type=2)  # type: ignore
+    avg_loss.backward()
+    torch.nn.utils.clip_grad_norm_(parameters=model.parameters(), max_norm=1.0, norm_type=2)
     optimizer.step()
 
     ##################################################
-    # wandb
+    # wandb logging
     if USE_WANDB:
         wandb.log(
             {
                 "train_mean_cost": _train_mean_cost / count,
                 "train_min_cost": _train_min_cost / count,
-                "train_mean_cost_nls": _train_mean_cost_nls / count,
-                "train_min_cost_nls": _train_min_cost_nls / count,
+                "train_baseline": _train_baseline / count,
                 "train_entropy": _train_entropy / count,
-                "train_loss": sum_loss.item(),
-                "train_loss_nls": sum_loss_nls.item(),
-                "cost_w": cost_w,
-                "invtemp": invtemp,
-                "logZ": _logZ_mean.item() / count,
-                "logZ_nls": _logZ_nls_mean.item() / count,
-                "beta": beta,
+                "train_loss": avg_loss.item(),
+                "baseline_type": baseline_type,
             },
             step=it,
         )
@@ -177,16 +170,24 @@ def train_epoch(
     net,
     optimizer,
     batch_size,
-    cost_w=0.95,
-    invtemp=1.0,
-    guided_exploration=False,
-    shared_energy_norm=False,
-    beta=100.0,
+    baseline_type='mean',
+    critic_model=None,
 ):
+    """
+    Train one epoch using REINFORCE algorithm.
+    """
     for i in tqdm(range(steps_per_epoch), desc="Train", dynamic_ncols=True):
         it = (epoch - 1) * steps_per_epoch + i
         data = generate_traindata(batch_size, n_node, k_sparse)
-        train_instance(net, optimizer, data, n_ants, cost_w, invtemp, guided_exploration, shared_energy_norm, beta, it)
+        train_instance_reinforce(
+            net, 
+            optimizer, 
+            data, 
+            n_ants, 
+            baseline_type=baseline_type,
+            critic_model=critic_model,
+            it=it
+        )
 
 
 @torch.no_grad()
@@ -229,21 +230,37 @@ def train(
         val_size=None,
         val_interval=5,
         pretrained=None,
-        savepath="../pretrained/tsp_nls",
+        savepath="../pretrained/tsp_reinforce",
         run_name="",
-        cost_w_schedule_params=(0.5, 1.0, 5),  # (cost_w_min, cost_w_max, cost_w_flat_epochs)
-        invtemp_schedule_params=(0.8, 1.0, 5),  # (invtemp_min, invtemp_max, invtemp_flat_epochs)
-        guided_exploration=False,
-        shared_energy_norm=False,
-        beta_schedule_params=(50, 500, 5),  # (beta_min, beta_max, beta_flat_epochs)
+        baseline_type='mean',  # 'mean', 'critic', or 'greedy'
+        use_critic=False,
     ):
+    """
+    Train the TSP model using REINFORCE algorithm.
+    
+    Args:
+        baseline_type: Type of baseline to use ('mean', 'critic', 'greedy')
+        use_critic: Whether to use a critic network for baseline
+    """
     savepath = os.path.join(savepath, str(n_nodes), run_name)
     os.makedirs(savepath, exist_ok=True)
 
-    net = Net(gfn=True, Z_out_dim=2 if guided_exploration else 1, start_node=START_NODE).to(DEVICE)
+    # Create the main policy network (no GFN components needed for REINFORCE)
+    net = Net(gfn=False, Z_out_dim=1, start_node=START_NODE).to(DEVICE)
     if pretrained:
         net.load_state_dict(torch.load(pretrained, map_location=DEVICE))
-    optimizer = torch.optim.AdamW(net.parameters(), lr=lr)
+    
+    # Create critic network if needed
+    critic_model = None
+    if use_critic and baseline_type == 'critic':
+        from net import Critic
+        critic_model = Critic(start_node=START_NODE).to(DEVICE)
+        # Combine parameters for joint optimization
+        all_params = list(net.parameters()) + list(critic_model.parameters())
+        optimizer = torch.optim.AdamW(all_params, lr=lr)
+    else:
+        optimizer = torch.optim.AdamW(net.parameters(), lr=lr)
+    
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs, eta_min=lr * 0.1)
 
     val_list = load_val_dataset(n_nodes, k_sparse, DEVICE, start_node=START_NODE)
@@ -253,18 +270,6 @@ def train(
 
     sum_time = 0
     for epoch in range(1, epochs + 1):
-        # Cost Weight Schedule
-        cost_w_min, cost_w_max, cost_w_flat_epochs = cost_w_schedule_params
-        cost_w = cost_w_min + (cost_w_max - cost_w_min) * min((epoch - 1) / (epochs - cost_w_flat_epochs), 1.0)
-
-        # Heatmap Inverse Temperature Schedule
-        invtemp_min, invtemp_max, invtemp_flat_epochs = invtemp_schedule_params
-        invtemp = invtemp_min + (invtemp_max - invtemp_min) * min((epoch - 1) / (epochs - invtemp_flat_epochs), 1.0)
-
-        # Beta Schedule
-        beta_min, beta_max, beta_flat_epochs = beta_schedule_params
-        beta = beta_min + (beta_max - beta_min) * min(math.log(epoch) / math.log(epochs - beta_flat_epochs), 1.0)
-
         start = time.time()
         train_epoch(
             n_nodes,
@@ -275,11 +280,8 @@ def train(
             net,
             optimizer,
             batch_size,
-            cost_w,
-            invtemp,
-            guided_exploration,
-            shared_energy_norm,
-            beta,
+            baseline_type=baseline_type,
+            critic_model=critic_model,
         )
         sum_time += time.time() - start
 
@@ -312,26 +314,18 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--steps", type=int, default=20, help="Steps per epoch")
     parser.add_argument("-e", "--epochs", type=int, default=20, help="Epochs to run")
     parser.add_argument("-v", "--val_size", type=int, default=20, help="Number of instances for validation")
-    parser.add_argument("-o", "--output", type=str, default="../pretrained/tsp_nls",
+    parser.add_argument("-o", "--output", type=str, default="../pretrained/tsp_reinforce",
                         help="The directory to store checkpoints")
     parser.add_argument("--val_interval", type=int, default=1, help="The interval to validate model")
     ### Logging
     parser.add_argument("--disable_wandb", action="store_true", help="Disable wandb logging")
     parser.add_argument("--run_name", type=str, default="", help="Run name")
-    ### invtemp
-    parser.add_argument("--invtemp_min", type=float, default=1.0, help='Inverse temperature min for GFACS')
-    parser.add_argument("--invtemp_max", type=float, default=1.0, help='Inverse temperature max for GFACS')
-    parser.add_argument("--invtemp_flat_epochs", type=int, default=5, help='Inverse temperature flat epochs for GFACS')
-    ### GFACS
-    parser.add_argument("--disable_guided_exp", action='store_true', help='Disable guided exploration for GFACS')
-    parser.add_argument("--disable_shared_energy_norm", action='store_true', help='Disable shared energy normalization for GFACS')
-    parser.add_argument("--beta_min", type=float, default=None, help='Beta min for GFACS')
-    parser.add_argument("--beta_max", type=float, default=None, help='Beta max for GFACS')
-    parser.add_argument("--beta_flat_epochs", type=int, default=5, help='Beta flat epochs for GFACS')
-    ### Energy Reshaping
-    parser.add_argument("--cost_w_min", type=float, default=None, help='Cost weight min for GFACS')
-    parser.add_argument("--cost_w_max", type=float, default=0.99, help='Cost weight max for GFACS')
-    parser.add_argument("--cost_w_flat_epochs", type=int, default=5, help='Cost weight flat epochs for GFACS')
+    ### REINFORCE-specific arguments
+    parser.add_argument("--baseline_type", type=str, default="mean", 
+                        choices=["mean", "critic", "greedy"],
+                        help="Type of baseline for REINFORCE ('mean', 'critic', 'greedy')")
+    parser.add_argument("--use_critic", action="store_true", 
+                        help="Use critic network for baseline (only effective with --baseline_type critic)")
     ### Seed
     parser.add_argument("--seed", type=int, default=0, help="Random seed")
 
@@ -339,16 +333,6 @@ if __name__ == "__main__":
 
     if args.k_sparse is None:
         args.k_sparse = args.nodes // 10
-
-    if args.beta_min is None:
-        beta_min_map = {200: 200, 500: 200, 1000: 200 if args.pretrained is None else 1000}
-        args.beta_min = beta_min_map[args.nodes]
-    if args.beta_max is None:
-        beta_max_map = {200: 1000, 500: 1000, 1000: 1000}
-        args.beta_max = beta_max_map[args.nodes]
-
-    if args.cost_w_min is None:
-        args.cost_w_min = 0.5 if args.pretrained is None else 0.8
 
     DEVICE = args.device if torch.cuda.is_available() else "cpu"
     USE_WANDB = not args.disable_wandb
@@ -364,14 +348,14 @@ if __name__ == "__main__":
     run_name = f"[{args.run_name}]" if args.run_name else ""
     run_name += f"tsp{args.nodes}_sd{args.seed}"
     pretrained_name = (
-        args.pretrained.replace("../pretrained/tsp_nls/", "").replace("/", "_").replace(".pt", "")
+        args.pretrained.replace("../pretrained/", "").replace("/", "_").replace(".pt", "")
         if args.pretrained is not None else None
     )
     run_name += f"{'' if pretrained_name is None else '_fromckpt-'+pretrained_name}"
     if USE_WANDB:
         wandb.init(project="neufaco_data", name=run_name)
         wandb.config.update(args)
-        wandb.config.update({"T": T, "model": "GFACS"})
+        wandb.config.update({"T": T, "model": "REINFORCE"})
     ##################################################
 
     train(
@@ -388,9 +372,6 @@ if __name__ == "__main__":
         pretrained=args.pretrained,
         savepath=args.output,
         run_name=run_name,
-        cost_w_schedule_params=(args.cost_w_min, args.cost_w_max, args.cost_w_flat_epochs),
-        invtemp_schedule_params=(args.invtemp_min, args.invtemp_max, args.invtemp_flat_epochs),
-        guided_exploration=(not args.disable_guided_exp),
-        shared_energy_norm=(not args.disable_shared_energy_norm),
-        beta_schedule_params=(args.beta_min, args.beta_max, args.beta_flat_epochs),
+        baseline_type=args.baseline_type,
+        use_critic=args.use_critic,
     )

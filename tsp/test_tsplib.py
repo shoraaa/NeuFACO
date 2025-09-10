@@ -5,9 +5,10 @@ from tqdm import tqdm
 import numpy as np
 import pandas as pd
 import torch
+import wandb
 
 from net import Net
-from mfaco import ACO
+from aco import ACO
 from utils import load_tsplib_dataset
 
 
@@ -16,7 +17,7 @@ START_NODE = None
 
 
 @torch.no_grad()
-def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff):
+def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, instance_name=None, use_wandb=True):
     if model is not None:
         model.eval()
         heu_vec = model(pyg_data)
@@ -38,20 +39,29 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff):
         results[i] = cost
         elapsed_time += t
         print(f"Iteration {i+1}/{len(t_aco_diff)}: Cost = {cost}, Time = {t:.2f}s")
+        
+        # Log to wandb
+        if use_wandb and instance_name is not None:
+            wandb.log({
+                f"cost/{instance_name}": cost,
+                f"time/{instance_name}": t,
+                "iteration": sum(t_aco_diff[:i+1]),
+                "global_step": wandb.run.step if wandb.run else 0
+            })
     return results, aco.shortest_path, elapsed_time
 
 
 @torch.no_grad()
-def test(dataset, scale_list, model, n_ants, t_aco):
+def test(dataset, scale_list, name_list, model, n_ants, t_aco, use_wandb=True):
     _t_aco = [0] + t_aco
     t_aco_diff = [_t_aco[i + 1] - _t_aco[i] for i in range(len(_t_aco) - 1)]
 
     results_list = []
     best_paths = []
     sum_times = 0
-    for (pyg_data, distances), scale in tqdm(zip(dataset, scale_list)):
+    for (pyg_data, distances), scale, name in tqdm(zip(dataset, scale_list, name_list)):
         ceiled_distances = (distances * scale).ceil()
-        results, best_path, elapsed_time = infer_instance(model, pyg_data, ceiled_distances, n_ants, t_aco_diff)
+        results, best_path, elapsed_time = infer_instance(model, pyg_data, ceiled_distances, n_ants, t_aco_diff, name, use_wandb)
         results_list.append(results)
         best_paths.append(best_path)
         sum_times += elapsed_time
@@ -80,7 +90,7 @@ def make_tsplib_data(filename, episode):
     return instance_data, cost, instance_name
 
 
-def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=None, n_iter=10, guided_exploration=False, seed=0):
+def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=None, n_iter=10, guided_exploration=False, seed=0, use_wandb=True):
     test_list, scale_list, name_list = load_tsplib_dataset(n_nodes, k_sparse_factor, DEVICE, start_node=START_NODE)
 
     if n_ants is None:
@@ -95,13 +105,33 @@ def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=None, n_iter=10, guided_
     print("n_ants:", n_ants)
     print("seed:", seed)
 
+    # Initialize wandb
+    if use_wandb:
+        model_name = os.path.splitext(os.path.basename(ckpt_path))[0] if ckpt_path is not None else 'no_model'
+        wandb.init(
+            project="tsplib-test",
+            name=f"{model_name}-{n_nodes}nodes-{n_ants}ants-{n_iter}iter-seed{seed}",
+            config={
+                "n_nodes": n_nodes,
+                "k_sparse_factor": k_sparse_factor,
+                "n_ants": n_ants,
+                "n_iter": n_iter,
+                "guided_exploration": guided_exploration,
+                "seed": seed,
+                "checkpoint": ckpt_path,
+                "model_type": "GFACS" if GFACS else "PPO",
+                "device": DEVICE
+            }
+        )
+
     if ckpt_path is not None:
-        net = Net(gfn=True, Z_out_dim=2 if guided_exploration else 1, start_node=START_NODE).to(DEVICE) if GFACS else \
-              Net(gfn=False, value_head=True, start_node=START_NODE).to(DEVICE) 
+        # net = Net(gfn=True, Z_out_dim=2 if guided_exploration else 1, start_node=START_NODE).to(DEVICE) if GFACS else \
+        #       Net(gfn=False, value_head=True, start_node=START_NODE).to(DEVICE) 
+        net = Net(gfn=False, Z_out_dim=1, start_node=START_NODE).to(DEVICE)
         net.load_state_dict(torch.load(ckpt_path, map_location=DEVICE))
     else:
         net = None
-    results_list, best_paths, duration = test(test_list, scale_list, net, n_ants, t_aco)
+    results_list, best_paths, duration = test(test_list, scale_list, name_list, net, n_ants, t_aco, use_wandb)
 
     ### results_list is not consistent with the lengths calculated by below code. IDK why...
     ### Reload the original TSPlib data for cost calculation, as they rounds up the distances
@@ -118,8 +148,24 @@ def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=None, n_iter=10, guided_
         tour_length = np.ceil(tour_length).astype(int)
         tsp_results = np.sum(tour_length)
         results_df.loc[tsp_name, :] = tsp_results
+        
+        # Log final results to wandb
+        if use_wandb:
+            wandb.log({
+                f"final_length/{tsp_name}": tsp_results,
+            })
 
     print('average inference time: ', duration)
+    
+    # Log summary statistics
+    if use_wandb:
+        wandb.log({
+            "average_inference_time": duration,
+            "total_instances": len(tsplib_instances),
+            "average_final_length": results_df["Length"].mean(),
+            "min_final_length": results_df["Length"].min(),
+            "max_final_length": results_df["Length"].max(),
+        })
 
     # Save result in directory that contains model_file
     filename = os.path.splitext(os.path.basename(ckpt_path))[0] if ckpt_path is not None else 'none'
@@ -128,6 +174,10 @@ def main(ckpt_path, n_nodes, k_sparse_factor=10, n_ants=None, n_iter=10, guided_
 
     result_filename = f"test_result_ckpt{filename}-tsplib{n_nodes}-nants{n_ants}-niter{n_iter}-seed{seed}"
     results_df.to_csv(os.path.join(dirname, f"{result_filename}.csv"), index=True)
+    
+    # Finish wandb run
+    if use_wandb:
+        wandb.finish()
 
 if __name__ == "__main__":
     import argparse
@@ -146,6 +196,8 @@ if __name__ == "__main__":
     ### Seed
     parser.add_argument("--seed", type=int, default=0, help="Random seed")
     parser.add_argument("-g", "--gfacs", action='store_true', help="Loading GFACS model")
+    ### Wandb
+    parser.add_argument("--no_wandb", action='store_true', help="Disable wandb logging")
     args = parser.parse_args()
 
     DEVICE = args.device if torch.cuda.is_available() else 'cpu'
@@ -168,5 +220,6 @@ if __name__ == "__main__":
         args.n_ants,
         args.n_iter,
         not args.disable_guided_exp,
-        args.seed
+        args.seed,
+        not args.no_wandb
     )

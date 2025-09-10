@@ -1,4 +1,5 @@
 import concurrent.futures
+import os
 import random
 import time
 from datetime import datetime
@@ -17,7 +18,7 @@ SOURCE_SOL_LOCAL_UPDATE = True
 KEEP_BETTER_ANT_SOL = True
 SAMPLE_TWO_OPT = True
 
-class ACO():
+class MFACO():
     def __init__(
         self, 
         distances: torch.Tensor,
@@ -30,6 +31,7 @@ class ACO():
         ants_cost: torch.Tensor | None = None,
         best_ant_route: torch.Tensor | None = None,
         best_ant_cost: float | None = None,
+        sample_two_opt: bool | None = SAMPLE_TWO_OPT,
         decay=0.9,
         alpha=1,
         beta=1,
@@ -59,6 +61,7 @@ class ACO():
         self.maxmin = maxmin
         self.rank_based = rank_based
         self.n_elites = n_elites or n_ants // 10  # only for rank-based
+        self.sample_two_opt = sample_two_opt
         self.smoothing = smoothing
         self.smoothing_cnt = 0
         self.smoothing_thres = smoothing_thres
@@ -68,10 +71,16 @@ class ACO():
         self.local_search_type = local_search_type
         self.trail_limit_factor = trail_limit_factor
         self.device = device
+        
+        if k_sparse is None:
+            self.k_sparse = self.k_nearest
+        else:
+            self.k_nearest = k_sparse
+            self.k_sparse = k_sparse
 
         # Build nearest neighbor structures first for sparse matrices
         self._build_neighbor_structures()
-        
+
         if pheromone is None:
             # Initialize sparse pheromone matrix (n x k_nearest)
             self.pheromone_sparse = torch.ones((self.problem_size, self.k_nearest), device=device)
@@ -83,25 +92,32 @@ class ACO():
                 self.pheromone_sparse = self._compress_full_to_sparse(pheromone.to(device))
 
         if heuristic is None:
-            if k_sparse is not None:
-                # Use legacy sparse heuristic for backward compatibility
-                full_heuristic = self.simple_heuristic(distances, k_sparse)
-                self.heuristic_sparse = self._compress_full_to_sparse(full_heuristic)
-            else:
-                # Build sparse heuristic matrix directly (n x k_nearest)
-                self.heuristic_sparse = self._build_sparse_heuristic_matrix()
+            assert self.k_sparse is not None
+            # Use legacy sparse heuristic for backward compatibility
+            full_heuristic = self.simple_heuristic(distances, self.k_sparse)
+            self.heuristic = full_heuristic.to(device)
+            self.heuristic_sparse = self._compress_full_to_sparse(full_heuristic)
+
         else:
+            self.heuristic = heuristic.to(device)
             if heuristic.shape == (self.problem_size, self.k_nearest):
                 self.heuristic_sparse = heuristic.to(device)
             else:
                 self.heuristic_sparse = self._compress_full_to_sparse(heuristic.to(device))
 
-        # Initialize with a random solution
-        random_path = torch.randperm(self.problem_size, device=device)
-        self.shortest_path = random_path
-        # Convert to numpy for cost calculation
-        random_path_numpy = random_path.detach().cpu().numpy().astype(np.uint16)
-        self.lowest_cost = get_route_cost(random_path_numpy, self.distances_numpy)
+        initial_routes = build_multiple_nn_tours_parallel(
+            os.cpu_count() or 4, self.nn_list, self.distances_numpy, self.problem_size
+        )
+        initial_costs = self.gen_path_costs_init(initial_routes)
+        initial_routes = torch.from_numpy(initial_routes.astype(np.int64)).to(device)
+        initial_routes = self.nls_init(initial_routes, inference=True)
+        # Find the best initial route
+        best_initial_idx = torch.argmin(initial_costs)
+        best_initial_route = initial_routes[best_initial_idx]
+        # Convert best initial route to torch tensor for compatibility
+        self.shortest_path = best_initial_route.clone()
+        self.lowest_cost = initial_costs[best_initial_idx]
+        # print(f"Initial cost: {self.lowest_cost:.2f}")
 
         if ants_route is not None and ants_cost is not None:
             assert ants_route.shape == (self.problem_size, n_ants)
@@ -116,7 +132,7 @@ class ACO():
             # Fill ants' routes with initial low-cost random paths
             for i in range(n_ants):
                 self.ants_route[:, i] = self.shortest_path.clone()
-                self.ants_cost[i] = self.lowest_cost
+                self.ants_cost[i] = float(self.lowest_cost)
         
         if best_ant_route is not None and best_ant_cost is not None:
             assert best_ant_route.shape == (self.problem_size,)
@@ -125,10 +141,7 @@ class ACO():
         else:
             # Initialize best ant with the shortest path
             self.best_ant_route = self.shortest_path.clone()
-            self.best_ant_cost = self.lowest_cost
-
-        self.ls_check_list = np.full(self.problem_size + 1, -1, dtype=np.int64)
-        self.ls_check_list[0] = 0  # Initialize length to 0
+            self.best_ant_cost = float(self.lowest_cost)
     
     @torch.no_grad()
     def simple_heuristic(self, distances, k_sparse):
@@ -153,12 +166,12 @@ class ACO():
             effective_beta = self.beta * invtemp
             
             # Compute sparse probability matrix (n x k_nearest)
-            probmat_sparse = (self.pheromone_sparse ** self.alpha) * (self.heuristic_sparse ** effective_beta)
+            probmat_sparse_numpy = (self.pheromone_sparse_numpy ** self.alpha) * (self.heuristic_sparse_numpy ** effective_beta)
+
+            # # Convert to numpy for numba optimization
+            # probmat_sparse_numpy = probmat_sparse.detach().cpu().numpy().astype(np.float32)
             
-            # Convert to numpy for numba optimization
-            probmat_sparse_numpy = probmat_sparse.detach().cpu().numpy().astype(np.float32)
-            
-            # Convert shortest_path to numpy for ACO
+            # Convert shortest_path to numpy for MFACO
             local_source_route_numpy = self.shortest_path.detach().cpu().numpy().astype(np.uint16)
             
             # Use optimized sampling with sparse matrices
@@ -170,7 +183,6 @@ class ACO():
                 local_source_route_numpy,
                 count=self.n_ants,
                 start_node=start_node,
-                ls_check_list=self.ls_check_list
             )
             paths = torch.from_numpy(paths.T.astype(np.int64)).to(self.device)
             # paths = self.gen_path(require_prob=False, start_node=start_node)
@@ -197,24 +209,8 @@ class ACO():
         for iteration in range(n_iterations):
             # Use enhanced sampling with optimized algorithm
             # print("Iteration:", iteration + 1)
-            probmat_sparse = (self.pheromone_sparse ** self.alpha) * (self.heuristic_sparse ** self.beta)
-            paths = numba_sample_sparse_optimized_mfaco(
-                probmat_sparse.cpu().numpy(),
-                self.nn_list,
-                self.backup_nn_list,
-                self.distances_numpy,
-                self.shortest_path.detach().cpu().numpy().astype(np.uint16),
-                count=self.n_ants,
-                start_node=start_node,
-                ls_check_list=self.ls_check_list
-            )
-            paths = torch.from_numpy(paths.T.astype(np.int64)).to(self.device)
+            costs, _, paths = self.sample(inference=True, start_node=start_node)
             _paths = paths.clone()
-
-
-            # Apply local search if specified
-            paths = self.local_search(paths, inference=True)
-            costs = self.gen_path_costs(paths)
 
             # Update ants' routes and costs efficiently
             if KEEP_BETTER_ANT_SOL:
@@ -251,16 +247,9 @@ class ACO():
                 self.lowest_cost = upd_ant_cost.item() if isinstance(upd_ant_cost, torch.Tensor) else upd_ant_cost
                 elapsed_time = time.time() - start_time
                 # print(f"  [Runtime] {elapsed_time:.2f}s - New best cost: {self.lowest_cost:.2f}")
-
+            
             # Update pheromones using probabilistic ant selection
             self.update_pheromone(upd_ant_route.unsqueeze(1), upd_ant_cost.unsqueeze(0))
-        
-
-            # Update cached numpy arrays for next iteration
-            if hasattr(self, '_pheromone_numpy'):
-                del self._pheromone_numpy
-            if hasattr(self, '_heuristic_numpy'):
-                del self._heuristic_numpy
                 
         end_time = time.time()
 
@@ -276,7 +265,8 @@ class ACO():
             jaccard_sum += len(edge_sets[i] & edge_sets[j]) / len(edge_sets[i] | edge_sets[j])
         diversity = 1 - jaccard_sum / (len(edge_sets) * (len(edge_sets) - 1) / 2)
 
-        return self.lowest_cost, diversity, end_time - start_time
+        # Ensure lowest_cost is a Python float for compatibility with torch tensors
+        return float(self.lowest_cost), diversity, end_time - start_time
 
     @torch.no_grad()
     def update_pheromone(self, paths, costs):
@@ -302,6 +292,10 @@ class ACO():
         _min = min(_max, _max * (1 - p) / ((avg - 1) * p))
         self.pheromone_sparse = torch.clamp(self.pheromone_sparse, min=_min, max=_max)
 
+        # Invalidate cache only when needed
+        if hasattr(self, '_pheromone_sparse_numpy'):
+            delattr(self, '_pheromone_sparse_numpy')
+
 
     @torch.no_grad()
     def gen_path_costs(self, paths):
@@ -317,15 +311,28 @@ class ACO():
         # assert (self.distances[u, v] > 0).all()
         return torch.sum(self.distances[u, v], dim=1)
 
+    def gen_path_costs_init(self, paths):
+        '''
+        Args:
+            paths: torch tensor with shape (n_ants, problem_size)
+        Returns:
+                Lengths of paths: torch tensor with shape (n_ants,)
+        '''
+        assert paths.shape[1] == self.problem_size
+        u = torch.from_numpy(paths.astype(np.int64)).to(self.device)  # shape: (n_ants, problem_size)
+        v = torch.roll(u, shifts=1, dims=1)  # shape: (n_ants, problem_size)
+        # assert (self.distances[u, v] > 0).all()
+        return torch.sum(self.distances[u, v], dim=1)
+
     def gen_numpy_path_costs(self, paths):
         '''
         Args:
-            paths: numpy ndarray with shape (n_ants, problem_size), note the shape
+            paths: numpy array with shape (n_ants, problem_size)
         Returns:
-            Lengths of paths: numpy ndarray with shape (n_ants,)
+                Lengths of paths: numpy array with shape (n_ants,)
         '''
-        assert paths.shape == (self.n_ants, self.problem_size)
-        u = paths
+        assert paths.shape[1] == self.problem_size
+        u = paths  # shape: (n_ants, problem_size)
         v = np.roll(u, shift=1, axis=1)  # shape: (n_ants, problem_size)
         # assert (self.distances[u, v] > 0).all()
         return np.sum(self.distances_numpy[u, v], axis=1)
@@ -369,7 +376,7 @@ class ACO():
                 mask = mask.clone()
             prev = actions
             mask[index, actions] = 0
-
+        
         if require_prob:
             return torch.stack(paths_list), torch.stack(log_probs_list)
         else:
@@ -388,11 +395,12 @@ class ACO():
         return self.pheromone_sparse.detach().cpu().numpy().astype(np.float32)
 
     @cached_property
+    def heuristic_numpy(self):
+        return self.heuristic.detach().cpu().numpy().astype(np.float32)  # type: ignore
+
+    @cached_property
     def heuristic_dist(self):
-        # For 2-opt operations, we need full matrix, so expand sparse to full
-        heuristic_sparse_np = self.heuristic_sparse_numpy
-        full_heuristic = self._expand_sparse_to_full_for_2opt_torch(heuristic_sparse_np)
-        return 1 / (full_heuristic / full_heuristic.max(-1, keepdims=True) + 1e-5)
+        return 1 / (self.heuristic_numpy / self.heuristic_numpy.max(-1, keepdims=True) + 1e-5)
     
     def _expand_sparse_to_full_for_2opt_torch(self, sparse_matrix):
         """Convert sparse n×k matrix to full n×n format for 2-opt operations only."""
@@ -417,6 +425,7 @@ class ACO():
     def nls(self, paths, inference=False, T_nls=5, T_p=20):
         maxt = 100 if inference else self.problem_size // 4
         best_paths = batched_two_opt_python(self.distances_numpy, paths.T.cpu().numpy(), max_iterations=maxt)
+
         best_costs = self.gen_numpy_path_costs(best_paths)
         new_paths = best_paths
 
@@ -430,8 +439,42 @@ class ACO():
             best_costs[improved_indices] = new_costs[improved_indices]
 
         best_paths = torch.from_numpy(best_paths.T.astype(np.int64)).to(self.device)
-        return best_paths
 
+        return best_paths
+    
+    def nls_init(self, paths, inference=False, T_nls=5, T_p=20):
+        """
+        Perform NLS initialization for paths.
+        
+        Args:
+            paths: Initial paths to optimize
+            inference: Whether in inference mode
+            T_nls: Number of NLS iterations
+            T_p: Number of perturbation iterations
+            
+        Returns:
+            Optimized paths after NLS
+        """
+        maxt = 100 if inference else self.problem_size // 4
+        best_paths = batched_two_opt_python(self.distances_numpy, paths.cpu().numpy(), max_iterations=maxt)
+
+        best_costs = self.gen_path_costs_init(best_paths)
+        new_paths = best_paths
+
+        
+        for _ in range(T_nls):
+            perturbed_paths = batched_two_opt_python(self.heuristic_dist, new_paths, max_iterations=T_p)
+            new_paths = batched_two_opt_python(self.distances_numpy, perturbed_paths, max_iterations=maxt)
+            new_costs = self.gen_path_costs_init(new_paths)
+            
+            improved_indices = new_costs < best_costs
+            best_paths[improved_indices] = new_paths[improved_indices]
+            best_costs[improved_indices] = new_costs[improved_indices]
+
+        best_paths = torch.from_numpy(best_paths.astype(np.int64)).to(self.device)
+
+        return best_paths
+    
     def _build_neighbor_structures(self):
         """Build nearest neighbor and backup neighbor lists."""
         distances_np = self.distances.detach().cpu().numpy().astype(np.float32)
@@ -474,7 +517,7 @@ class ACO():
                 neighbor = nn_indices[current_node, j]
                 if neighbor >= 0:  # Valid neighbor
                     full_probs[i, neighbor] = prob_mat_sparse[current_node, j]
-        
+         
         # Apply mask and temperature
         dist = (full_probs ** invtemp) * mask
         # Add small epsilon to avoid numerical issues
@@ -535,7 +578,6 @@ class ACO():
         """Convert full n×n matrix to sparse n×k format using nearest neighbors."""
         sparse_matrix = torch.zeros((self.problem_size, self.k_nearest), device=self.device)
         nn_indices = torch.from_numpy(self.nn_list).to(self.device)
-        
         for i in range(self.problem_size):
             for j in range(self.k_nearest):
                 neighbor = nn_indices[i, j]
@@ -560,7 +602,7 @@ class ACO():
                 self.pheromone_sparse[from_node, j] += delta
             
 
-class ACO_NP(): 
+class MFACO_NP(): 
     """
     ACO class for numpy implementation
     """
@@ -613,9 +655,15 @@ class ACO_NP():
         self.local_search_type = local_search_type
         self.trail_limit_factor = trail_limit_factor
 
+        if k_sparse is None:
+            self.k_sparse = self.k_nearest
+        else:
+            self.k_nearest = k_sparse
+            self.k_sparse = k_sparse
+
         # Build nearest neighbor structures first for sparse matrices
         self._build_neighbor_structures()
-        
+
         if pheromone is None:
             # Initialize sparse pheromone matrix (n x k_nearest)
             self.pheromone_sparse = np.ones((self.problem_size, self.k_nearest), dtype=np.float32)
@@ -627,23 +675,30 @@ class ACO_NP():
                 self.pheromone_sparse = self._compress_full_to_sparse(pheromone.astype(np.float32))
 
         if heuristic is None:
-            if k_sparse is not None:
-                # Use legacy sparse heuristic for backward compatibility
-                full_heuristic = self.simple_heuristic(distances, k_sparse)
-                self.heuristic_sparse = self._compress_full_to_sparse(full_heuristic)
-            else:
-                # Build sparse heuristic matrix directly (n x k_nearest)
-                self.heuristic_sparse = self._build_sparse_heuristic_matrix()
+            assert self.k_sparse is not None
+            # Use legacy sparse heuristic for backward compatibility
+            full_heuristic = self.simple_heuristic(distances, self.k_sparse)
+            self.heuristic = full_heuristic.astype(np.float32)
+            self.heuristic_sparse = self._compress_full_to_sparse(full_heuristic)
         else:
+            self.heuristic = heuristic.astype(np.float32)
             if heuristic.shape == (self.problem_size, self.k_nearest):
                 self.heuristic_sparse = heuristic.astype(np.float32)
             else:
                 self.heuristic_sparse = self._compress_full_to_sparse(heuristic.astype(np.float32))
 
-        # Initialize with a random solution
-        random_path = np.random.permutation(self.problem_size)
-        self.shortest_path = random_path
-        self.lowest_cost = get_route_cost(random_path.astype(np.uint16), self.distances)
+        initial_routes = build_multiple_nn_tours_parallel(
+            os.cpu_count() or 4, self.nn_list, self.distances, self.problem_size
+        )
+        initial_routes = self.nls(initial_routes, inference=True)
+        initial_costs = self.gen_path_costs(initial_routes)
+        # Find the best initial route
+        best_initial_idx = np.argmin(initial_costs)
+        best_initial_route = initial_routes[best_initial_idx]
+        # Set the best initial route as shortest path
+        self.shortest_path = best_initial_route.copy()
+        self.lowest_cost = initial_costs[best_initial_idx]
+        # print(f"Initial cost: {self.lowest_cost:.2f}")
 
         if ants_route is not None and ants_cost is not None:
             assert ants_route.shape == (self.problem_size, n_ants)
@@ -669,9 +724,6 @@ class ACO_NP():
             self.best_ant_route = self.shortest_path.copy()
             self.best_ant_cost = self.lowest_cost
 
-        self.ls_check_list = np.full(self.problem_size + 1, -1, dtype=np.int64)
-        self.ls_check_list[0] = 0  # Initialize length to 0
-
     def simple_heuristic(self, distances, k_sparse):
         '''
         Sparsify the TSP graph to obtain the heuristic information 
@@ -696,7 +748,7 @@ class ACO_NP():
             # Compute sparse probability matrix (n x k_nearest)
             probmat_sparse = (self.pheromone_sparse ** self.alpha) * (self.heuristic_sparse ** effective_beta)
             
-            # Convert shortest_path to numpy for ACO
+            # Convert shortest_path to numpy for MFACO
             local_source_route_numpy = self.shortest_path.astype(np.uint16)
             
             # Use optimized sampling with sparse matrices
@@ -708,7 +760,6 @@ class ACO_NP():
                 local_source_route_numpy,
                 count=self.n_ants,
                 start_node=start_node,
-                ls_check_list=self.ls_check_list
             )
             paths = paths.T.astype(np.int64)  # Convert to (problem_size, n_ants)
             log_probs = None
@@ -739,10 +790,6 @@ class ACO_NP():
             costs, _, paths = self.sample(inference=True, start_node=start_node)
             # paths is (problem_size, n_ants) from sample method
             _paths = paths.copy()
-
-            # Apply local search if specified
-            paths = self.local_search(paths, inference=True)
-            costs = self.gen_path_costs(paths.T)  # gen_path_costs expects (n_ants, problem_size)
 
             # Update ants' routes and costs efficiently
             if KEEP_BETTER_ANT_SOL:
@@ -778,7 +825,7 @@ class ACO_NP():
                 self.shortest_path = upd_ant_route.copy()
                 self.lowest_cost = upd_ant_cost
                 elapsed_time = time.time() - start_time
-                # print(f"  [Runtime] {elapsed_time:.2f}s - New best cost: {self.lowest_cost:.2f}")
+                # print(f"Iteration {iteration + 1}  [Runtime] {elapsed_time:.2f}s - New best cost: {self.lowest_cost:.2f}")
 
             # Update pheromones using probabilistic ant selection
             self.update_pheromone(upd_ant_route.reshape(-1, 1), np.array([upd_ant_cost]))
@@ -893,10 +940,7 @@ class ACO_NP():
 
     @cached_property
     def heuristic_dist(self):
-        # For 2-opt operations, we need full matrix, so expand sparse to full
-        heuristic_sparse_np = self.heuristic_sparse
-        full_heuristic = self._expand_sparse_to_full_for_2opt(heuristic_sparse_np)
-        return 1 / (full_heuristic / full_heuristic.max(-1, keepdims=True) + 1e-5)
+        return 1 / (self.heuristic / self.heuristic.max(-1, keepdims=True) + 1e-5)
     
     def _expand_sparse_to_full_for_2opt(self, sparse_matrix):
         """Convert sparse n×k matrix to full n×n format for 2-opt operations only."""
@@ -918,7 +962,7 @@ class ACO_NP():
         return best_paths
 
     def nls(self, paths: np.ndarray, inference=False, T_nls=5, T_p=20):
-        maxt = 10000 if inference else self.problem_size // 4
+        maxt = 100 if inference else self.problem_size // 4
         best_paths = batched_two_opt_python(self.distances, paths, max_iterations=maxt)
         best_costs = self.gen_path_costs(best_paths)
         new_paths = best_paths
@@ -1101,6 +1145,8 @@ def build_nearest_neighbor_lists(distances: np.ndarray, k_nearest: int):
     
     return nn_list, backup_nn_list
 
+
+
 @nb.jit(nb.int64(nb.int64, nb.uint8[:], nb.float32[:,:], nb.int64[:,:], nb.int64[:,:], nb.int64, nb.int64, nb.float32[:,:]), 
         nopython=True, nogil=True)
 def select_next_node(current_node: int,
@@ -1127,7 +1173,6 @@ def select_next_node(current_node: int,
     Returns:
         Selected next node index
     """
-
     # Candidate list from sparse matrix
     cl = np.zeros(k_nearest, dtype=nb.int64)
     cl_products = np.zeros(k_nearest, dtype=nb.float64)
@@ -1185,6 +1230,118 @@ def select_next_node(current_node: int,
 
     return chosen_node
 
+@nb.jit(nb.uint16[:](nb.int64, nb.int64[:,:], nb.float32[:,:], nb.int64), nopython=True, nogil=True)
+def build_nn_tour(start_node: int, nn_list: np.ndarray, distances: np.ndarray, dimension: int):
+    """
+    Build a tour using nearest neighbors with fallback to closest unvisited node.
+    Translates the C++ bitmask-based nearest neighbor tour construction.
+    
+    Args:
+        start_node: Starting node for the tour
+        nn_list: Nearest neighbor lists (n x k)
+        distances: Distance matrix (n x n) 
+        dimension: Number of nodes in the problem
+    
+    Returns:
+        Complete tour as array of node indices
+    """
+    # Initialize tour and visited bitmask
+    tour = np.zeros(dimension, dtype=np.uint16)
+    visited = np.zeros(dimension, dtype=np.uint8)  # Using uint8 array as bitmask
+    
+    # Start the tour - equivalent to visited.set_bit(start_node) and tour.push_back(start_node)
+    visited[start_node] = 1
+    tour[0] = start_node
+    
+    # Build the rest of the tour - equivalent to for (uint32_t i = 1; i < dimension_; ++i)
+    for i in range(1, dimension):
+        prev = tour[i - 1]  # Equivalent to auto prev = tour.back()
+        next_node = prev  # Equivalent to auto next = prev
+        
+        # Try to find next node from nearest neighbors
+        # Equivalent to for (auto node : get_nearest_neighbors(prev, total_nn_per_node_))
+        for j in range(nn_list.shape[1]):
+            neighbor = nn_list[prev, j]
+            if neighbor >= 0 and neighbor < dimension and visited[neighbor] == 0:
+                next_node = neighbor
+                break  # Equivalent to break in C++
+        
+        # If no unvisited nearest neighbor found, find closest unvisited node
+        # Equivalent to if (next == prev) block in C++
+        if next_node == prev:
+            min_cost = np.inf  # Equivalent to std::numeric_limits<double>::max()
+            for node in range(dimension):  # Equivalent to for (uint32_t node = 0; node < dimension_; ++node)
+                if visited[node] == 0 and distances[prev, node] < min_cost:
+                    min_cost = distances[prev, node]
+                    next_node = node
+        
+        # Assert equivalent - ensure we found a valid next node
+        # In production code, this should never happen if logic is correct
+        if next_node == prev:
+            # Emergency fallback: find any unvisited node
+            for node in range(dimension):
+                if visited[node] == 0:
+                    next_node = node
+                    break
+        
+        # Add node to tour and mark as visited
+        # Equivalent to visited.set_bit(next) and tour.push_back(next)
+        visited[next_node] = 1
+        tour[i] = next_node
+    
+    return tour
+
+@nb.jit(nb.uint16[:,:](nb.int64, nb.int64[:,:], nb.float32[:,:], nb.int64), nopython=True, nogil=True)
+def build_multiple_nn_tours(count: int, nn_list: np.ndarray, distances: np.ndarray, dimension: int):
+    """
+    Build multiple tours using nearest neighbors construction with random starting points.
+    
+    Args:
+        count: Number of tours to build
+        nn_list: Nearest neighbor lists (n x k)
+        distances: Distance matrix (n x n)
+        dimension: Number of nodes in the problem
+    
+    Returns:
+        Array of tours (count x dimension)
+    """
+    tours = np.zeros((count, dimension), dtype=np.uint16)
+    
+    for i in range(count):
+        # Generate random starting node for each tour
+        start_node = np.random.randint(0, dimension)
+        tours[i] = build_nn_tour(start_node, nn_list, distances, dimension)
+    
+    return tours
+
+@nb.jit(nb.uint16[:,:](nb.int64, nb.int64[:,:], nb.float32[:,:], nb.int64), nopython=True, nogil=True, parallel=True)
+def build_multiple_nn_tours_parallel(count: int, nn_list: np.ndarray, distances: np.ndarray, dimension: int):
+    """
+    Build multiple tours using nearest neighbors construction with random starting points in parallel.
+    Uses specified number of cores for maximum performance.
+    
+    Args:
+        count: Number of tours to build (should match number of CPU cores)
+        nn_list: Nearest neighbor lists (n x k)
+        distances: Distance matrix (n x n)
+        dimension: Number of nodes in the problem
+    
+    Returns:
+        Array of tours (count x dimension)
+    """
+    tours = np.zeros((count, dimension), dtype=np.uint16)
+
+    # Parallel loop using nb.prange for multi-core execution
+    for i in nb.prange(count):
+        # Deterministic starting node distribution across cores
+        # This ensures good load balancing while maintaining reproducibility
+        start_node = np.random.randint(0, dimension)
+        tours[i] = build_nn_tour(start_node, nn_list, distances, dimension)
+    
+    return tours
+
+
+
 @nb.jit(nb.int64(nb.float32[:]), nopython=True, nogil=True)
 def select_next_node_simple(prob_array: np.ndarray) -> int:
     """
@@ -1215,7 +1372,7 @@ def select_next_node_simple(prob_array: np.ndarray) -> int:
     # Fallback to last index
     return len(prob_array) - 1
 
-# For implentation of ACO relocate node
+# For implentation of MFACO relocate node
 @nb.jit(nb.int64(nb.int64, nb.uint16[:], nb.int64[:]), nopython=True, nogil=True)
 def get_succ(node, route_, positions_):
     """
@@ -1306,7 +1463,6 @@ def relocate_node(target, node, route_, positions_, current_cost, distance_matri
     Returns:
         New cost of the route after relocation
     """
-
     # Assertions equivalent (but numba doesn't support assert)
     if node == target or get_succ(target, route_, positions_) == node:
         return current_cost
@@ -1456,7 +1612,6 @@ def two_opt_nn(route_: np.ndarray, positions_: np.ndarray, distances: np.ndarray
     Returns:
         Total cost improvement achieved
     """
-
     n = len(route_)
     changes_count = 0
     cost_change = 0.0
@@ -1586,6 +1741,8 @@ def contains(checklist: np.ndarray, node: int):
         True if node exists in checklist, False otherwise
     """
     current_length = checklist[0]
+    if current_length == 0:
+        return False
     for i in range(1, current_length + 1):  # Start from index 1, skip length at index 0
         if checklist[i] == node:
             return True
@@ -1640,17 +1797,16 @@ def get_route_cost(route: np.ndarray, distances: np.ndarray) -> float:
 
 
 
-@nb.jit(nb.uint16[:](nb.float32[:,:], nb.int64[:,:], nb.int64[:,:], nb.int64, nb.float32[:,:], nb.uint16[:], nb.int64[:]), 
+@nb.jit(nb.uint16[:](nb.float32[:,:], nb.int64[:,:], nb.int64[:,:], nb.int64, nb.float32[:,:], nb.uint16[:]), 
         nopython=True, nogil=True)
 def _numba_sample_sparse_optimized_mfaco(probmat_sparse: np.ndarray,
                                  nn_list: np.ndarray,
                                  backup_nn_list: np.ndarray,
                                  start_node: int,
                                  distances: np.ndarray,
-                                 local_source_route: np.ndarray,
-                                 ls_check_list: np.ndarray):
+                                 local_source_route: np.ndarray):
     """
-    Optimized sampling using sparse probability matrix (n x k) with ACO local search.
+    Optimized sampling using sparse probability matrix (n x k) with MFACO local search.
     
     Args:
         probmat_sparse: Sparse probability matrix (n x k_nearest)
@@ -1659,7 +1815,6 @@ def _numba_sample_sparse_optimized_mfaco(probmat_sparse: np.ndarray,
         start_node: Starting node for the route
         distances: Distance matrix (n x n)
         local_source_route: Initial route to use as starting point
-        ls_check_list: Local search checklist array for tracking nodes to optimize
     
     Returns:
         Optimized route array
@@ -1691,10 +1846,12 @@ def _numba_sample_sparse_optimized_mfaco(probmat_sparse: np.ndarray,
     new_edges = 0
     target_new_edges = MIN_NEW_EDGES
 
-    clear(ls_check_list)
+    ls_checklist = np.full(n + 1, -1, dtype=np.int64)
+    ls_checklist[0] = 0  # Store current length at index 0
 
-    # Modify route step by step using ACO approach
+    # Modify route step by step using MFACO approach
     while new_edges < target_new_edges and np.sum(visited_mask) < n:
+        curr = current_node
         chosen_node = select_next_node(
             current_node, visited_mask, probmat_sparse, 
             nn_list, backup_nn_list, k_nearest, n, distances
@@ -1704,30 +1861,60 @@ def _numba_sample_sparse_optimized_mfaco(probmat_sparse: np.ndarray,
         visited_mask[chosen_node] = 1
         
         # Apply relocation operation
-        cost = relocate_node(current_node, chosen_node, route, positions, cost, distances)
-        
+        cost = relocate_node(curr, chosen_node, route, positions, cost, distances)
+
         chos_pred = get_pred(chosen_node, route, positions)
         # Check if this creates a new edge (not in original local source)
-        if not contains_edge(current_node, chosen_node, local_source_route, local_source_positions):
-            if not contains(ls_check_list, current_node):
-                push_back(ls_check_list, current_node)
-            if not contains(ls_check_list, chosen_node):
-                push_back(ls_check_list, chosen_node)
-            if not contains(ls_check_list, chos_pred):
-                push_back(ls_check_list, chos_pred)
+        if not contains_edge(curr, chosen_node, local_source_route, local_source_positions):
+            if not contains(ls_checklist, curr):
+                push_back(ls_checklist, curr)
+            if not contains(ls_checklist, chosen_node):
+                push_back(ls_checklist, chosen_node)
+            if not contains(ls_checklist, chos_pred):
+                push_back(ls_checklist, chos_pred)
 
             new_edges += 1
 
         current_node = chosen_node
     
     if SAMPLE_TWO_OPT:
-        two_opt_nn(route, positions, distances, nn_list, ls_check_list, k_nearest, probmat_sparse.shape[0])
+        two_opt_nn(route, positions, distances, nn_list, ls_checklist, k_nearest, n)
         
-    if SOURCE_SOL_LOCAL_UPDATE and cost < get_route_cost(local_source_route, distances):
-        # If the new route is better than the local source, update it
-        local_source_route[:] = route[:]
+    # if SOURCE_SOL_LOCAL_UPDATE and cost < get_route_cost(local_source_route, distances):
+    #     # If the new route is better than the local source, update it
+    #     local_source_route[:] = route[:]
 
     return route
+
+@nb.jit(nb.void(nb.float32[:,:], nb.int64[:,:], nb.int64[:,:], nb.int64[:], nb.float32[:,:], nb.uint16[:], nb.uint16[:,:]), 
+        nopython=True, nogil=True, parallel=True)
+def numba_parallel_sample_sparse_optimized_mfaco(probmat_sparse: np.ndarray,
+                                                 nn_list: np.ndarray,
+                                                 backup_nn_list: np.ndarray,
+                                                 start_nodes: np.ndarray,
+                                                 distances: np.ndarray,
+                                                 local_source_route: np.ndarray,
+                                                 routes: np.ndarray):
+    """
+    Parallel version using pure Numba parallelism for better performance.
+    
+    Args:
+        probmat_sparse: Sparse probability matrix (n x k_nearest)
+        nn_list: Nearest neighbor lists
+        backup_nn_list: Backup neighbor lists  
+        start_nodes: Array of starting nodes for each route
+        distances: Distance matrix (n x n)
+        local_source_route: Initial route to use as starting point
+        routes: Output array to store generated routes (modified in-place)
+    """
+    count = len(start_nodes)
+    
+    # Parallel loop using nb.prange for multi-core execution
+    for i in nb.prange(count):
+        routes[i] = _numba_sample_sparse_optimized_mfaco(
+            probmat_sparse, nn_list, backup_nn_list, start_nodes[i], 
+            distances, local_source_route
+        )
 
 def numba_sample_sparse_optimized_mfaco(probmat_sparse: np.ndarray,
                                 nn_list: np.ndarray,
@@ -1735,10 +1922,9 @@ def numba_sample_sparse_optimized_mfaco(probmat_sparse: np.ndarray,
                                 distances: np.ndarray,
                                 local_source_route: np.ndarray,
                                 count: int = 1,
-                                start_node=None,
-                                ls_check_list: np.ndarray = None):
+                                start_node=None,):
     """
-    Generate multiple routes using sparse probability matrix optimization with ACO.
+    Generate multiple routes using sparse probability matrix optimization with MFACO.
     
     Args:
         probmat_sparse: Sparse probability matrix (n x k_nearest)
@@ -1757,28 +1943,21 @@ def numba_sample_sparse_optimized_mfaco(probmat_sparse: np.ndarray,
     probmat_sparse = probmat_sparse.astype(np.float32)
     
     if start_node is None:
-        start_nodes = np.random.randint(0, n, size=count)
+        start_nodes = np.random.randint(0, n, size=count, dtype=np.int64)
     else:
         start_nodes = np.ones(count, dtype=np.int64) * start_node
 
-    if count <= 4 and n < 500:
-        # Sequential execution for small problems
-        for i in range(count):
-            routes[i] = _numba_sample_sparse_optimized_mfaco(
-                probmat_sparse, nn_list, backup_nn_list, start_nodes[i], 
-                distances, local_source_route, ls_check_list
-            )
-    else:
-        # Parallel execution for larger problems
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            futures = []
-            for i in range(count):
-                future = executor.submit(
-                    _numba_sample_sparse_optimized_mfaco,
-                    probmat_sparse, nn_list, backup_nn_list, start_nodes[i], 
-                    distances, local_source_route, ls_check_list
-                )
-                futures.append(future)
-            for i, future in enumerate(futures):
-                routes[i] = future.result()
+    # if count <= 4 and n < 500:
+    # Sequential execution for small problems
+    # for i in range(count):
+    #     routes[i] = _numba_sample_sparse_optimized_mfaco(
+    #         probmat_sparse, nn_list, backup_nn_list, start_nodes[i], 
+    #         distances, local_source_route
+    #     )
+    # else:
+    # Use pure Numba parallelism for better performance
+    numba_parallel_sample_sparse_optimized_mfaco(
+        probmat_sparse, nn_list, backup_nn_list, start_nodes, 
+        distances, local_source_route, routes
+    )
     return routes

@@ -8,6 +8,7 @@ import torch
 
 from net import Net
 from aco import ACO
+from mfaco import MFACO_NP
 from utils import load_test_dataset
 
 

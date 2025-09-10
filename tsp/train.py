@@ -9,6 +9,7 @@ import torch
 
 from net import Net
 from aco import ACO, ACO_NP
+from mfaco import MFACO, MFACO_NP
 from utils import gen_pyg_data, load_val_dataset
 
 import wandb
@@ -175,7 +176,7 @@ def infer_instance(model, pyg_data, distances, n_ants):
     heu_vec = model(pyg_data)  # Only get heuristics, not value during inference
     heu_mat = model.reshape(pyg_data, heu_vec) + EPS
 
-    aco = ACO_NP(
+    aco = MFACO_NP(
         distances.cpu().numpy(),
         n_ants,
         heuristic=heu_mat.cpu().numpy(),

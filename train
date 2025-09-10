@@ -1,27 +1,10 @@
-uv run python train_gfacs.py 500 --run_name gfacs
-uv run python train_gfacs.py 200 --run_name gfacs
-uv run python train.py 500 --run_name ppo
-uv run python train.py 200 --run_name ppo
+uv run python train_gfacs.py 500 --run_name gfacs_faco
+uv run python train_gfacs.py 200 --run_name gfacs_faco
+uv run python train.py 500 --run_name ppo_faco
+uv run python train.py 200 --run_name ppo_faco
+
+uv run python train_deepaco.py 500 --run_name deepaco
+uv run python train_deepaco.py 200 --run_name deepaco
 
 
-35620
-49457
-12132
-42483
-38224
-51379
-108726
-7171
-15515
-37659
 
-35521
-49509
-12385
-42277
-36455
-51536
-107513
-7260
-15597
-37815
