@@ -6,11 +6,17 @@
 \date{July 2025}
 
 \usepackage{pdflscape}
-\documentclass{article}
 \usepackage{makecell}
+\usepackage{makecell}   % for \Xhline
 \usepackage{multirow}
+\usepackage{float}      % for [H]
 \usepackage{booktabs}
-\usepackage{adjustbox} % để co bảng cho vừa trang
+\usepackage{adjustbox}
+\usepackage[margin=2in]{geometry}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{float}
+\usepackage{booktabs}
 
 \begin{document}
 \pagenumbering{gobble} % tắt đánh số trang toàn văn bản
@@ -23,9 +29,9 @@
 
 \begin{tabular}{c cccc cccc cccc}
 \Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\multirow{2}{*}{\textbf{ Testlib200}} & 
-\multicolumn{4}{c}{\textbf{GFACS}} & 
-\multicolumn{4}{c}{\textbf{DeepACO}} & 
+\multirow{2}{*}{\textbf{ Testlib200}} &
+\multicolumn{4}{c}{\textbf{GFACS}} &
+\multicolumn{4}{c}{\textbf{DeepACO}} &
 \multicolumn{4}{c}{\textbf{NeuFACO}} \\
 \cline{2-13}
  & min & mean & max & avg time & min & mean & max & avg time & min & mean & max & avg time \\
@@ -95,100 +101,10 @@ u574 & \makecell{37837 \\ (2.53\%)} & \makecell{37963 \\ (2.87\%)} & \makecell{3
 \end{table}
 
 
-
-
-
 \begin{table}[h]
 \centering
 \makebox[\textwidth][c]{%
-\adjustbox{max width=0.78\textwidth}{%
-\begingroup
-\footnotesize
-\setlength{\tabcolsep}{9pt}
-\renewcommand{\arraystretch}{1.0}
-\begin{tabular}{c cc cc}
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\multirow{2}{*}{\textbf{Method}} &
-\multicolumn{2}{c}{\textbf{Testlib200}} &
-\multicolumn{2}{c}{\textbf{Testlib500}} \\
-\cline{2-5}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} \\
-\hline
-DeepACO & 1.55 & 7.91  & 3.45 & 75.66 \\
-GFACS   & 1.48 & 7.88  & 2.51 & 77.52 \\
-NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} \\
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\end{tabular}
-\endgroup
-}}
-\end{table}
-
-\begin{table}[h]
-\centering
-\makebox[\textwidth][c]{%
-\adjustbox{max width=0.78\textwidth}{%
-\begingroup
-\footnotesize
-\setlength{\tabcolsep}{9pt}
-\renewcommand{\arraystretch}{1.0}
-\begin{tabular}{c cc cc cc}
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\multirow{2}{*}{\textbf{Method}} &
-\multicolumn{2}{c}{\textbf{Testlib200}} &
-\multicolumn{2}{c}{\textbf{Testlib500}} &
-\multicolumn{2}{c}{\textbf{Test500}} \\
-\cline{2-7}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} \\
-\hline
-DeepACO & 1.55 & 7.91  & 3.45 & 75.66 & 1.98 & 64.16 \\
-GFACS   & 1.48 & 7.88  & 2.51 & 77.52 & 0.60 & 71.37 \\
-NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & 0.74 & \textbf{0.56} \\
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\end{tabular}
-\endgroup
-}}
-\end{table}
-
-
-\begin{table}[h]
-\centering
-\makebox[\textwidth][c]{%
-\adjustbox{max width=0.78\textwidth}{%
-\begingroup
-\footnotesize
-\setlength{\tabcolsep}{9pt}
-\renewcommand{\arraystretch}{1.0}
-\begin{tabular}{c cc cc cc cc}
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\multirow{2}{*}{\textbf{Method}} &
-\multicolumn{2}{c}{\textbf{Testlib200}} &
-\multicolumn{2}{c}{\textbf{Testlib500}} &
-\multicolumn{2}{c}{\textbf{Test500}} &
-\multicolumn{2}{c}{\textbf{Test200}} \\
-\cline{2-3}\cline{4-5}\cline{6-7}\cline{8-9}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
- & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} \\
-\hline
-DeepACO & 1.55 & 7.91  & 3.45 & 75.66 & 1.98 & 64.16 & 0.97 & 9.44 \\
-GFACS   & 1.48 & 7.88  & 2.51 & 77.52 & 0.60 & 71.37 & 0.84 & 9.40 \\
-NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & 0.74 & \textbf{0.56} & \textbf{0.16} & \textbf{0.65} \\
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\end{tabular}
-\endgroup
-}}
-\end{table}
-
-
-% cần: \usepackage{makecell,adjustbox,multirow}
-\begin{table}[h]
-\centering
-\makebox[\textwidth][c]{%
-\adjustbox{max width=0.9\textwidth}{%
+\adjustbox{max width=1.5\textwidth}{%
 \begingroup
 \footnotesize
 \setlength{\tabcolsep}{9pt}
@@ -216,127 +132,124 @@ NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & \textb
 \end{table}
 
 
-\begin{table}[h]
-\centering
-\makebox[\textwidth][c]{%
-\adjustbox{max width=0.78\textwidth}{%
-\begingroup
-\footnotesize
-\setlength{\tabcolsep}{9pt}
-\renewcommand{\arraystretch}{1.0}
-\begin{tabular}{c c c c c}
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\multirow{2}{*}{\textbf{Suite}} & \multirow{2}{*}{\textbf{Metric}} &
-\multicolumn{3}{c}{\textbf{Method}} \\
-\cline{3-5}
- &  & \textbf{DeepACO} & \textbf{GFACS} & \textbf{NeuFACO} \\
-\hline
-\multirow{2}{*}{\textbf{Testlib200}} &
-\makecell{\textbf{Avg gap}\\(\%)} & 1.55 & 1.48 & \textbf{1.25} \\
-& \makecell{\textbf{Avg time}\\(s)} & 7.91 & 7.88 & \textbf{0.53} \\
-\hline
-\multirow{2}{*}{\textbf{Testlib500}} &
-\makecell{\textbf{Avg gap}\\(\%)} & 3.45 & 2.51 & \textbf{1.95} \\
-& \makecell{\textbf{Avg time}\\(s)} & 75.66 & 77.52 & \textbf{1.11} \\
-\hline
-\multirow{3}{*}{\textbf{Test200}} &
-\makecell{\textbf{Avg gap}\\(\%)} & 0.97 & 0.84 & \textbf{0.16} \\
-& \makecell{\textbf{Avg time}\\(s)} & 9.44 & 9.40 & \textbf{0.65} \\
-& \makecell{\textbf{Avg cost}}     & 10.80 & 10.78 & \textbf{10.71} \\
-\hline
-\multirow{3}{*}{\textbf{Test500}} &
-\makecell{\textbf{Avg gap}\\(\%)} & 1.98 & \textbf{0.60} & 0.74 \\
-& \makecell{\textbf{Avg time}\\(s)} & 64.16 & 71.37 & \textbf{0.56} \\
-& \makecell{\textbf{Avg cost}}     & 17.03 & \textbf{16.80} & 16.83 \\
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\end{tabular}
-\endgroup
-}}
-\end{table}
 
-% cần: \usepackage{makecell,adjustbox,multirow}
+
+
 \begin{table}[h]
 \centering
 \makebox[\textwidth][c]{%
-\adjustbox{max width=0.78\textwidth}{%
-\begingroup
-\footnotesize
-\setlength{\tabcolsep}{9pt}
-\renewcommand{\arraystretch}{1.0}
-\begin{tabular}{c c c c}
+\adjustbox{max width=1.2\textwidth}{%
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{>{\centering\arraybackslash}p{10mm} c c c c c}
 \Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\multirow{2}{*}{\textbf{Suite}} & \multicolumn{3}{c}{\textbf{Method}} \\
-\cline{2-4}
- & \textbf{DeepACO} & \textbf{GFACS} & \textbf{NeuFACO} \\
+& $N$ & \# & DeepACO & GFACS & \makecell{NeuFACO(ours)} \\
 \hline
-\textbf{Testlib200} &
-\makecell{Gap: 1.55\%\\Time: 7.91s} &
-\makecell{Gap: 1.48\%\\Time: 7.88s} &
-\makecell{Gap: \textbf{1.25\%}\\Time: \textbf{0.53}s} \\
-\textbf{Testlib500} &
-\makecell{Gap: 3.45\%\\Time: 75.66s} &
-\makecell{Gap: 2.51\%\\Time: 77.52s} &
-\makecell{Gap: \textbf{1.95\%}\\Time: \textbf{1.11}s} \\
-\textbf{Test200} &
-\makecell{Gap: 0.97\%\\Time: 9.44s\\Cost: 10.80} &
-\makecell{Gap: 0.84\%\\Time: 9.40s\\Cost: 10.78} &
-\makecell{Gap: \textbf{0.16\%}\\Time: \textbf{0.65}s\\Cost: \textbf{10.71}} \\
-\textbf{Test500} &
-\makecell{Gap: 1.98\%\\Time: 64.16s\\Cost: 17.03} &
-\makecell{Gap: \textbf{0.60\%}\\Time: 71.37s\\Cost: \textbf{16.80}} &
-\makecell{Gap: 0.74\%\\Time: \textbf{0.56}s\\Cost: 16.83} \\
+\multirow{3}{*}{\rotatebox[origin=c]{90}{\scalebox{0.8}{TSPLib}}} 
+& 100--299  & 30 & 1.71\% & 1.25\% & \textbf{1.21\%} \\
+& 300--699  & 10 & 4.26\% & 2.70\% & \textbf{2.60\%} \\
+& 700--1499 & 12 & 7.01\% & 4.08\% & \textbf{3.88\%} \\
+\Xhline{0.8pt}
+\multirow{3}{*}{\rotatebox[origin=c]{90}{\scalebox{0.8}{CVRPLib}}} 
+& 100--299  & 43 & \textbf{2.50\%} & 3.27\% & 2.69\% \\
+& 300--699  & 40 & 3.75\% & 4.22\% & \textbf{3.71\%} \\
+& 700--1001 & 17 & 4.64\% & 5.07\% & \textbf{4.32\%} \\
 \Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\end{tabular}
-\endgroup
-}}
+\end{tabular}}}
 \end{table}
 
 
-% cần: \usepackage{makecell,adjustbox,multirow}
 \begin{table}[h]
 \centering
 \makebox[\textwidth][c]{%
-\adjustbox{max width=1.1\textwidth}{%
-\begingroup
-\footnotesize
-\setlength{\tabcolsep}{8pt}
-\renewcommand{\arraystretch}{1.0}
-\begin{tabular}{c ccc ccc ccc}
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\multirow{2}{*}{\textbf{Suite}} &
-\multicolumn{3}{c}{\textbf{GFACS}} &
-\multicolumn{3}{c}{\textbf{DeepACO}} &
-\multicolumn{3}{c}{\textbf{NeuFACO}} \\
-\cline{2-10}
- & \makecell{\textbf{Avg gap} (\%)} 
- & \makecell{\textbf{Avg time} (s)} 
- & \makecell{\textbf{Avg cost}} 
- & \makecell{\textbf{Avg gap} (\%)} 
- & \makecell{\textbf{Avg time} (s)} 
- & \makecell{\textbf{Avg cost}} 
- & \makecell{\textbf{Avg gap} (\%)} 
- & \makecell{\textbf{Avg time} (s)} 
- & \makecell{\textbf{Avg cost}} \\
+\adjustbox{max width=1.2\textwidth}{%
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{>{\centering\arraybackslash}p{10mm} c c c c c}
+\Xhline{1pt}
+& $N$ & \# & DeepACO & GFACS & \makecell{NeuFACO(ours)} \\
 \hline
-\textbf{Testlib200} & 1.48 & 7.88 & \textemdash & 1.55 & 7.91 & \textemdash & \textbf{1.25} & \textbf{0.53} & \textemdash \\
-\textbf{Testlib500} & 2.51 & 77.52 & \textemdash & 3.45 & 75.66 & \textemdash & \textbf{1.95} & \textbf{1.11} & \textemdash \\
-\textbf{Test200}    & 0.84 & 9.40 & 10.78 & 0.97 & 9.44 & 10.80 & \textbf{0.16} & \textbf{0.65} & \textbf{10.71} \\
-\textbf{Test500}    & \textbf{0.60} & 71.37 & \textbf{16.80} & 1.98 & 64.16 & 17.03 & 0.74 & \textbf{0.56} & 16.83 \\
-\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
-\end{tabular}
-\endgroup
-}}
+\multirow{3}{*}{\rotatebox[origin=c]{90}{\scalebox{0.8}{TSPLib}}} 
+& 100--299  & 30 & 1.71\% & 1.25\% & \textbf{1.21\%} \\
+& 300--699  & 10 & 4.26\% & 2.70\% & \textbf{2.60\%} \\
+& 700--1499 & 12 & 7.01\% & 4.08\% & \textbf{3.88\%} \\
+\Xhline{0.8pt}
+\multirow{3}{*}{\rotatebox[origin=c]{90}{\scalebox{0.8}{TSP}}} 
+& 100--299  & 10 & \textbf{2.50\%} & 3.27\% & 2.69\% \\
+& 300--699  & 10 & 3.75\% & 4.22\% & \textbf{3.71\%} \\
+& 700--1001 & 128 & 4.64\% & 5.07\% & \textbf{4.32\%} \\
+\Xhline{1pt}
+\end{tabular}}}
 \end{table}
 
 
 
-\end{document}
 
 
+\newgeometry{margin=1in}
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.0}
 
-
-
-\end{document}
+\noindent
+% ===== LEFT =====
+\begin{minipage}[t]{0.485\textwidth}
+\vspace*{0pt}
+\centering
+\begin{tabular}{l ccc ccc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+& \multicolumn{3}{c}{\textbf{TSP500}} & \multicolumn{3}{c}{\textbf{TSP1000}}\\
+\cline{2-7}
+\textbf{Method} & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
+\hline
+Concorde           & 16.55 & --    & 10.7s & 23.12 & --   & 108s \\
+LKH-3              & 16.55 & 0.02  & 31.7s & 23.14 & 0.10 & 102s \\
+\hline
+AM$^*$             & 21.46 & 29.07 & 0.6s & 33.55 & 45.10 & 1.5s \\
+POMO$^*$           & 20.57 & 24.40 & 0.6s & 32.90 & 42.30 & 4.1s \\
+\quad +EAS         & 18.25 & 10.29 & 300s & 30.77 & 33.06 & 600s \\
+\quad +SGBS        & 18.86 & 13.98 & 318s & 28.58 & 23.61 & 605s \\
+DIMES$^*$          & 17.01 & 2.78  & 11s  & 24.45 & 5.75  & 32s \\
+SO$^*$             & 16.94 & 2.40  & 15s  & 23.77 & 2.80  & 26s \\
+Pointerformer$^*$  & 17.14 & 3.56  & 14s  & 24.80 & 7.90  & 40s \\
+\hline
+ACO                & 17.38 & 5.04 & 14s & 24.76 & 7.09 & 57s \\
+DeepACO            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 66s \\
+\textbf{GFACS (ours)} & \textbf{16.80} & \textbf{1.56} & \textbf{15s} &
+\textbf{23.72} & \textbf{2.63} & \textbf{66s} \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\end{minipage}
+\hfill
+% ===== RIGHT =====
+\begin{minipage}[t]{0.485\textwidth}
+\vspace*{0pt}
+\centering
+\begin{tabular}{l ccc ccc}
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+& \multicolumn{3}{c}{\textbf{CVRP500}} & \multicolumn{3}{c}{\textbf{CVRP1000}}\\
+\cline{2-7}
+\textbf{Method} & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
+\hline
+PyVRP              & 62.96 & --    & 21.0m & 119.29 & --   & 1.4h \\
+LKH-3              & 63.07 & 0.18  & 18.6m & 119.52 & 0.20 & 2.1h \\
+\hline
+POMO               & 68.69 & 9.08  & 2s    & 145.74 & 22.14 & 3s \\
+\quad +EAS         & 64.76 & 2.85  & 5.0m  & 126.25 & 5.83  & 10.0m \\
+\quad +SGBS        & 65.44 & 3.93  & 5.2m  & 127.90 & 7.21  & 10.1m \\
+Sym\mbox{-}NCO     & 68.81 & 9.28  & 2s    & 141.82 & 18.86 & 3s \\
+\quad +EAS         & 64.63 & 2.65  & 5.0m  & 125.58 & 5.27  & 10.0m \\
+\quad +SGBS        & 65.40 & 3.87  & 5.2m  & 127.53 & 6.90  & 10.1m \\
+\hline
+ACO                & 64.62 & 2.63 & 36s & 122.82 & 2.96 & 1.3m \\
+DeepACO            & 64.49 & 2.43 & 36s & 122.15 & 2.40 & 1.3m \\
+\textbf{GFACS (ours)} & \textbf{64.19} & \textbf{1.95} & \textbf{36s} &
+\textbf{121.80} & \textbf{2.11} & \textbf{1.3m} \\
+\Xhline{1pt}\noalign{\vskip 1pt}\Xhline{1pt}
+\end{tabular}
+\end{minipage}
+\end{table}
+\restoregeometry
 
 \end{document}
 
