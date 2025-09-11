@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.11)  11 SEP 2025 18:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.11)  11 SEP 2025 19:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -244,7 +244,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 70.
 
-LaTeX Warning: Float too large for page by 36.81488pt on input line 71.
+LaTeX Warning: Float too large for page by 33.922pt on input line 71.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -256,9 +256,6 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 131.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 131.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -299,17 +296,19 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-Overfull \hbox (3.74199pt too wide) in paragraph at lines 199--222
+Overfull \hbox (1.39093pt too wide) in paragraph at lines 173--196
  [][] 
  []
 
 
-Overfull \hbox (14.30878pt too wide) in paragraph at lines 228--250
+Overfull \hbox (11.95772pt too wide) in paragraph at lines 202--224
  [][] 
  []
 
 [3
 
+
+] [4
 
 ] (figure.aux)
  ***********
@@ -326,9 +325,9 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  66i,17n,80p,464b,463s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb>
-Output written on figure.pdf (3 pages, 97599 bytes).
+Output written on figure.pdf (4 pages, 97881 bytes).
 PDF statistics:
- 42 PDF objects out of 1000 (max. 8388607)
+ 45 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
