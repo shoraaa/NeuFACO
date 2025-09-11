@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.11)  11 SEP 2025 19:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.11)  11 SEP 2025 19:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -165,40 +165,62 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen180
 \Gm@layoutvoffset=\dimen181
 \Gm@dimlist=\toks24
- (C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)) (C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+ (C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)) (C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex/latex/arydshln\arydshln.sty
+Package: arydshln 2019/02/21 v1.76 
+\dashlinedash=\dimen182
+\dashlinegap=\dimen183
+\adl@box=\box57
+\adl@height=\dimen184
+\adl@heightsave=\dimen185
+\adl@depth=\dimen186
+\adl@depthsave=\dimen187
+\adl@finaldepth=\dimen188
+\adl@columns=\count274
+\adl@ncol=\count275
+\adl@currentcolumn=\count276
+\adl@currentcolumnsave=\count277
+\adl@totalheight=\count278
+\adl@totalheightsave=\count279
+\adl@dash=\count280
+\adl@gap=\count281
+\adl@cla=\count282
+\adl@clb=\count283
+\adl@everyvbox=\toks25
+\adl@LTpagetotal=\dimen189
+) (C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count274
-\l__pdf_internal_box=\box57
+\l__color_backend_stack_int=\count284
+\l__pdf_internal_box=\box58
 ) (figure.aux)
 \openout1 = `figure.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
-LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
  (C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count275
-\scratchdimen=\dimen182
-\scratchbox=\box58
-\nofMPsegments=\count276
-\nofMParguments=\count277
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count278
-\MPscratchDim=\dimen183
-\MPnumerator=\count279
-\makeMPintoPDFobject=\count280
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count285
+\scratchdimen=\dimen190
+\scratchbox=\box59
+\nofMPsegments=\count286
+\nofMParguments=\count287
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count288
+\MPscratchDim=\dimen191
+\MPnumerator=\count289
+\makeMPintoPDFobject=\count290
+\everyMPtoPDFconversion=\toks27
 ) (C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -240,11 +262,11 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 70.
+(Font)              <7> on input line 71.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 70.
+(Font)              <5> on input line 71.
 
-LaTeX Warning: Float too large for page by 33.922pt on input line 71.
+LaTeX Warning: Float too large for page by 33.922pt on input line 72.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -253,9 +275,9 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 131.
+(Font)              <8> on input line 132.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 131.
+(Font)              <6> on input line 132.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -296,12 +318,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-Overfull \hbox (1.39093pt too wide) in paragraph at lines 173--196
- [][] 
- []
-
-
-Overfull \hbox (11.95772pt too wide) in paragraph at lines 202--224
+Overfull \hbox (1.42068pt too wide) in paragraph at lines 203--226
  [][] 
  []
 
@@ -317,15 +334,15 @@ L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3601 strings out of 474486
- 61565 string characters out of 5738999
- 2201542 words of memory out of 5000000
- 25835 multiletter control sequences out of 15000+600000
+ 3821 strings out of 474486
+ 64799 string characters out of 5738999
+ 2342542 words of memory out of 5000000
+ 26051 multiletter control sequences out of 15000+600000
  564498 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,17n,80p,464b,463s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 66i,19n,80p,464b,482s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb>
-Output written on figure.pdf (4 pages, 97881 bytes).
+Output written on figure.pdf (4 pages, 95974 bytes).
 PDF statistics:
  45 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

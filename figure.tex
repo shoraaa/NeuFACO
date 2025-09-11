@@ -17,6 +17,7 @@
 \usepackage{adjustbox}
 \usepackage{float}
 \usepackage{booktabs}
+\usepackage{arydshln}
 
 \begin{document}
 \pagenumbering{gobble} % tắt đánh số trang toàn văn bản
@@ -167,18 +168,18 @@ NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & \textb
 
 \noindent
 % ===== LEFT =====
-\begin{minipage}[t]{0.49\textwidth}
+\begin{minipage}[t]{0.495\textwidth}
 \vspace*{0pt}
 \centering
 \begin{tabular}{l ccc ccc}
-\Xhline{1pt}
-& \multicolumn{3}{c}{\textbf{TSP500}} & \multicolumn{3}{c}{\textbf{TSP1000}}\\
-\cline{2-7}
-\textbf{Method} & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
-\hline
+\toprule[1pt]
+& \multicolumn{3}{c}{TSP500} & \multicolumn{3}{c}{TSP1000}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
+\midrule[1pt]
 Concorde           & 16.55 & --    & 10.7s & 23.12 & --   & 108s \\
 LKH-3              & 16.55 & 0.02  & 31.7s & 23.14 & 0.10 & 102s \\
-\hline
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 AM$^*$             & 21.46 & 29.07 & 0.6s & 33.55 & 45.10 & 1.5s \\
 POMO$^*$           & 20.57 & 24.40 & 0.6s & 32.90 & 42.30 & 4.1s \\
 \quad +EAS         & 18.25 & 10.29 & 300s & 30.77 & 33.06 & 600s \\
@@ -186,40 +187,41 @@ POMO$^*$           & 20.57 & 24.40 & 0.6s & 32.90 & 42.30 & 4.1s \\
 DIMES$^*$          & 17.01 & 2.78  & 11s  & 24.45 & 5.75  & 32s \\
 SO$^*$             & 16.94 & 2.40  & 15s  & 23.77 & 2.80  & 26s \\
 Pointerformer$^*$  & 17.14 & 3.56  & 14s  & 24.80 & 7.90  & 40s \\
-\hline
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 ACO                & 17.38 & 5.04 & 14s & 24.76 & 7.09 & 57s \\
 DeepACO            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 66s \\
-\textbf{GFACS (ours)} & \textbf{16.80} & \textbf{1.56} & \textbf{15s} &
+GFACS (ours) & \textbf{16.80} & \textbf{1.56} & \textbf{15s} &
 \textbf{23.72} & \textbf{2.63} & \textbf{66s} \\
-\Xhline{1pt}
+\bottomrule[1pt]
 \end{tabular}
 \end{minipage}
 \hfill
 % ===== RIGHT =====
-\begin{minipage}[t]{0.49\textwidth}
+\begin{minipage}[t]{0.495 \textwidth}
 \vspace*{0pt}
 \centering
 \begin{tabular}{l ccc ccc}
-\Xhline{1pt}
-& \multicolumn{3}{c}{\textbf{CVRP500}} & \multicolumn{3}{c}{\textbf{CVRP1000}}\\
-\cline{2-7}
-\textbf{Method} & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
-\hline
+\toprule[1pt]
+& \multicolumn{3}{c}{CVRP500} & \multicolumn{3}{c}{CVRP1000}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
+\midrule[1pt]
 PyVRP              & 62.96 & --    & 21.0m & 119.29 & --   & 1.4h \\
 LKH-3              & 63.07 & 0.18  & 18.6m & 119.52 & 0.20 & 2.1h \\
-\hline
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+    &    &   &   &   &   &  \\
 POMO               & 68.69 & 9.08  & 2s    & 145.74 & 22.14 & 3s \\
 \quad +EAS         & 64.76 & 2.85  & 5.0m  & 126.25 & 5.83  & 10.0m \\
 \quad +SGBS        & 65.44 & 3.93  & 5.2m  & 127.90 & 7.21  & 10.1m \\
 Sym\mbox{-}NCO     & 68.81 & 9.28  & 2s    & 141.82 & 18.86 & 3s \\
 \quad +EAS         & 64.63 & 2.65  & 5.0m  & 125.58 & 5.27  & 10.0m \\
 \quad +SGBS        & 65.40 & 3.87  & 5.2m  & 127.53 & 6.90  & 10.1m \\
-\hline
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 ACO                & 64.62 & 2.63 & 36s & 122.82 & 2.96 & 1.3m \\
 DeepACO            & 64.49 & 2.43 & 36s & 122.15 & 2.40 & 1.3m \\
-\textbf{GFACS (ours)} & \textbf{64.19} & \textbf{1.95} & \textbf{36s} &
+GFACS (ours) & \textbf{64.19} & \textbf{1.95} & \textbf{36s} &
 \textbf{121.80} & \textbf{2.11} & \textbf{1.3m} \\
-\Xhline{1pt}
+\bottomrule[1pt]
 \end{tabular}
 \end{minipage}
 \end{table}
