@@ -190,7 +190,7 @@ Pointerformer$^*$  & 17.14 & 3.56  & 14s  & 24.80 & 7.90  & 40s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 ACO                & 17.38 & 5.04 & 14s & 24.76 & 7.09 & 57s \\
 DeepACO            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 66s \\
-GFACS (ours) & \textbf{16.80} & \textbf{1.56} & \textbf{15s} &
+GFACS & \textbf{16.80} & \textbf{1.56} & \textbf{15s} &
 \textbf{23.72} & \textbf{2.63} & \textbf{66s} \\
 \bottomrule[1pt]
 \end{tabular}
@@ -219,7 +219,7 @@ Sym\mbox{-}NCO     & 68.81 & 9.28  & 2s    & 141.82 & 18.86 & 3s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 ACO                & 64.62 & 2.63 & 36s & 122.82 & 2.96 & 1.3m \\
 DeepACO            & 64.49 & 2.43 & 36s & 122.15 & 2.40 & 1.3m \\
-GFACS (ours) & \textbf{64.19} & \textbf{1.95} & \textbf{36s} &
+GFACS& \textbf{64.19} & \textbf{1.95} & \textbf{36s} &
 \textbf{121.80} & \textbf{2.11} & \textbf{1.3m} \\
 \bottomrule[1pt]
 \end{tabular}
@@ -236,20 +236,95 @@ GFACS (ours) & \textbf{64.19} & \textbf{1.95} & \textbf{36s} &
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{>{\centering\arraybackslash}p{10mm} c c c c c}
 \Xhline{1pt}
-& $N$ & \# & DeepACO & GFACS & \makecell{NeuFACO(ours)} \\
+& $N$ & \# & DeepACO & GFACS & \makecell{NeuFACO} \\
 \hline
-\multirow{3}{*}{\rotatebox[origin=c]{90}{\scalebox{0.8}{TSPLib}}} 
+% \multirow{3}{*}{\rotatebox[origin=c]{90}{\scalebox{0.8}{TSPLib}}}
+\multirow{3}{*}{\rotatebox[origin=c]{0}{\scalebox{0.8}{\makecell{TSP \\ Lib}}}}
 & 100--299  & 30 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
 & 300--699  & 10 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
 & 700--1499 & 12 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
 \Xhline{0.8pt}
-\multirow{3}{*}{\rotatebox[origin=c]{90}{\scalebox{0.8}{TSP}}} 
-& 100--299  & 10 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
-& 300--699  & 10 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
-& 700--1001 & 128 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
+\multirow{3}{*}{\rotatebox[origin=c]{0}{\scalebox{0.8}{\makecell{TSP \\ Random}}}}
+& 200  & 10 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
+& 500  & 10 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
+& 1000 & 128 &\makecell{2670 \\ (3.53\%)} & \makecell{2670 \\ (3.53\%)} & \textbf{\makecell{2670 \\ (3.53\%)}} \\
 \Xhline{1pt}
 \end{tabular}}}
 \end{table}
+
+
+%--------------------------------------------------
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=1.5\textwidth}{%
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.0}
+\begin{tabular}{c cc cc cc cc}
+\Xhline{1pt}
+\multirow{2}{*}{\textbf{Method}} &
+\multicolumn{2}{c}{\textbf{Testlib200}} &
+\multicolumn{2}{c}{\textbf{Testlib500}} &
+\multicolumn{2}{c}{\textbf{Test200}} &
+\multicolumn{2}{c}{\textbf{Test500}} \\
+\cline{2-3}\cline{4-5}\cline{6-7}\cline{8-9}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)}
+ & \makecell{\textbf{Avg gap}\\(\%)} & \makecell{\textbf{Avg time}\\(s)} \\
+\hline
+DeepACO & 1.55 & 7.91  & 3.45 & 75.66 & 0.97 & 9.44 & 1.98 & 64.16 \\
+GFACS   & 1.48 & 7.88  & 2.51 & 77.52 & 0.84 & 9.40 & 0.60 & 71.37 \\
+NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & \textbf{0.16} & \textbf{0.65} & 0.74 & \textbf{0.56} \\
+\Xhline{1pt}
+\end{tabular}
+\endgroup
+}}
+\end{table}
+
+
+%-------------------------------------------
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=1.2\textwidth}{%
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\centering\arraybackslash}p{15mm} c c c c c}
+\Xhline{1pt}
+& $N$ & \# & DeepACO & GFACS & \makecell{NeuFACO} \\
+\hline
+\multirow{2}{*}{\rotatebox[origin=c]{0}{\scalebox{0.8}{\makecell{TSPLib}}}} 
+& 100--299 & 30 & \makecell{13.70s \\ (1.50\%)} & \makecell{13.75s \\ (1.44\%)} & \textbf{\makecell{0.22s \\ (1.39\%)}} \\
+& 300--699 & 10 & \makecell{143.92s \\ (3.43\%)} & \makecell{150.49s \\ (2.46\%)} & \textbf{\makecell{0.48s \\ (2.06\%)}} \\
+\Xhline{0.8pt}
+\multirow{2}{*}{\rotatebox[origin=c]{0}{\scalebox{0.8}{\makecell{TSP \\ Random}}}}
+& 200 & 10 & \makecell{16.79s \\ (1.77\%)} & \makecell{16.84s \\ (1.67\%)} & \textbf{\makecell{0.31s \\ (1.78\%)}} \\
+& 500 & 10 & \makecell{118.45s \\ (0.99\%)} & \makecell{140.87s \\ (0.86\%)} & \textbf{\makecell{0.77s \\ (0.96\%)}} \\
+\Xhline{1pt}
+\end{tabular}}}
+\end{table}
+
+
+% Test Random
+% TSP500 – NeuFACO → Avg gap: 0.96%, Avg time: 0.77s
+% TSP200 – NeuFACO → Avg gap: 1.78%, Avg time: 0.31s
+% TSP500 – GFACS → Avg gap: 0.86%, Avg time: 140.87s
+% TSP200 – GFACS → Avg gap: 1.67%, Avg time: 16.84s
+% TSP500 – DeepACO → Avg gap: 0.99%, Avg time: 118.45s
+% TSP200 – DeepACO → Avg gap: 1.77%, Avg time: 16.79s
+
+% Testlib
+% TSPLib300-699 – NeuFACO → Avg gap: 2.06%, Avg time: 0.48s
+% TSPLib100-299 – NeuFACO → Avg gap: 1.39%, Avg time: 0.22s
+% TSPLib300-69 – GFACS → Avg gap: 2.46%, Avg time: 150.49s
+% TSPLib100-299 – GFACS → Avg gap: 1.44%, Avg time: 13.75s
+% TSPLib300-69 – DeepACO → Avg gap: 3.43%, Avg time: 143.92s
+% TSPLib100-299 – DeepACO → Avg gap: 1.50%, Avg time: 13.70s
+
 
 
 \end{document}
