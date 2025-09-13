@@ -288,6 +288,8 @@ NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & \textb
 
 %-------------------------------------------
 
+
+
 \begin{table}[h]
 \centering
 \makebox[\textwidth][c]{%
@@ -298,12 +300,12 @@ NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & \textb
 & $N$ & \# & DeepACO & GFACS & \makecell{NeuFACO} \\
 \hline
 \multirow{2}{*}{\rotatebox[origin=c]{0}{\scalebox{0.8}{\makecell{TSPLib}}}} 
-& 100--299 & 30 & \makecell{13.70s \\ (1.50\%)} & \makecell{13.75s \\ (1.44\%)} & \textbf{\makecell{0.22s \\ (1.39\%)}} \\
-& 300--699 & 10 & \makecell{143.92s \\ (3.43\%)} & \makecell{150.49s \\ (2.46\%)} & \textbf{\makecell{0.48s \\ (2.06\%)}} \\
+& 100--299 & 30 & \makecell{1.50\% \\ 13.70s} & \makecell{1.44\% \\ 13.75s} & \textbf{\makecell{1.39\% \\ 0.22s}} \\
+& 300--699 & 10 & \makecell{3.43\% \\ 143.92s} & \makecell{2.46\% \\ 150.49s} & \textbf{\makecell{2.06\% \\ 0.48s}} \\
 \Xhline{0.8pt}
 \multirow{2}{*}{\rotatebox[origin=c]{0}{\scalebox{0.8}{\makecell{TSP \\ Random}}}}
-& 200 & 10 & \makecell{16.79s \\ (1.77\%)} & \makecell{16.84s \\ (1.67\%)} & \textbf{\makecell{0.31s \\ (1.78\%)}} \\
-& 500 & 10 & \makecell{118.45s \\ (0.99\%)} & \makecell{140.87s \\ (0.86\%)} & \textbf{\makecell{0.77s \\ (0.96\%)}} \\
+& 200 & 10 & \makecell{1.77\% \\ 16.79s} & \makecell{1.67\% \\ 16.84s} & \textbf{\makecell{1.78\% \\ 0.31s}} \\
+& 500 & 10 & \makecell{0.99\% \\ 118.45s} & \makecell{0.86\% \\ 140.87s} & \textbf{\makecell{0.96\% \\ 0.77s}} \\
 \Xhline{1pt}
 \end{tabular}}}
 \end{table}
@@ -325,6 +327,52 @@ NeuFACO & \textbf{1.25} & \textbf{0.53} & \textbf{1.95} & \textbf{1.11} & \textb
 % TSPLib300-69 – DeepACO → Avg gap: 3.43%, Avg time: 143.92s
 % TSPLib100-299 – DeepACO → Avg gap: 1.50%, Avg time: 13.70s
 
+%-------------------------------------------
+
+\begin{table}[h]
+\centering
+\makebox[\textwidth][c]{%
+\adjustbox{max width=1.2\textwidth}{%
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\centering\arraybackslash}p{15mm} c c c c c}
+\Xhline{1pt}
+& $N$ & \# & DeepACO & GFACS & \makecell{NeuFACO} \\
+\hline
+\multirow{4}{*}{\rotatebox[origin=c]{0}{\scalebox{0.9}{\makecell{TSP\\Lib}}}} 
+& 100--299 & 30 & \makecell{1.50\% \\ 13.70s} & \makecell{1.44\% \\ 13.75s} & \textbf{\makecell{1.39\% \\ 0.22s}} \\
+& 300--699 & 10 & \makecell{3.43\% \\ 143.92s} & \makecell{2.46\% \\ 150.49s} & \textbf{\makecell{2.06\% \\ 0.48s}} \\
+& 700--1499  & 12 & – & – & \textbf{\makecell{2.98\% \\ 1.03s}} \\
+\Xhline{0.8pt}
+\multirow{4}{*}{\rotatebox[origin=c]{0}{\scalebox{0.9}{\makecell{TSP \\ Random}}}}
+& 200 & 128 & \makecell{1.01\% \\ 16.79s} & \makecell{0.92\% \\ 16.84s} & \textbf{\makecell{0.74\% \\ 0.31s}} \\
+& 500 & 128 & \makecell{3.03\% \\ 118.45s} & \makecell{1.35\% \\ 140.87s} & \textbf{\makecell{1.50\% \\ 0.77s}} \\
+& 1000 & 32 & \makecell{4.53\% \\ 652.46s} & \makecell{2.66\% \\ 731.17s} & \textbf{\makecell{2.12\% \\ 2.00s}} \\
+\Xhline{1pt}
+\end{tabular}}}
+\end{table}
+
+
+
+% Test Random
+% TSPRandom200 – DeepACO → Avg gap: 1.01%, Avg time: 16.79s
+% TSPRandom500 – DeepACO → Avg gap: 3.03%, Avg time: 118.45s
+% TSPRandom1000 – DeepACO → Avg gap: 4.53%, Avg time: 652.46s
+% TSPRandom200 – GFACS → Avg gap: 0.92%, Avg time: 16.84s
+% TSPRandom500 – GFACS → Avg gap: 1.35%, Avg time: 140.87s
+% TSPRandom1000 – GFACS → Avg gap: 2.66%, Avg time: 731.17s
+% TSPRandom200 – PPOFACO → Avg gap: 0.74%, Avg time: 0.31s
+% TSPRandom500 – PPOFACO → Avg gap: 1.50%, Avg time: 0.77s
+% TSPRandom1000 – PPOFACO → Avg gap: 2.12%, Avg time: 2.00s
+% Optimal Solution for TSP200 : 10.72, TSP500 : 16.55 and TSP1000 : 23.12
+
+% Testlib
+% TSPLib200 – DeepACO → Avg gap: 1.50%, Avg time: 13.70s
+% TSPLib500 – DeepACO → Avg gap: 3.43%, Avg time: 143.92s
+% TSPLib200 – GFACS → Avg gap: 1.44%, Avg time: 13.75s
+% TSPLib500 – GFACS → Avg gap: 2.46%, Avg time: 150.49s
+% TSPLib200 – PPOFACO → Avg gap: 1.39%, Avg time: 0.22s
+% TSPLib500 – PPOFACO → Avg gap: 2.06%, Avg time: 0.48s
+% TSPLib1000 – PPOFACO → Avg gap: 2.98%, Avg time: 1.03s
 
 
 \end{document}

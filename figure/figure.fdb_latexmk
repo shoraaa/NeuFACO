@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1757603517.66554 "c:/Coding/NeuFACO/figure.tex" "figure.pdf" "figure" 1757603518.85348 0
+["pdflatex"] 1757734701.44305 "c:/Coding/NeuFACO/figure/figure.tex" "figure.pdf" "figure" 1757734702.78267 0
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1757593779 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1757575670 24229802 71b33650d2297c4a950211c4df7c862e ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1233951848 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -65,9 +65,9 @@
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/tools/bm.sty" 1700599895 13231 2c742011581e2bf297e33520567d9464 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/varwidth/varwidth.sty" 1238469540 10894 d359a13923460b2a73d4312d613554c8 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "c:/Coding/NeuFACO/figure.tex" 1757603515 26288 4139cf26f71a1568caa7a62f31eed93a ""
-  "figure.aux" 1757603518 69 b9f8f0f77263b2cf22cffb831398601e "pdflatex"
-  "figure.tex" 1757603515 26288 4139cf26f71a1568caa7a62f31eed93a ""
+  "c:/Coding/NeuFACO/figure/figure.tex" 1757734700 28541 492ea831c85c7442ff5adfa51a8a53a9 ""
+  "figure.aux" 1757734702 69 b9564f5832ca1e521a55fe574d972060 "pdflatex"
+  "figure.tex" 1757734700 28541 492ea831c85c7442ff5adfa51a8a53a9 ""
   (generated)
   "figure.aux"
   "figure.log"
