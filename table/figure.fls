@@ -1,6 +1,6 @@
-PWD c:\Coding\NeuFACO\figure
+PWD c:\Coding\NeuFACO\table
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Coding\NeuFACO\figure\figure.tex
+INPUT c:\Coding\NeuFACO\table\figure.tex
 OUTPUT figure.log
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
