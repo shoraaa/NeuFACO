@@ -1,6 +1,6 @@
-PWD c:\Coding\NeuFACO\table
+PWD c:\Coding\NeuFACO\table_latex
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Coding\NeuFACO\table\figure.tex
+INPUT c:\Coding\NeuFACO\table_latex\figure.tex
 OUTPUT figure.log
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
@@ -108,6 +108,7 @@ INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\am
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmbsy6.tfm
 OUTPUT figure.pdf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT figure.aux
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
@@ -121,3 +122,5 @@ INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr8.pfb
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy6.pfb
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy6.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb

@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1757848285.9799 "c:/Coding/NeuFACO/table/figure.tex" "figure.pdf" "figure" 1757848287.24866 0
+["pdflatex"] 1757966709.82647 "c:/Coding/NeuFACO/table_latex/figure.tex" "figure.pdf" "figure" 1757966711.10564 0
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1757593779 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1757575670 24229802 71b33650d2297c4a950211c4df7c862e ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1233951848 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -19,6 +19,7 @@
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmmi6.tfm" 1136765053 1512 f21f83efb36853c0b70002322c1ab3ad ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmmi8.tfm" 1136765053 1520 eccf95517727cb11801f4f1aee3a21b4 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmmib10.tfm" 1136765053 1524 554068197b70979a55370e6c6495f441 ""
+  "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr12.tfm" 1136765053 1288 655e228510b4c2a1abe905c368440826 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr6.tfm" 1136765053 1300 b62933e007d01cfd073f79b963c01526 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmr8.tfm" 1136765053 1292 21c1c5bfeaebccffdb478fd231a0997d ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy6.tfm" 1136765053 1116 933a60c408fc0a863a92debe84b2d294 ""
@@ -29,6 +30,7 @@
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1247596667 35752 024fb6c41858982481f6968b5fc26508 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1247596667 32726 39f0f9e62e84beb801509898a605dbd5 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1247596667 32587 65067f817f408bc71a7312f3d9828a9b ""
+  "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1247596667 32626 5abc8bb2f28aa647d4c70f8ea38cc0d3 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pdf.mkii" 1580390158 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/generic/iftex/iftex.sty" 1643997108 7237 bdd120a32c8fdb4b433cf9ca2e7cd98a ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/generic/iftex/ifvtex.sty" 1643997108 1057 525c2192b5febbd8c1f662c9468335bb ""
@@ -65,9 +67,9 @@
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/tools/bm.sty" 1700599895 13231 2c742011581e2bf297e33520567d9464 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/varwidth/varwidth.sty" 1238469540 10894 d359a13923460b2a73d4312d613554c8 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "c:/Coding/NeuFACO/table/figure.tex" 1757848284 26272 647b0e4fd54297075aea96c8ea938c89 ""
-  "figure.aux" 1757848286 69 b9f8f0f77263b2cf22cffb831398601e "pdflatex"
-  "figure.tex" 1757848284 26272 647b0e4fd54297075aea96c8ea938c89 ""
+  "c:/Coding/NeuFACO/table_latex/figure.tex" 1757966708 28146 8d06e82a1a6ae438eae38638bcf09d84 ""
+  "figure.aux" 1757966710 69 b9564f5832ca1e521a55fe574d972060 "pdflatex"
+  "figure.tex" 1757966708 28146 8d06e82a1a6ae438eae38638bcf09d84 ""
   (generated)
   "figure.aux"
   "figure.log"

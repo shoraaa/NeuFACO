@@ -233,7 +233,7 @@ GFACS& \textbf{64.19} & \textbf{1.95} & \textbf{36s} &
 \centering
 \makebox[\textwidth][c]{%
 \adjustbox{max width=1.2\textwidth}{%
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.8}
 \begin{tabular}{>{\centering\arraybackslash}p{15mm} c c c c c}
 \Xhline{1pt}
 & $N$ & \# & DeepACO & GFACS & \makecell{NeuFACO} \\
@@ -263,69 +263,110 @@ GFACS& \textbf{64.19} & \textbf{1.95} & \textbf{36s} &
 % TSPLib500 – (DeepACO, GFACS, NeuFACO) → Avg gap: (3.43%, 2.46%, 2.06%), Avg time: (143.92s, 150.49s, 0.48s)
 % TSPLib1000 – (DeepACO, GFACS, NeuFACO) → Avg gap: (4.86%, 3.99%, 2.98%), Avg time: (1047.59s, 1141.24s, 1.03s)
 
+%------------------------------------------------
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{$}c<{$}} % cột toán học cho N
+
+\begin{table}[H]
+\raggedright
+\large
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{tabular}{c M{1.5cm} C{0.8cm} cc cc cc}
+\toprule[1pt]
+&  &  & \multicolumn{2}{c}{DeepACO} & \multicolumn{2}{c}{GFACS} & \multicolumn{2}{c}{NeuFACO} \\
+\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+\multirow{-2}{*}{\makecell[c]{Dataset}} &
+\multirow{-2}{*}{\makecell[c]{N}} &
+\multirow{-2}{*}{\makecell[c]{\#}} &
+Gap(\%) & Time(s) & Gap(\%) & Time(s) & Gap(\%) & Time(s) \\
+\midrule[1pt]
+
+\multirow{3}{*}{\makecell[c]{TSP \\ Lib}}
+  & 100-299  & 30 & 1.50 & 13.70   & 1.44 & 13.75   & \textbf{1.39} & \textbf{0.22} \\
+  & 300-699  & 10 & 3.43 & 143.92  & 2.46 & 150.49  & \textbf{2.06} & \textbf{0.48} \\
+  & 700-1499 & 12 & 4.86 & 1047.59 & 3.99 & 1141.24 & \textbf{2.98} & \textbf{1.03} \\
+\cmidrule(lr){1-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+\multirow{3}{*}{\makecell[c]{TSP \\ Random}}
+  & 200  & 64 & 1.89 & 16.86  & 1.80 & 17.36  & \textbf{1.66} & \textbf{0.28} \\
+  & 500  & 64 & 3.03 & 119.58 & 1.54 & 136.14 & \textbf{1.50} & \textbf{0.74} \\
+  & 1000 & 32 & 4.44 & 652.46 & 2.57 & 731.17 & \textbf{2.19} & \textbf{1.98} \\
+\bottomrule[1pt]
+\end{tabular}
+\end{table}
+
+
+% % TSPLib
+% TSPLib200 – DeepACO → Avg gap: 1.50%, Avg time: 13.70s
+% TSPLib200 – GFACS → Avg gap: 1.44%, Avg time: 13.75s
+% TSPLib200 – NeuFACO → Avg gap: 1.39%, Avg time: 0.22s
+% TSPLib500 – DeepACO → Avg gap: 3.43%, Avg time: 143.92s
+% TSPLib500 – GFACS → Avg gap: 2.46%, Avg time: 150.49s
+% TSPLib500 – NeuFACO → Avg gap: 2.06%, Avg time: 0.48s
+% TSPLib1000 – DeepACO → Avg gap: 4.86%, Avg time: 1047.59s
+% TSPLib1000 – GFACS → Avg gap: 3.99%, Avg time: 1141.24s
+% TSPLib1000 – NeuFACO → Avg gap: 2.98%, Avg time: 1.03s
+
+% % TSPRandom
+% TSPRand200 – DeepACO → Avg gap: 1.89%, Avg time: 16.86s
+% TSPRand200 – GFACS → Avg gap: 1.80%, Avg time: 17.36s
+% TSPRand200 – NeuFACO → Avg gap: 1.66%, Avg time: 0.28s
+% TSPRand500 – DeepACO → Avg gap: 3.03%, Avg time: 119.58s
+% TSPRand500 – GFACS → Avg gap: 1.54%, Avg time: 136.14s
+% TSPRand500 – NeuFACO → Avg gap: 1.50%, Avg time: 0.74s
+% TSPRand1000 – DeepACO → Avg gap: 4.44%, Avg time: 652.46s
+% TSPRand1000 – GFACS → Avg gap: 2.57%, Avg time: 731.17s
+% TSPRand1000 – NeuFACO → Avg gap: 2.19%, Avg time: 1.98s
 
 %---------------------------------
 
-\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 
+
+\newgeometry{margin=1in}
 \begin{table}[H]
 \centering
 \footnotesize
-\setlength{\tabcolsep}{4pt}
+\setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.2}
 
-\begin{tabular}{c C{1.5cm} C{0.8cm} cc cc cc}
-\toprule[1pt]
-&  &  & \multicolumn{2}{c}{DeepACO} & \multicolumn{2}{c}{GFACS} & \multicolumn{2}{c}{NeuFACO} \\
-\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
-Dataset & N & \# & Gap(\%) & Time(s) & Gap(\%) & Time(s) & Gap(\%) & Time(s) \\
-\midrule[1pt]
-
-\multirow{3}{*}{\makecell[c]{TSP \\ Lib}}
-  & 100--299 & 30 &  &  &  &  &  &  \\
-  & 300--699 & 10 &  &  &  &  &  &  \\
-  & 700--1499 & 12 & &  &  &  &  &  \\
-\midrule
-\multirow{3}{*}{\makecell[c]{TSP \\ Random}}
-  & 200  & 64 &  &  &  &  &  &  \\
-  & 500  & 64 &  &  &  &  &  &  \\
-  & 1000 & 32 &  &  &  &  &  &  \\
-\bottomrule[1pt]
-\end{tabular}
-\end{table}
-
-
-%------------------------------------------
-
-% Data filled per your notes above
-
-\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-
-\begin{table}[H]
+% ===== LEFT: TSPLib =====
+\begin{minipage}[t]{0.45\textwidth}
+\vspace*{0pt}
 \centering
-\footnotesize
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.2}
-
-\begin{tabular}{c C{1.5cm} C{0.8cm} cc cc cc}
+\begin{tabular}{l cc cc cc}
 \toprule[1pt]
-&  &  & \multicolumn{2}{c}{DeepACO} & \multicolumn{2}{c}{GFACS} & \multicolumn{2}{c}{NeuFACO} \\
-\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
-\multirow{-2}{*}{\makecell[c]{Dataset}} & \multirow{-2}{*}{\makecell[c]{N}} & \multirow{-2}{*}{\makecell[c]{\#}} & Gap(\%) & Time(s) & Gap(\%) & Time(s) & Gap(\%) & Time(s) \\
+& \multicolumn{2}{c}{TSPLib200} & \multicolumn{2}{c}{TSPLib500} & \multicolumn{2}{c}{TSPLib1000} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Method & Gap(\%) & Time & Gap(\%) & Time & Gap(\%) & Time \\
 \midrule[1pt]
-
-\multirow{3}{*}{\makecell[c]{TSP \\ Lib}}
-  & 100--299  & 30 & 1.50 & 13.70  & 1.44 & 13.75  & \textbf{1.39} & \textbf{0.22} \\
-  & 300--699  & 10 & 3.43 & 143.92 & 2.46 & 150.49 & \textbf{2.06} & \textbf{0.48} \\
-  & 700--1499 & 12 & 4.86 & 1047.59 & 3.99 & 1141.24 & \textbf{2.98} & \textbf{1.03} \\
-\midrule
-\multirow{3}{*}{\makecell[c]{TSP \\ Random}}
-  & 200  & 64 & 1.91 & 16.78  & 1.83 & 16.84  & \textbf{1.74} & \textbf{0.32} \\
-  & 500  & 64 & 2.92 & 118.67 & \textbf{1.45} & 140.87 & 1.48 & \textbf{0.77} \\
-  & 1000 & 32 & 4.53 & 652.46 & 2.66 & 731.17 & \textbf{2.19} & \textbf{2.01} \\
+DeepACO    & 1.50 & 13.70s  & 3.43 & 143.92s  & 4.86 & 1047.59s \\
+GFACS      & 1.44 & 13.75s  & 2.46 & 150.49s  & 3.99 & 1141.24s \\
+NeuFACO    & \textbf{1.39} & \textbf{0.22s}  & \textbf{2.06} & \textbf{0.48s}  & \textbf{2.98} & \textbf{1.03s} \\
 \bottomrule[1pt]
 \end{tabular}
+\end{minipage}
+\hfill
+% ===== RIGHT: TSPRandom =====
+\begin{minipage}[t]{0.45\textwidth}
+\vspace*{0pt}
+\centering
+\begin{tabular}{l cc cc cc}
+\toprule[1pt]
+& \multicolumn{2}{c}{TSP200} & \multicolumn{2}{c}{TSP500} & \multicolumn{2}{c}{TSP1000} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Method & Gap(\%) & Time & Gap(\%) & Time & Gap(\%) & Time \\
+\midrule[1pt]
+DeepACO    & 1.89 & 16.86s  & 3.03 & 119.58s  & 4.44 & 652.46s \\
+GFACS      & 1.80 & 17.36s  & 1.54 & 136.14s  & 2.57 & 731.17s \\
+NeuFACO    & \textbf{1.66} & \textbf{0.28s}  & \textbf{1.50} & \textbf{0.74s}  & \textbf{2.19} & \textbf{1.98s} \\
+\bottomrule[1pt]
+\end{tabular}
+\end{minipage}
 \end{table}
+\restoregeometry
 
 
 \end{document}
