@@ -76,6 +76,8 @@ class ACO():
         Sparsify the TSP graph to obtain the heuristic information 
         Used for vanilla ACO baselines
         '''
+        # Ensure distances is on the correct device
+        distances = distances.to(self.device)
         _, topk_indices = torch.topk(distances, k=k_sparse, dim=1, largest=False)
         edge_index_u = torch.repeat_interleave(
             torch.arange(len(distances), device=self.device), repeats=k_sparse

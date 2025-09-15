@@ -39,6 +39,7 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, n_runs=1):
             distances.cpu(),
             n_ants,
             heuristic=heu_mat.cpu() if heu_mat is not None else heu_mat,
+            k_sparse=len(distances)/10,
         )
 
         results = torch.zeros(size=(len(t_aco_diff),))

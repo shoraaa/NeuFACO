@@ -110,6 +110,17 @@ def main(ckpt_path, n_nodes, k_sparse, size=None, n_ants=None, n_iter=1000, guid
     os.makedirs(dirname, exist_ok=True)
 
     result_filename = f"test_result_ckpt{filename}-tsp{n_nodes}-ninst{size}-{ACOALG}-nants{n_ants}-niter{n_iter}-nruns{n_runs}-seed{seed}{'-'+test_name if test_name else ''}"
+    
+        # Save iteration-wise results to separate CSV
+    iteration_results = pd.DataFrame(columns=['T', 'avg_cost', 'avg_diversity'])
+    for i, t in enumerate(t_aco):
+        iteration_results = pd.concat([iteration_results, pd.DataFrame({
+            'T': [t],
+            'avg_cost': [avg_cost[i].item()],
+            'avg_diversity': [avg_diversity[i].item()]
+        })], ignore_index=True)
+    iteration_results.to_csv(os.path.join(dirname, result_filename + "_iterations.csv"), index=False)
+    
     # Save per-instance averages (keep original format)
     results = pd.DataFrame(columns=['instance', 'mean_cost', 'min_cost', 'max_cost', 'avg_time'])
     for idx in range(len(test_list)):
