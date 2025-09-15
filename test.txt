@@ -1,6 +1,6 @@
-uv run python test_m.py 200 -s 10
-uv run python test_m.py 500 -s 10
-uv run python test_m.py 1000 -s 5
+uv run python test_m.py 200 -s 64
+uv run python test_m.py 500 -s 64
+uv run python test_m.py 1000 -s 32
 
 uv run python test_tsplib_m.py 200 -p -r 5
 uv run python test_tsplib_m.py 500 -p -r 3
