@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 from tqdm import tqdm
 import numpy as np
@@ -19,12 +20,15 @@ START_NODE = None
 
 @torch.no_grad()
 def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse, n_runs=1):
+    # Time heuristic matrix calculation
+    heu_mat_start_time = time.time()
     heu_mat = None
     if model is not None:
         model.eval()
         heu_vec = model(pyg_data)
         heu_mat = model.reshape(pyg_data, heu_vec) + EPS
         heu_mat = heu_mat.cpu()
+    heu_mat_time = time.time() - heu_mat_start_time
 
     all_results = []
     all_diversities = []
@@ -43,13 +47,15 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse, n_r
         )
         results = torch.zeros(size=(len(t_aco_diff),))
         diversities = torch.zeros(size=(len(t_aco_diff),))
-        elapsed_time = 0
+        elapsed_time = heu_mat_time  # Include heuristic matrix calculation time
         for i, t in enumerate(t_aco_diff):
+            aco_start_time = time.time()
             results[i], diversities[i], t = aco.run(t, start_node=START_NODE)
-            elapsed_time += t
+            elapsed_time += time.time() - aco_start_time
         all_results.append(results)
         all_diversities.append(diversities)
         all_times.append(elapsed_time)
+        # print(elapsed_time)
     avg_results = torch.mean(torch.stack(all_results), dim=0)
     avg_diversities = torch.mean(torch.stack(all_diversities), dim=0)
     avg_time = np.mean(all_times)
