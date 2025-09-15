@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.11)  14 SEP 2025 18:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.11)  16 SEP 2025 03:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Coding/NeuFACO/table/figure.tex
-(c:/Coding/NeuFACO/table/figure.tex
+**c:/Coding/NeuFACO/table_latex/figure.tex
+(c:/Coding/NeuFACO/table_latex/figure.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -321,19 +321,56 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 ]
-Overfull \hbox (19.4891pt too wide) in paragraph at lines 277--295
- [][] 
- []
-
-
-Package array Warning: Column C is already defined on input line 302.
-
-
-Overfull \hbox (19.4891pt too wide) in paragraph at lines 310--328
- [][] 
+Overfull \hbox (16.94945pt too wide) in paragraph at lines 278--299
+[][]  
  []
 
 [4
+
+]
+*geometry* verbose mode - [ newgeometry ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+Overfull \hbox (37.85774pt too wide) in paragraph at lines 339--350
+ [][] 
+ []
+
+
+Overfull \hbox (33.60768pt too wide) in paragraph at lines 356--367
+ [][] 
+ []
+
+[5
 
 ] (figure.aux)
  ***********
@@ -342,17 +379,17 @@ L3 programming layer <2024-01-04>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3823 strings out of 474486
- 64862 string characters out of 5738999
+ 3827 strings out of 474486
+ 64944 string characters out of 5738999
  2342542 words of memory out of 5000000
- 26053 multiletter control sequences out of 15000+600000
- 564498 words of font info for 57 fonts, out of 8000000 for 9000
+ 26056 multiletter control sequences out of 15000+600000
+ 564796 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 66i,23n,80p,470b,502s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb>
-Output written on figure.pdf (4 pages, 97118 bytes).
+ 66i,23n,80p,476b,502s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on figure.pdf (5 pages, 106411 bytes).
 PDF statistics:
- 45 PDF objects out of 1000 (max. 8388607)
+ 53 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
