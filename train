@@ -6,5 +6,6 @@ uv run python train.py 200 --run_name ppo_faco
 uv run python train_deepaco.py 500 --run_name deepaco
 uv run python train_deepaco.py 200 --run_name deepaco
 
-
-
+uv run python concorde.py 200 --size 64
+uv run python concorde.py 500 --size 64
+uv run python concorde.py 1000 --size 32
