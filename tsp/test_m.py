@@ -1,6 +1,5 @@
 import os
 import random
-import time
 
 from tqdm import tqdm
 import numpy as np
@@ -20,15 +19,12 @@ START_NODE = None
 
 @torch.no_grad()
 def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse, n_runs=1):
-    # Time heuristic matrix calculation
-    heu_mat_start_time = time.time()
     heu_mat = None
     if model is not None:
         model.eval()
         heu_vec = model(pyg_data)
         heu_mat = model.reshape(pyg_data, heu_vec) + EPS
         heu_mat = heu_mat.cpu()
-    heu_mat_time = time.time() - heu_mat_start_time
 
     all_results = []
     all_diversities = []
@@ -47,15 +43,13 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse, n_r
         )
         results = torch.zeros(size=(len(t_aco_diff),))
         diversities = torch.zeros(size=(len(t_aco_diff),))
-        elapsed_time = heu_mat_time  # Include heuristic matrix calculation time
+        elapsed_time = 0
         for i, t in enumerate(t_aco_diff):
-            aco_start_time = time.time()
             results[i], diversities[i], t = aco.run(t, start_node=START_NODE)
-            elapsed_time += time.time() - aco_start_time
+            elapsed_time += t
         all_results.append(results)
         all_diversities.append(diversities)
         all_times.append(elapsed_time)
-        # print(elapsed_time)
     avg_results = torch.mean(torch.stack(all_results), dim=0)
     avg_diversities = torch.mean(torch.stack(all_diversities), dim=0)
     avg_time = np.mean(all_times)
@@ -81,9 +75,17 @@ def test(dataset, model, n_ants, t_aco, k_sparse, n_runs=1):
     return instance_costs, instance_divs, instance_times, torch.mean(instance_costs, dim=0), torch.mean(instance_divs, dim=0), np.mean(instance_times)
 
 
-def main(ckpt_path, n_nodes, k_sparse, size=None, n_ants=None, n_iter=1000, guided_exploration=False, seed=0, test_name="", n_runs=1):
+def main(ckpt_path, n_nodes, k_sparse, size=None, n_ants=None, n_iter=1000, guided_exploration=False, seed=0, test_name="", n_runs=1, starting_instance_idx=0):
     test_list = load_test_dataset(n_nodes, k_sparse, DEVICE, start_node=START_NODE)
-    test_list = test_list[:(size or len(test_list))]
+    
+    # Calculate end index based on starting index and size
+    if size is not None:
+        end_idx = starting_instance_idx + size
+        test_list = test_list[starting_instance_idx:end_idx]
+        original_indices = list(range(starting_instance_idx, end_idx))
+    else:
+        test_list = test_list[starting_instance_idx:]
+        original_indices = list(range(starting_instance_idx, len(test_list) + starting_instance_idx))
 
     if n_ants is None:
         n_ants = int(4 * sqrt(n_nodes))
@@ -130,12 +132,13 @@ def main(ckpt_path, n_nodes, k_sparse, size=None, n_ants=None, n_iter=1000, guid
     # Save per-instance averages (keep original format)
     results = pd.DataFrame(columns=['instance', 'mean_cost', 'min_cost', 'max_cost', 'avg_time'])
     for idx in range(len(test_list)):
+        original_idx = original_indices[idx]
         mean_cost_val = instance_costs[idx].mean().item()
         min_cost_val = instance_costs[idx].min().item()
         max_cost_val = instance_costs[idx].max().item()
         avg_time_val = instance_times[idx]
         results = pd.concat([results, pd.DataFrame({
-            'instance': [idx],
+            'instance': [original_idx],
             'mean_cost': [mean_cost_val],
             'min_cost': [min_cost_val],
             'max_cost': [max_cost_val],
@@ -157,6 +160,7 @@ if __name__ == "__main__":
                         default=("cuda:0" if torch.cuda.is_available() else "cpu"), 
                         help="The device to train NNs")
     parser.add_argument("-s", "--size", type=int, default=None, help="Number of instances to test")
+    parser.add_argument("-si", "--starting_instance_idx", type=int, default=0, help="Starting instance index for inference")
     parser.add_argument("--test_name", type=str, default="", help="Name of the test")
     parser.add_argument("-r", "--n_runs", type=int, default=1, help="Number of runs per instance")
     ### GFACS
@@ -199,5 +203,6 @@ if __name__ == "__main__":
         not args.disable_guided_exp,
         args.seed,
         args.test_name,
-        args.n_runs
+        args.n_runs,
+        args.starting_instance_idx
     )

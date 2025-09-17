@@ -130,17 +130,17 @@ class ACO():
         end = time.time()
 
         # Pairwise Jaccard similarity between paths
-        edge_sets = []
-        _paths = _paths.T.cpu().numpy()  # type: ignore
-        for _p in _paths:
-            edge_sets.append(set(map(frozenset, zip(_p[:-1], _p[1:]))))
+        # edge_sets = []
+        # _paths = _paths.T.cpu().numpy()  # type: ignore
+        # for _p in _paths:
+        #     edge_sets.append(set(map(frozenset, zip(_p[:-1], _p[1:]))))
 
-        # Diversity
-        jaccard_sum = 0
-        for i, j in combinations(range(len(edge_sets)), 2):
-            jaccard_sum += len(edge_sets[i] & edge_sets[j]) / len(edge_sets[i] | edge_sets[j])
-        diversity = 1 - jaccard_sum / (len(edge_sets) * (len(edge_sets) - 1) / 2)
-
+        # # Diversity
+        # jaccard_sum = 0
+        # for i, j in combinations(range(len(edge_sets)), 2):
+        #     jaccard_sum += len(edge_sets[i] & edge_sets[j]) / len(edge_sets[i] | edge_sets[j])
+        # diversity = 1 - jaccard_sum / (len(edge_sets) * (len(edge_sets) - 1) / 2)
+        diversity = 0
         return self.lowest_cost, diversity, end - start
 
     @torch.no_grad()
@@ -433,15 +433,17 @@ class ACO_NP():
         end = time.time()
 
         # Pairwise Jaccard similarity between paths
-        edge_sets = []
-        for _p in _paths:
-            edge_sets.append(set(map(frozenset, zip(_p[:-1], _p[1:]))))  # frozenset to consider symmetry
+        # edge_sets = []
+        # for _p in _paths:
+        #     edge_sets.append(set(map(frozenset, zip(_p[:-1], _p[1:]))))  # frozenset to consider symmetry
 
-        # Diversity
-        jaccard_sum = 0
-        for i, j in combinations(range(len(edge_sets)), 2):
-            jaccard_sum += len(edge_sets[i] & edge_sets[j]) / len(edge_sets[i] | edge_sets[j])
-        diversity = 1 - jaccard_sum / (len(edge_sets) * (len(edge_sets) - 1) / 2)
+        # # Diversity
+        # jaccard_sum = 0
+        # for i, j in combinations(range(len(edge_sets)), 2):
+        #     jaccard_sum += len(edge_sets[i] & edge_sets[j]) / len(edge_sets[i] | edge_sets[j])
+        # diversity = 1 - jaccard_sum / (len(edge_sets) * (len(edge_sets) - 1) / 2)
+
+        diversity = 0
 
         return self.lowest_cost, diversity, end - start
 
