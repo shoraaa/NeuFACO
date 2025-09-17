@@ -358,9 +358,9 @@ NeuFACO    & \textbf{1.39} & \textbf{0.22s}  & \textbf{2.06} & \textbf{0.48s}  &
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
 Method & Gap(\%) & Time & Gap(\%) & Time & Gap(\%) & Time \\
 \midrule[1pt]
-DeepACO    & 1.89 & 16.86s  & 3.03 & 119.58s  & 4.44 & 652.46s \\
-GFACS      & 1.80 & 17.36s  & 1.54 & 136.14s  & 2.57 & 731.17s \\
-NeuFACO    & \textbf{1.66} & \textbf{0.28s}  & \textbf{1.50} & \textbf{0.74s}  & \textbf{2.19} & \textbf{1.98s} \\
+DeepACO    & 1.89 & 16.86s  & 3.03 & 119.58s  & 4.32 & 659.43s \\
+GFACS      & 1.80 & 17.36s  & 1.54 & 136.14s  & 2.48 & 730.56s \\
+NeuFACO    & \textbf{1.66} & \textbf{0.28s}  & \textbf{1.50} & \textbf{0.74s}  & \textbf{2.00} & \textbf{1.98s} \\
 \bottomrule[1pt]
 \end{tabular}
 \end{minipage}
@@ -386,21 +386,26 @@ NeuFACO    & \textbf{1.66} & \textbf{0.28s}  & \textbf{1.50} & \textbf{0.74s}  &
 Method & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
 \midrule[1pt]
 Concorde           & 16.55 & --    & 10.7s & 23.12 & --   & 108s \\
-LKH-3              & 16.55 & 0.02  & 31.7s & 23.14 & 0.10 & 102s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 AM                 & 21.46 & 29.07 & 0.6s & 33.55 & 45.10 & 1.5s \\
-POMO               & 20.57 & 24.40 & 0.6s & 32.90 & 42.30 & 4.1s \\
-\quad +EAS         & 18.25 & 10.29 & 300s & 30.77 & 33.06 & 600s \\
-\quad +SGBS        & 18.86 & 13.98 & 318s & 28.58 & 23.61 & 605s \\
+POMO+EAS           & 18.25 & 10.29 & 300s & 30.77 & 33.06 & 600s \\
+POMO+SGBS          & 18.86 & 13.98 & 318s & 28.58 & 23.61 & 605s \\
 DIMES              & 17.01 & 2.78  & 11s  & 24.45 & 5.75  & 32s \\
 SO                 & 16.94 & 2.40  & 15s  & 23.77 & 2.80  & 26s \\
 Pointerformer      & 17.14 & 3.56  & 14s  & 24.80 & 7.90  & 40s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-ACO                & 17.38 & 5.04 & \textbf{14s} & 24.76 & 7.09 & 57s \\
+H-TSP (AAAI 2023)             & 17.55 & 6.22  & 23s  & 24.65 & 6.62  & 0.33s\\
+GLOP  (AAAI 2024)             & -- &   &   & -- & 2.85  & 10.2s\\
+ELG   (IJCAI 2024)            & -- &   &   & -- & 11.33  & 0.8s\\
+INViT-3V+greedy(ICML 2024)    & -- &   &   & -- & 6.66  & 9s\\
+UDC(NeurIPS 2024)             & -- &   &   & -- & 1.7  & 84s\\
+SIT+Greedy                    & -- &   &   & -- & 1.95  & 0.2s\\
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 DeepACO            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 66s \\
 GFACS              & 16.80 & 1.56 & 15s & 23.72 & 2.63 & 66s \\
-NeuFACO            & \textbf{16.38} & \textbf{1.52} & 32.6s
-                   & \textbf{23.34} & \textbf{1.16} & \textbf{41s} \\
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+NeuFACO            & 16.43 & 1.33 & 15.9s & 23.34 & 1.16 & 41s \\
+
 \bottomrule[1pt]
 \end{tabular}
 \end{minipage}

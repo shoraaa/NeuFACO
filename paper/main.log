@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.9.17)  18 SEP 2025 00:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.9.17)  18 SEP 2025 00:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -626,32 +626,32 @@ File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
  (d:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 )))
-** ATTENTION: Overriding command lockouts (line 30).
-Package translations Info: No language package found. I am going to use `english' as default language. on input line 58.
+** ATTENTION: Overriding command lockouts (line 31).
+Package translations Info: No language package found. I am going to use `english' as default language. on input line 59.
 (d:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count360
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 58.
-LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
 
 -- Lines per column: 56 (exact).
 (d:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -673,20 +673,20 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (d:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 58.
+Package hyperref Info: Link coloring OFF on input line 59.
  (./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \microtypecontext on input line 58.
-Package microtype Info: Applying patch `item' on input line 58.
-Package microtype Info: Applying patch `toc' on input line 58.
-Package microtype Info: Applying patch `eqnum' on input line 58.
-Package microtype Info: Applying patch `footnote' on input line 58.
-Package microtype Info: Applying patch `verbatim' on input line 58.
-LaTeX Info: Redefining \microtypesetup on input line 58.
+LaTeX Info: Redefining \microtypecontext on input line 59.
+Package microtype Info: Applying patch `item' on input line 59.
+Package microtype Info: Applying patch `toc' on input line 59.
+Package microtype Info: Applying patch `eqnum' on input line 59.
+Package microtype Info: Applying patch `footnote' on input line 59.
+Package microtype Info: Applying patch `verbatim' on input line 59.
+LaTeX Info: Redefining \microtypesetup on input line 59.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -702,18 +702,18 @@ File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 ) (d:/texlive/2025/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
-Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 58.
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 61.
+Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 59.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 62.
  (d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 61.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 62.
  (d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 61.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 62.
  (d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg
@@ -726,7 +726,7 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 
 ]
-Underfull \hbox (badness 3396) in paragraph at lines 93--95
+Underfull \hbox (badness 3396) in paragraph at lines 94--96
 \T1/ptm/m/n/10 (+20) The task is to de-ter-mine a Hamil-to-nian tour $\OML/cmm/m/it/10 ^^Y \OT1/cmr/m/n/10 =
  []
 
@@ -736,7 +736,7 @@ pdfTeX warning: pdflatex.exe (file ./ACO.pdf): PDF inclusion: found PDF version 
 <ACO.pdf, id=177, 338.74556pt x 166.90355pt>
 File: ACO.pdf Graphic file (type pdf)
 <use ACO.pdf>
-Package pdftex.def Info: ACO.pdf  used on input line 122.
+Package pdftex.def Info: ACO.pdf  used on input line 123.
 (pdftex.def)             Requested size: 252.0pt x 124.16628pt.
 
 
@@ -746,7 +746,7 @@ pdfTeX warning: pdflatex.exe (file ./DACO.pdf): PDF inclusion: found PDF version
 <DACO.pdf, id=186, 271.53444pt x 127.85767pt>
 File: DACO.pdf Graphic file (type pdf)
 <use DACO.pdf>
-Package pdftex.def Info: DACO.pdf  used on input line 136.
+Package pdftex.def Info: DACO.pdf  used on input line 137.
 (pdftex.def)             Requested size: 252.0pt x 118.6586pt.
 
 
@@ -758,9 +758,9 @@ pdfTeX warning: pdflatex.exe (file ./FACO.pdf): PDF inclusion: found PDF version
 <FACO.pdf, id=9767, 342.64009pt x 210.32578pt>
 File: FACO.pdf Graphic file (type pdf)
 <use FACO.pdf>
-Package pdftex.def Info: FACO.pdf  used on input line 226.
+Package pdftex.def Info: FACO.pdf  used on input line 227.
 (pdftex.def)             Requested size: 252.0pt x 154.69188pt.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 234.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 235.
 (d:/texlive/2025/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
@@ -785,7 +785,7 @@ File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
 <TSP200_TSP500_Test.pdf, id=9802, 693.59125pt x 277.035pt>
 File: TSP200_TSP500_Test.pdf Graphic file (type pdf)
 <use TSP200_TSP500_Test.pdf>
-Package pdftex.def Info: TSP200_TSP500_Test.pdf  used on input line 360.
+Package pdftex.def Info: TSP200_TSP500_Test.pdf  used on input line 361.
 (pdftex.def)             Requested size: 252.0pt x 100.65405pt.
 
 
@@ -793,12 +793,12 @@ Package pdftex.def Info: TSP200_TSP500_Test.pdf  used on input line 360.
 <TSPOverview.pdf, id=14592, 838.13126pt x 326.21875pt>
 File: TSPOverview.pdf Graphic file (type pdf)
 <use TSPOverview.pdf>
-Package pdftex.def Info: TSPOverview.pdf  used on input line 370.
+Package pdftex.def Info: TSPOverview.pdf  used on input line 373.
 (pdftex.def)             Requested size: 252.0pt x 98.08041pt.
 <TSP200_vs_TSP500_3lines.pdf, id=14595, 827.09pt x 342.27875pt>
 File: TSP200_vs_TSP500_3lines.pdf Graphic file (type pdf)
 <use TSP200_vs_TSP500_3lines.pdf>
-Package pdftex.def Info: TSP200_vs_TSP500_3lines.pdf  used on input line 382.
+Package pdftex.def Info: TSP200_vs_TSP500_3lines.pdf  used on input line 385.
 (pdftex.def)             Requested size: 252.0pt x 104.28256pt.
 
 Underfull \vbox (badness 4391) has occurred while \output is active []
@@ -837,7 +837,7 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 Here is how much of TeX's memory you used:
  29942 strings out of 467800
  599662 string characters out of 5436061
- 982264 words of memory out of 5000000
+ 982265 words of memory out of 5000000
  57744 multiletter control sequences out of 15000+600000
  761662 words of font info for 371 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191

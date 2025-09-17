@@ -4,7 +4,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 % \usepackage{lmodern}
-
+% \usepackage{geometry}
+% \usepackage{booktabs}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -361,6 +362,8 @@ We evaluate NeuFACO on two benchmark datasets: randomized TSP instances with siz
   \caption{Test objective cost over training step.}
   \label{fig:val}
 \end{figure}
+
+
 
 \subsection{Comparison with other NAR solvers}
 We compare NeuFACO with previously proposed non-autoregressive methods, DeepACO and GFACS, both of which outperform the classical ACO without neural guidance \cite{DeepACO,GFACS}. For all compared NAR models, the number of ants is fixed at $M=100$, and each run consists of $I=100$ ACO iterations. Unlike these methods, which employ neural-guided perturbation, NeuFACO does not rely on this technique; instead, it applies scalable local search at every iteration, providing effective refinement without additional perturbation mechanisms.
