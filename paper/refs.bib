@@ -28,17 +28,15 @@
    author={Do Duc Dong},
  }
 
-@article{test,
-   title={TSP Test Data},
-   url={https://www.math.uwaterloo.ca/tsp/data/},
-   author={University of Waterloo},
- }
-
- @article{tsplib,
-   title={TSP Test Data},
-   url={http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/tsp/},
-   author={Heidelberg University},
- }
+ @misc{tsplib,
+  title={TSPLIB - A Traveling Salesman Problem Library},
+  author={Gerhard Reinelt},
+  journal={INFORMS J. Comput.},
+  year={1991},
+  volume={3},
+  pages={376-384},
+  url={https://api.semanticscholar.org/CorpusID:207225504}
+}
  
    @article{FACO2023,
 title = {Focused ACO with node relocation procedure for solving large TSP instances},
@@ -48,6 +46,7 @@ pages = {2992-3000},
 year = {2023},
 note = {27th International Conference on Knowledge Based and Intelligent Information and Engineering Sytems (KES 2023)},
 issn = {1877-0509},
+publisher={Elsevier},
 doi = {https://doi.org/10.1016/j.procs.2023.10.292},
 url = {https://www.sciencedirect.com/science/article/pii/S1877050923014503},
 author = {Rafał Skinderowicz},
@@ -64,6 +63,8 @@ issn = {0952-1976},
 doi = {https://doi.org/10.1016/j.engappai.2020.104131},
 url = {https://www.sciencedirect.com/science/article/pii/S0952197620303687},
 author = {Pablo A. Martínez and José M. García},
+journal={Engineering Applications of Artificial Intelligence},
+publisher={Elsevier},
 keywords = {Ant colony optimization, Large-size  instances, Performance analysis, Meta-heuristics, High-end CPU architectures},
 abstract = {Ant Colony Optimization (ACO) is a population-based meta-heuristic inspired by the social behavior of ants. It is successfully applied in solving many NP-hard problems, such as the Traveling Salesman Problem (TSP). Large-sized instances pose two memory problems to the ACOTSP algorithm: the memory size and the memory bandwidth. This work has focused on developing ACOTSP-MF, a new ACOTSP algorithm proposed to adequately manage the memory issues that arise while solving large TSP instances. ACOTSP-MF uses the nearest neighbor list, introducing a novel class of cities, the backup cities, while grouping cities into three classes: the nearest neighbor cities, the backup cities, and the rest of the cities (the majority). ACOTSP-MF also modifies how the base ACOTSP carries out the tour construction and pheromone update phases depending on the group to which a city belongs. This way, ACOTSP-MF reduces both the memory requirements of its data structures (from O(n∗n) to O(n)), and the memory bandwidth needs (thanks to better exploitation of the memory data locality). In this paper, we have carried out an in-depth analysis of ACOTSP-MF performance for medium and large TSP instances, covering vectorization and scalability issues and showing its main bottlenecks. For medium-size instances, the paper reports speedup factors of 20-500X for the rl11849 instance compared to the base ACOTSP version. ACOTSP-MF is intended and especially adequate for large-size instances. In this context, the paper reports excellent execution time for the Tour Construction phase, with less than 500 ms per iteration for the earring-200k instance. Finally, a study about the solution quality of ACOTSP-MF has been included, showing that ACOTSP-MF paired with local search offers high solution quality (within 2% of the best-known solution).}
 }
@@ -273,15 +274,21 @@ abstract = {Ant Colony Optimization (ACO) is a population-based meta-heuristic i
   publisher={PeerJ Inc.}
 }
 
-@article{TSP1,
-  title={Traveling salesman problem},
-  author={Hoffman, Karla L and Padberg, Manfred and Rinaldi, Giovanni and others},
-  journal={Encyclopedia of operations research and management science},
-  volume={1},
-  pages={1573--1578},
-  year={2013},
-  publisher={Springer New York}
+@Inbook{Hoffman2013,
+  author="Hoffman, Karla L. and Padberg, Manfred and Rinaldi, Giovanni",
+  editor="Gass, Saul I. and Fu, Michael C.",
+  title="Traveling Salesman Problem",
+  bookTitle="Encyclopedia of Operations Research and Management Science",
+  year="2013",
+  publisher="Springer US",
+  address="Boston, MA",
+  pages="1573--1578",
+  isbn="978-1-4419-1153-7",
+  doi="10.1007/978-1-4419-1153-7_1068",
+  url="https://doi.org/10.1007/978-1-4419-1153-7_1068"
 }
+
+
 
 @article{TSP2,
   title={Computer solutions of the traveling salesman problem},
@@ -294,16 +301,6 @@ abstract = {Ant Colony Optimization (ACO) is a population-based meta-heuristic i
   publisher={Wiley Online Library}
 }
 
-@article{TSP3,
-  title={Traveling salesman problem: an overview of applications, formulations, and solution approaches},
-  author={Matai, Rajesh and Singh, Surya Prakash and Mittal, Murari Lal},
-  journal={Traveling salesman problem, theory and applications},
-  volume={1},
-  number={1},
-  pages={1--25},
-  year={2010},
-  publisher={InTech, Croatia}
-}
 
 @article{ArtTSPSource,
   title={TSP art},
@@ -410,7 +407,11 @@ abstract = {Ant Colony Optimization (ACO) is a population-based meta-heuristic i
   title={Evolution of Ant Colony Optimization Algorithm--A Brief Literature Review},
   author={Akhtar, Aleem},
   journal={arXiv preprint arXiv:1908.08007},
-  year={2019}
+  year={2019},
+  eprint={1908.08007},
+  archivePrefix={arXiv},
+  primaryClass={cs.NE},
+  url={https://arxiv.org/abs/1908.08007}, 
 }
 
 @article{meta-review,
@@ -476,65 +477,81 @@ doi = {10.1007/978-1-4419-1665-5_13}
 }
 
 @inbook{Applications,
-author = {Matai, Rajesh and Singh, Surya and Mittal, M.L.},
-year = {2010},
-month = {11},
-pages = {},
-title = {Traveling Salesman Problem: an Overview of Applications, Formulations, and Solution Approaches},
-isbn = {978-953-307-426-9},
-doi = {10.5772/12909}
+  title={Traveling salesman problem: an overview of applications, formulations, and solution approaches},
+  author={Matai, Rajesh and Singh, Surya Prakash and Mittal, Murari Lal},
+  journal={Traveling salesman problem, theory and applications},
+  volume={1},
+  number={1},
+  pages={1--25},
+  year={2010},
+  publisher={InTech Rijeka}
 }
 
-@misc{GFACS,
-      title={Ant Colony Sampling with GFlowNets for Combinatorial Optimization}, 
-      author={Minsu Kim and Sanghyeok Choi and Hyeonah Kim and Jiwoo Son and Jinkyoo Park and Yoshua Bengio},
-      year={2025},
-      eprint={2403.07041},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2403.07041}, 
+@InProceedings{GFACS,
+  title = 	 {Ant Colony Sampling with GFlowNets for Combinatorial Optimization},
+  author =       {Kim, Minsu and Choi, Sanghyeok and Kim, Hyeonah and Son, Jiwoo and Park, Jinkyoo and Bengio, Yoshua},
+  booktitle = 	 {Proceedings of The 28th International Conference on Artificial Intelligence and Statistics},
+  pages = 	 {469--477},
+  year = 	 {2025},
+  editor = 	 {Li, Yingzhen and Mandt, Stephan and Agrawal, Shipra and Khan, Emtiyaz},
+  volume = 	 {258},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {03--05 May},
+  publisher =    {PMLR},
+  pdf = 	 {https://raw.githubusercontent.com/mlresearch/v258/main/assets/kim25a/kim25a.pdf},
+  url = 	 {https://proceedings.mlr.press/v258/kim25a.html},
+  abstract = 	 {We present the Generative Flow Ant Colony Sampler (GFACS), a novel meta-heuristic method that hierarchically combines amortized inference and parallel stochastic search. Our method first leverages Generative Flow Networks (GFlowNets) to amortize a multi-modal prior distribution over combinatorial solution space that encompasses both high-reward and diversified solutions. This prior is iteratively updated via parallel stochastic search in the spirit of Ant Colony Optimization (ACO), leading to the posterior distribution that generates near-optimal solutions. Extensive experiments across seven combinatorial optimization problems demonstrate GFACS’s promising performances.}
 }
+
+
 
 @misc{DeepACO,
-      title={DeepACO: Neural-enhanced Ant Systems for Combinatorial Optimization}, 
-      author={Haoran Ye and Jiarui Wang and Zhiguang Cao and Helan Liang and Yong Li},
-      year={2023},
-      eprint={2309.14032},
-      archivePrefix={arXiv},
-      primaryClass={cs.NE},
-      url={https://arxiv.org/abs/2309.14032}, 
+ author = {Ye, Haoran and Wang, Jiarui and Cao, Zhiguang and Liang, Helan and Li, Yong},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {A. Oh and T. Naumann and A. Globerson and K. Saenko and M. Hardt and S. Levine},
+ pages = {43706--43728},
+ publisher = {Curran Associates, Inc.},
+ title = {DeepACO: Neural-enhanced Ant Systems for Combinatorial Optimization},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2023/file/883105b282fe15275991b411e6b200c5-Paper-Conference.pdf},
+ volume = {36},
+ year = {2023}
 }
 
-@misc{NCO,
-      title={Neural Combinatorial Optimization with Reinforcement Learning}, 
-      author={Irwan Bello and Hieu Pham and Quoc V. Le and Mohammad Norouzi and Samy Bengio},
-      year={2017},
-      eprint={1611.09940},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/1611.09940}, 
-}
+
+
+@inproceedings{NCO,
+    author = {Luo, Fu and Lin, Xi and Liu, Fei and Zhang, Qingfu and Wang, Zhenkun},
+    title = {Neural combinatorial optimization with heavy decoder: toward large scale generalization},
+    year = {2023},
+    publisher = {Curran Associates Inc.},
+    address = {Red Hook, NY, USA},
+    booktitle = {Proceedings of the 37th International Conference on Neural Information Processing Systems},
+    articleno = {387},
+    numpages = {20},
+    location = {New Orleans, LA, USA},
+    series = {NIPS '23}
+    }
+
+
 
 @misc{MLCO,
-      title={Machine Learning for Combinatorial Optimization: a Methodological Tour d'Horizon}, 
-      author={Yoshua Bengio and Andrea Lodi and Antoine Prouvost},
-      year={2020},
-      eprint={1811.06128},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/1811.06128}, 
+  title={Machine learning for combinatorial optimization: a methodological tour d’horizon},
+  author={Bengio, Yoshua and Lodi, Andrea and Prouvost, Antoine},
+  journal={European Journal of Operational Research},
+  volume={290},
+  number={2},
+  pages={405--421},
+  year={2021},
+  publisher={Elsevier}
 }
 
 @inproceedings{RL4CO, series={KDD ’25},
-   title={RL4CO: An Extensive Reinforcement Learning for Combinatorial Optimization Benchmark},
-   url={http://dx.doi.org/10.1145/3711896.3737433},
-   DOI={10.1145/3711896.3737433},
-   booktitle={Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining V.2},
-   publisher={ACM},
-   author={Berto, Federico and Hua, Chuanbo and Park, Junyoung and Luttmann, ...},
-   year={2025},
-   month=aug, pages={5278–5289},
-   collection={KDD ’25} }
+  title={Rl4co: an extensive reinforcement learning for combinatorial optimization benchmark},
+  author={Berto, Federico and Hua, Chuanbo and Park, Junyoung and Luttmann, Laurin and Ma, Yining and Bu, Fanchen and Wang, Jiarui and Ye, Haoran and Kim, Minsu and Choi, Sanghyeok and others},
+  booktitle={Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining V. 2},
+  pages={5278--5289},
+  year={2025}
+}
 
 @InProceedings{SelectAndOptimize,
   title = 	 {Select and Optimize: Learning to aolve large-scale TSP instances},
@@ -551,6 +568,8 @@ doi = {10.5772/12909}
   url = 	 {https://proceedings.mlr.press/v206/cheng23a.html},
   abstract = 	 {Learning-based algorithms to solve TSP are getting popular in recent years, but most existing works cannot solve very large-scale TSP instances within a limited time. To solve this problem, this paper introduces a creative and distinctive method to select and locally optimize sub-parts of a solution. Concretely, we design a novel framework to generalize a small-scale selector-and-optimizer network to large-scale TSP instances by iteratively selecting while optimizing one sub-problem. At each iteration, the running time of sub-problem sampling and selection is significantly reduced due to the full use of parallel computing. Our neural model is well-designed to exploit the characteristics of the sub-problems. Furthermore, we introduce a trick called destroy-and-repair to avoid the local minimum of the iterative algorithm from a global perspective. Extensive experiments show that our method accelerates state-of-the-art learning-based algorithms more than 2x while achieving better solution quality on large-scale TSP instances ranging in size from 200 to 20,000.}
 }
+
+
 
 @misc{LeaningIsNPHard,
       title={Large-Sample Learning of Bayesian Networks is NP-Hard}, 
@@ -569,6 +588,7 @@ doi = {10.5772/12909}
   year={1958},
   volume={6},
   pages={791-812},
+  publisher={INFORMS},
   url={https://api.semanticscholar.org/CorpusID:123646893}
 }
 
@@ -584,54 +604,64 @@ doi = {10.1007/s42979-021-00779-2}
 }
 
 
-@misc{pointernetwork,
-      title={Pointer Networks}, 
-      author={Oriol Vinyals and Meire Fortunato and Navdeep Jaitly},
-      year={2017},
-      eprint={1506.03134},
-      archivePrefix={arXiv},
-      primaryClass={stat.ML},
-      url={https://arxiv.org/abs/1506.03134}, 
+@inproceedings{pointernetwork,
+ author = {Vinyals, Oriol and Fortunato, Meire and Jaitly, Navdeep},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {C. Cortes and N. Lawrence and D. Lee and M. Sugiyama and R. Garnett},
+ pages = {},
+ publisher = {Curran Associates, Inc.},
+ title = {Pointer Networks},
+ url = {https://proceedings.neurips.cc/paper_files/paper/2015/file/29921001f2f04bd3baee84a12e98098f-Paper.pdf},
+ volume = {28},
+ year = {2015}
 }
 
-@misc{PPO,
-      title={Proximal Policy Optimization Algorithms}, 
-      author={John Schulman and Filip Wolski and Prafulla Dhariwal and Alec Radford and Oleg Klimov},
-      year={2017},
-      eprint={1707.06347},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/1707.06347}, 
+
+@article{PPO,
+        added-at = {2019-12-16T18:31:56.000+0100},
+  author = {Schulman, John and Wolski, Filip and Dhariwal, Prafulla and Radford, Alec and Klimov, Oleg},
+  biburl = {https://www.bibsonomy.org/bibtex/24bbcce6aa1c42ae7f61ef8cf5475aa85/lanteunis},
+  ee = {http://arxiv.org/abs/1707.06347},
+  interhash = {f57ff463a90dbafb77d55a25aea8355c},
+  intrahash = {4bbcce6aa1c42ae7f61ef8cf5475aa85},
+  journal = {CoRR},
+  keywords = {DRLAlgoComparison ppo reinforcement_learning},
+  timestamp = {2019-12-18T21:15:59.000+0100},
+  title = {Proximal Policy Optimization Algorithms.},
+  url = {http://dblp.uni-trier.de/db/journals/corr/corr1707.html#SchulmanWDRK17},
+  volume = {abs/1707.06347},
+  year = 2017
 }
 
 @misc{gnn,
-      title={Graph Neural Networks: A Review of Methods and Applications}, 
-      author={Jie Zhou and Ganqu Cui and Shengding Hu and Zhengyan Zhang and Cheng Yang and Zhiyuan Liu and Lifeng Wang and Changcheng Li and Maosong Sun},
-      year={2021},
-      eprint={1812.08434},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/1812.08434}, 
+      title = {Graph neural networks: A review of methods and applications},
+journal = {AI Open},
+volume = {1},
+pages = {57-81},
+year = {2020},
+issn = {2666-6510},
+doi = {https://doi.org/10.1016/j.aiopen.2021.01.001},
+url = {https://www.sciencedirect.com/science/article/pii/S2666651021000012},
+author = {Jie Zhou and Ganqu Cui and Shengding Hu and Zhengyan Zhang and Cheng Yang and Zhiyuan Liu and Lifeng Wang and Changcheng Li and Maosong Sun},
+keywords = {Deep learning, Graph neural network}
 }
 
 @misc{transformer,
-      title={Attention Is All You Need}, 
-      author={Ashish Vaswani and Noam Shazeer and Niki Parmar and Jakob Uszkoreit and Llion Jones and Aidan N. Gomez and Lukasz Kaiser and Illia Polosukhin},
-      year={2023},
-      eprint={1706.03762},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/1706.03762}, 
+  title={Attention, Learn to Solve Routing Problems!},
+  author={Wouter Kool and Herke van Hoof and Max Welling},
+  booktitle={International Conference on Learning Representations},
+  year={2018},
+  url={https://api.semanticscholar.org/CorpusID:59608816}
+}
 }
 
 @misc{difusco,
-      title={DIFUSCO: Graph-based Diffusion Solvers for Combinatorial Optimization}, 
-      author={Zhiqing Sun and Yiming Yang},
-      year={2023},
-      eprint={2302.08224},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2302.08224}, 
+      title={Difusco: Graph-based diffusion solvers for combinatorial optimization},
+      author={Sun, Zhiqing and Yang, Yiming},
+      journal={Advances in neural information processing systems},
+      volume={36},
+      pages={3706--3731},
+      year={2023}
 }
 
 @article{REINFORCE,
@@ -647,64 +677,138 @@ issn = {0885-6125},
 url = {https://doi.org/10.1007/BF00992696},
 doi = {10.1007/BF00992696},
 abstract = {This article presents a general class of associative reinforcement learning algorithms for connectionist networks containing stochastic units. These algorithms, called REINFORCE algorithms, are shown to make weight adjustments in a direction that lies along the gradient of expected reinforcement in both immediate-reinforcement tasks and certain limited forms of delayed-reinforcement tasks, and they do this without explicitly computing gradient estimates or even storing information from which such estimates could be computed. Specific examples of such algorithms are presented, some of which bear a close relationship to certain existing algorithms while others are novel but potentially interesting in their own right. Also given are results that show how such algorithms can be naturally integrated with backpropagation. We close with a brief discussion of a number of additional issues surrounding the use of such algorithms, including what is known about their limiting behaviors as well as further considerations that might be used to help develop similar but potentially more powerful reinforcement learning algorithms.},
-journal = {Mach. Learn.},
+journal={Machine learning},
 month = may,
 pages = {229–256},
 numpages = {28},
 keywords = {mathematical analysis, gradient descent, connectionist networks, Reinforcement learning}
 }
 
-@misc{am,
-      title={Attention, Learn to Solve Routing Problems!}, 
-      author={Wouter Kool and Herke van Hoof and Max Welling},
-      year={2019},
-      eprint={1803.08475},
-      archivePrefix={arXiv},
-      primaryClass={stat.ML},
-      url={https://arxiv.org/abs/1803.08475}, 
-}
+
 
 @misc{pomo,
-      title={POMO: Policy Optimization with Multiple Optima for Reinforcement Learning}, 
-      author={Yeong-Dae Kwon and Jinho Choo and Byoungjip Kim and Iljoo Yoon and Youngjune Gwon and Seungjai Min},
-      year={2021},
-      eprint={2010.16011},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2010.16011}, 
+  title={Pomo: Policy optimization with multiple optima for reinforcement learning},
+  author={Kwon, Yeong-Dae and Choo, Jinho and Kim, Byoungjip and Yoon, Iljoo and Gwon, Youngjune and Min, Seungjai},
+  journal={Advances in Neural Information Processing Systems},
+  volume={33},
+  pages={21188--21198},
+  year={2020}
 }
+
 
 @misc{dimes,
-      title={DIMES: A Differentiable Meta Solver for Combinatorial Optimization Problems}, 
-      author={Ruizhong Qiu and Zhiqing Sun and Yiming Yang},
-      year={2022},
-      eprint={2210.04123},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2210.04123}, 
+  title={Dimes: A differentiable meta solver for combinatorial optimization problems},
+  author={Qiu, Ruizhong and Sun, Zhiqing and Yang, Yiming},
+  journal={Advances in Neural Information Processing Systems},
+  volume={35},
+  pages={25531--25546},
+  year={2022}
 }
 
+
+
 @misc{symaco,
-      title={Sym-NCO: Leveraging Symmetricity for Neural Combinatorial Optimization}, 
-      author={Minsu Kim and Junyoung Park and Jinkyoo Park},
-      year={2023},
-      eprint={2205.13209},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2205.13209}, 
+  author       = {Irwan Bello and Hieu Pham and
+                  Quoc V. Le and
+                  Mohammad Norouzi and
+                  Samy Bengio},
+  title        = {Neural Combinatorial Optimization with Reinforcement Learning},
+  journal      = {CoRR},
+  volume       = {abs/1611.09940},
+  year         = {2016},
+  eprinttype    = {arXiv},
+  eprint       = {1611.09940},
+  timestamp    = {Thu, 11 Jan 2024 22:39:41 +0100},
+  biburl       = {https://dblp.org/rec/journals/corr/BelloPLNB16.bib},
+  bibsource    = {dblp computer science bibliography, https://dblp.org}
+}
 }
 
 @inproceedings{pointerformer,
 author = {Jin, Yan and Ding, Yuandong and Pan, Xuanhao and He, Kun and Zhao, Li and Qin, Tao and Song, Lei and Bian, Jiang},
-title = {Pointerformer: deep reinforced multi-pointer transformer for the traveling salesman problem},
+title={Pointerformer: Deep Reinforced Multi-Pointer Transformer for the Traveling Salesman Problem}, 
+volume={37},
+url={https://ojs.aaai.org/index.php/AAAI/article/view/25982},
+DOI={10.1609/aaai.v37i7.25982},
+number={7},
+journal={Proceedings of the AAAI Conference on Artificial Intelligence},
+year={2023}, month={Jun.}, pages={8132-8140}
+}
+
+
+
+@misc{glop,
+  title={Glop: Learning global partition and local construction for solving large-scale routing problems in real-time},
+  author={Ye, Haoran and Wang, Jiarui and Liang, Helan and Cao, Zhiguang and Li, Yong and Li, Fanzhang},
+  booktitle={Proceedings of the AAAI conference on artificial intelligence},
+  volume={38},
+  number={18},
+  pages={20284--20292},
+  year={2024}
+}
+
+@misc{invit,
+ author = {Fang, Han and Song, Zhihao and Weng, Paul and Ban, Yutong},
+ bdsk-url-1 = {https://arxiv.org/abs/2402.02317},
+ booktitle = {ICML},
+ title = {INViT: A Generalizable Routing Problem Solver with Invariant Nested View Transformer},
+ year = {2024}
+}
+
+@misc{htsp,
+author = {Pan, Xuanhao and Jin, Yan and Ding, Yuandong and Feng, Mingxiao and Zhao, Li and Song, Lei and Bian, Jiang},
+title = {H-TSP: hierarchically solving the large-scale traveling salesman problem},
 year = {2023},
 isbn = {978-1-57735-880-0},
 publisher = {AAAI Press},
-url = {https://doi.org/10.1609/aaai.v37i7.25982},
-doi = {10.1609/aaai.v37i7.25982},
-abstract = {Traveling Salesman Problem (TSP), as a classic routing optimization problem originally arising in the domain of transportation and logistics, has become a critical task in broader domains, such as manufacturing and biology. Recently, Deep Reinforcement Learning (DRL) has been increasingly employed to solve TSP due to its high inference efficiency. Nevertheless, most of existing end-to-end DRL algorithms only perform well on small TSP instances and can hardly generalize to large scale because of the drastically soaring memory consumption and computation time along with the enlarging problem scale. In this paper, we propose a novel end-to-end DRL approach, referred to as Pointerformer, based on multi-pointer Transformer. Particularly, Pointerformer adopts both reversible residual network in the encoder and multi-pointer network in the decoder to effectively contain memory consumption of the encoder-decoder architecture. To further improve the performance of TSP solutions, Pointerformer employs a feature augmentation method to explore the symmetries of TSP at both training and inference stages as well as an enhanced context embedding approach to include more comprehensive context information in the query. Extensive experiments on a randomly generated benchmark and a public benchmark have shown that, while achieving comparative results on most small-scale TSP instances as state-of-the-art DRL approaches do, Pointerformer can also well generalize to large-scale TSPs.},
-booktitle = {Proceedings of the 37th AAAI Conference},
-articleno = {913},
+url = {https://doi.org/10.1609/aaai.v37i8.26120},
+doi = {10.1609/aaai.v37i8.26120},
+booktitle = {Proceedings of the Thirty-Seventh AAAI Conference on Artificial Intelligence and Thirty-Fifth Conference on Innovative Applications of Artificial Intelligence and Thirteenth Symposium on Educational Advances in Artificial Intelligence},
+articleno = {1051},
 numpages = {9},
 series = {AAAI'23/IAAI'23/EAAI'23}
+}
+
+@inproceedings{lehd,
+author = {Luo, Fu and Lin, Xi and Liu, Fei and Zhang, Qingfu and Wang, Zhenkun},
+title = {Neural combinatorial optimization with heavy decoder: toward large scale generalization},
+year = {2023},
+publisher = {Curran Associates Inc.},
+address = {Red Hook, NY, USA},
+booktitle = {Proceedings of the 37th International Conference on Neural Information Processing Systems},
+articleno = {387},
+numpages = {20},
+location = {New Orleans, LA, USA},
+series = {NIPS '23}
+}
+
+@inproceedings{bq,
+author = {Drakulic, Darko and Michel, Sofia and Mai, Florian and Sors, Arnaud and Andreoli, Jean-Marc},
+title = {BQ-NCO: bisimulation quotienting for efficient neural combinatorial optimization},
+year = {2023},
+publisher = {Curran Associates Inc.},
+address = {Red Hook, NY, USA},
+booktitle = {Proceedings of the 37th International Conference on Neural Information Processing Systems},
+articleno = {3385},
+numpages = {14},
+location = {New Orleans, LA, USA},
+series = {NIPS '23}
+}
+
+@article{sigd,
+title={Self-Improvement for Neural Combinatorial Optimization: Sample Without Replacement, but Improvement},
+author={Jonathan Pirnay and Dominik G. Grimm},
+journal={Transactions on Machine Learning Research},
+issn={2835-8856},
+year={2024},
+url={https://openreview.net/forum?id=agT8ojoH0X},
+note={Featured Certification}
+}
+
+@inproceedings{sit,
+title={Boosting Neural Combinatorial Optimization for Large-Scale Vehicle Routing Problems},
+author={Fu Luo and Xi Lin and Yaoxin Wu and Zhenkun Wang and Tong Xialiang and Mingxuan Yuan and Qingfu Zhang},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+url={https://openreview.net/forum?id=TbTJJNjumY}
 }

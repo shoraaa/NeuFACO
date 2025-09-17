@@ -390,11 +390,14 @@ INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\am
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam7.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8t.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmrc8t.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\base\8r.enc
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
@@ -405,6 +408,9 @@ INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\time
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmrc8t.vf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmri8t.vf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmri8r.tfm
 INPUT .\ACO.pdf
@@ -435,6 +441,10 @@ INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\time
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrr8t.vf
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrr8t.vf
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\pgf\libraries\pgflibraryarrows.meta.code.tex
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\pgf\libraries\pgflibraryarrows.meta.code.tex
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\pgf\libraries\pgflibraryarrows.meta.code.tex
@@ -442,22 +452,14 @@ INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\pgf\fro
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarypositioning.code.tex
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarycalc.code.tex
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarycalc.code.tex
-INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8t.tfm
-INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrr8t.vf
-INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
-INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrr8t.vf
-INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
+INPUT .\TSP200_TSP500_Test.pdf
+INPUT .\TSP200_TSP500_Test.pdf
+INPUT .\TSP200_TSP500_Test.pdf
+INPUT .\TSP200_TSP500_Test.pdf
+INPUT .\TSP200_TSP500_Test.pdf
+INPUT .\TSP200_TSP500_Test.pdf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmb8t.vf
 INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
-INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
-INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
-INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr8t.vf
-INPUT .\TSP200_TSP500_Test.pdf
-INPUT .\TSP200_TSP500_Test.pdf
-INPUT .\TSP200_TSP500_Test.pdf
-INPUT .\TSP200_TSP500_Test.pdf
-INPUT .\TSP200_TSP500_Test.pdf
-INPUT .\TSP200_TSP500_Test.pdf
 INPUT .\TSPOverview.pdf
 INPUT .\TSPOverview.pdf
 INPUT .\TSPOverview.pdf
@@ -470,13 +472,6 @@ INPUT .\TSP200_vs_TSP500_3lines.pdf
 INPUT .\TSP200_vs_TSP500_3lines.pdf
 INPUT .\TSP200_vs_TSP500_3lines.pdf
 INPUT .\TSP200_vs_TSP500_3lines.pdf
-INPUT .\rlsolvers.png
-INPUT .\rlsolvers.png
-INPUT .\rlsolvers.png
-INPUT .\rlsolvers.png
-INPUT .\rlsolvers.png
-INPUT .\rlsolvers.png
-INPUT .\rlsolvers.png
 INPUT .\main.bbl
 INPUT .\main.bbl
 INPUT main.bbl

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1758122367.38722 "main.aux" "main.bbl" "main" 1758122372.90847 0
+["bibtex main"] 1758142853.63084 "main.aux" "main.bbl" "main" 1758142858.6164 0
   "./IEEEtran.bst" 1758098765 60157 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "./refs.bib" 1758119663 28873 a600fc96ccf98215cd5c44e310a82ffe ""
-  "main.aux" 1758122371 8156 5fb3a4d1265eaf71aa2f86b0bb61eb17 "pdflatex"
+  "./refs.bib" 1758142017 32543 561e313cd9abdebe5a31797c1924b66c ""
+  "main.aux" 1758142857 8214 f8abd0d742fb60c3017a8c06e6ce7943 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1758122367.90042 "c:/Coding/NeuFACO/paper/main.tex" "main.pdf" "main" 1758122372.90968 0
+["pdflatex"] 1758142854.09907 "c:/Coding/NeuFACO/paper/main.tex" "main.pdf" "main" 1758142858.61799 0
   "ACO.pdf" 1758119663 1574980 b62b2dfd71a4a6f9f568c5a01cbc68c2 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1758121741 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1757575670 24229802 71b33650d2297c4a950211c4df7c862e ""
@@ -152,7 +152,7 @@
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/base/fontenc.sty" 1705273578 5119 a04a8b68ab4f6ce800a41f7f8012a10e ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/base/inputenc.sty" 1705273578 5048 425739d70251273bf93e3d51f3c40048 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/booktabs/booktabs.sty" 1579093635 6253 f1cb470c9199e7110a27851508ed7a5c ""
-  "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption.sty" 1696169587 56128 c2ccf1a29d78c33bc553880402e4fb9a ""
+  "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption.sty" 1758138353 56124 135bb7273505e018493d7013985252a2 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption3.sty" 1696169587 72619 ee90b6612147680fd73c3b1406a74245 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/caption/subcaption.sty" 1696169587 12494 0c0cdb824278a4d51cefeb2e79901315 ""
   "C:/Users/LAPTOP Thai Hoa/AppData/Local/Programs/MiKTeX/tex/latex/cite/cite.sty" 1425353482 26218 19edeff8cdc2bcb704e8051dc55eb5a7 ""
@@ -213,12 +213,11 @@
   "TSP200_TSP500_Test.pdf" 1758119663 28977 38a3adc226d423574f5a03ba023d4001 ""
   "TSP200_vs_TSP500_3lines.pdf" 1758119663 16634 2ce88ecc50eb78b1fe1d493c0b66b8a4 ""
   "TSPOverview.pdf" 1758119663 16779 eef73d29308b497361e40d8a56eaba76 ""
-  "c:/Coding/NeuFACO/paper/main.tex" 1758122361 29104 4bbd350ecf6e6d1cf56bef0c7cf73147 ""
-  "main.aux" 1758122371 8156 5fb3a4d1265eaf71aa2f86b0bb61eb17 "pdflatex"
-  "main.bbl" 1758122367 10357 14c4cba0e94ae8fa0f0674ea41796c6e "bibtex main"
-  "main.out" 1758122371 5242 c492996be8d5a7e920fa5a1c7223a7af "pdflatex"
-  "main.tex" 1758122361 29104 4bbd350ecf6e6d1cf56bef0c7cf73147 ""
-  "rlsolvers.png" 1758098765 329937 93533d5c788f648d55c63d0a6c7ec127 ""
+  "c:/Coding/NeuFACO/paper/main.tex" 1758142842 30499 01989e03460bbae26f05a66b28d65bda ""
+  "main.aux" 1758142857 8214 f8abd0d742fb60c3017a8c06e6ce7943 "pdflatex"
+  "main.bbl" 1758142853 10780 ce064034c95ff82e45a0e280608e5dbf "bibtex main"
+  "main.out" 1758142857 5242 c492996be8d5a7e920fa5a1c7223a7af "pdflatex"
+  "main.tex" 1758142842 30499 01989e03460bbae26f05a66b28d65bda ""
   (generated)
   "main.aux"
   "main.log"
