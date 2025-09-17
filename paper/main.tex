@@ -208,9 +208,9 @@ and we minimize $\mathcal{L}=\mathcal{L}_{\text{policy}}+\mathcal{L}_{\text{valu
 
 \section{Solution sampling}
 The ACO constructs a probability distribution over transitions:
-\begin{equation}
+$
 p_{ij} \propto \tau_{ij}^\alpha \cdot H_{ij},
-\end{equation}
+$
 where $\tau_{ij}$ is the pheromone and $H_{ij}$ is the learned heuristic, and $\alpha$ is a weighting parameter.
 
 Our method incorporates multiple state-of-the-art enhancements aimed at improving both the computational efficiency and solution quality of ACO algorithms. These improvements address three key aspects of solution construction: efficient node selection, focused modifications to high-quality tours, and scalable local search. Figure~\ref{fig:FACO} demonstrates the final algorithm for solution sampling.
@@ -252,7 +252,7 @@ J = \arg\min_{u:\texttt{visited}(u)=0} d(i,u).
 This hierarchical rule preserves stochastic exploration early on while substantially reducing overhead in the later stages of tour construction.
 
 \subsection{Node Relocation to maintain path structure}
-We adopt the focused modification strategy introduced in \cite{FACO2023}, which aims to explore the solution space by making minimal impactful changes to existing high-quality tours. At the start of construction, each ant stochastically copies a complete tour from either the iteration-best or the global-best candidate and subsequently modifies it by introducing new nodes based on the standard transition rule.
+We adopt the focused modification strategy introduced in \cite{FACO2023}, which aims to explore the solution space by making minimal impactful changes to existing high-quality tours. At the start of construction, each ant stochastically copies a complete tour from either the global-best (with probability $p = 0.01$) or the iteration-best candidate and subsequently modifies it by introducing new nodes based on the standard transition rule.
 
 From the selected edge $(u,v)$ and the original tour $\pi$, a relocate move produces a new tour $\pi'$ by removing $v$ from its current position and reinserting it immediately after $u$. Let $p=\operatorname{pred}(v)$ be the predecessor of $v$ in $\pi$, $s=\operatorname{succ}(v)$ be the successor of $v$, and $s_u$ be the successor of $u$. Then the cost change from performing such a move is
 \begin{equation}
@@ -325,7 +325,7 @@ With a constant-size candidate list and a limited set of modified edges, this op
   \resizebox{\textwidth}{!}{%
 \begin{tabular}{l cc cc cc}
 \toprule[1pt]
-& \multicolumn{2}{c}{TSPLib200} & \multicolumn{2}{c}{TSPLib500} & \multicolumn{2}{c}{TSPLib1000} \\
+& \multicolumn{2}{c}{TSPLib100-299} & \multicolumn{2}{c}{TSPLib300-699} & \multicolumn{2}{c}{TSPLib700-1499} \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
 Method & Gap(\%) & Time & Gap(\%) & Time & Gap(\%) & Time \\
 \midrule[1pt]
@@ -348,7 +348,7 @@ NeuFACO    & \textbf{1.66} & \textbf{0.28s}  & \textbf{1.50} & \textbf{0.74s}  &
 \end{tabular}
   }
 
-  \caption{Different prior comparison.}
+  \caption{Comparison of DeepACO, GFACS and NeuFACO priors. All models are retrained with their recommended parameters, using the same number of epochs and evaluation settings.}
   \label{fig:NAR}
 \end{figure*}
 
@@ -445,7 +445,7 @@ NeuFACO            & 16.43 & 1.33 & 0.91s & 23.34 & 1.16 & 0.98s \\
 \end{tabular}
 }% end resizebox
 
-\caption{Performance on TSP500 and TSP1000 with $M=256$ ants and $I=1000$ iterations in NeuFACO. Reported times include heuristic inference and solution sampling.}
+\caption{Comparison on TSP500 and TSP1000. NeuFACO is run with $M=256$ ants and $I=1000$ iterations to leverage its efficient sampling. Reported times include both heuristic inference and solution sampling.}
 \label{fig:tsp-results}
 \end{figure}
 

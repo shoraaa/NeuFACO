@@ -44,21 +44,22 @@
 \@writefile{toc}{\contentsline {section}{\numberline {III}Methodology}{2}{section.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Markov Decision Process (MDP) formulation}{2}{subsection.3.1}\protected@file@percent }
 \citation{MMAS}
-\citation{ACOTSP-MF}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Policy Parameterization}{3}{subsection.3.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Rollouts and Rewards}{3}{subsection.3.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}PPO Objective}{3}{subsection.3.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Solution sampling}{3}{section.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Incorporating the Min--Max Ant System}{3}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Node Selection via Candidate and Backup Lists}{3}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces State-of-the-art Ant Colony Optimization.}}{3}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:FACO}{{3}{3}{State-of-the-art Ant Colony Optimization}{figure.caption.3}{}}
+\citation{ACOTSP-MF}
 \citation{FACO2023}
 \citation{FACO2023}
 \citation{DeepACO}
 \citation{GFACS}
 \citation{DeepACO}
 \citation{tsplib}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces State-of-the-art Ant Colony Optimization.}}{4}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:FACO}{{3}{4}{State-of-the-art Ant Colony Optimization}{figure.caption.3}{}}
+\citation{DeepACO,GFACS}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Node Selection via Candidate and Backup Lists}{4}{subsection.4.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Node Relocation to maintain path structure}{4}{subsection.4.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Scalable Local Search}{4}{subsection.4.4}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Illustration of node relocation.}}{4}{figure.caption.4}\protected@file@percent }
@@ -69,7 +70,6 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Setup}{4}{subsection.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {V-A}1}Training}{4}{subsubsection.5.1.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {V-A}2}Benchmark}{4}{subsubsection.5.1.2}\protected@file@percent }
-\citation{DeepACO,GFACS}
 \citation{transformer}
 \citation{pomo}
 \citation{pointerformer}
@@ -84,16 +84,16 @@
 \citation{sit}
 \citation{GFACS,glop,htsp}
 \citation{att-gcn}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Different prior comparison.}}{5}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:NAR}{{5}{5}{Different prior comparison}{figure.caption.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Comparison of DeepACO, GFACS and NeuFACO priors. All models are retrained with their recommended parameters, using the same number of epochs and evaluation settings.}}{5}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:NAR}{{5}{5}{Comparison of DeepACO, GFACS and NeuFACO priors. All models are retrained with their recommended parameters, using the same number of epochs and evaluation settings}{figure.caption.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Comparison with other NAR solvers}{5}{subsection.5.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Minimum, maximum and average errors comparison.}}{5}{figure.caption.7}\protected@file@percent }
 \newlabel{fig:candle}{{7}{5}{Minimum, maximum and average errors comparison}{figure.caption.7}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Comparison with other RL solvers}{5}{subsection.5.3}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Objective cost over iterations between different priors.}}{5}{figure.caption.8}\protected@file@percent }
 \newlabel{fig:over_iterations}{{8}{5}{Objective cost over iterations between different priors}{figure.caption.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Performance on TSP500 and TSP1000 with $M=256$ ants and $I=1000$ iterations in NeuFACO. Reported times include heuristic inference and solution sampling.}}{5}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:tsp-results}{{9}{5}{Performance on TSP500 and TSP1000 with $M=256$ ants and $I=1000$ iterations in NeuFACO. Reported times include heuristic inference and solution sampling}{figure.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Comparison on TSP500 and TSP1000. NeuFACO is run with $M=256$ ants and $I=1000$ iterations to leverage its efficient sampling. Reported times include both heuristic inference and solution sampling.}}{5}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:tsp-results}{{9}{5}{Comparison on TSP500 and TSP1000. NeuFACO is run with $M=256$ ants and $I=1000$ iterations to leverage its efficient sampling. Reported times include both heuristic inference and solution sampling}{figure.caption.9}{}}
 \bibstyle{IEEEtran}
 \bibdata{refs}
 \bibcite{Applications}{1}
