@@ -11,7 +11,7 @@ from net import Net
 from mfaco import MFACO
 from aco import ACO
 from utils import load_test_dataset
-
+import time
 
 EPS = 1e-10
 START_NODE = None
@@ -20,11 +20,16 @@ START_NODE = None
 @torch.no_grad()
 def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse, n_runs=1):
     heu_mat = None
+    start_time = time.time()
     if model is not None:
         model.eval()
         heu_vec = model(pyg_data)
         heu_mat = model.reshape(pyg_data, heu_vec) + EPS
         heu_mat = heu_mat.cpu()
+
+    elapsed_time = time.time() - start_time
+
+    return torch.zeros(size=(len(t_aco_diff),)), torch.zeros(size=(len(t_aco_diff),)), elapsed_time
 
     all_results = []
     all_diversities = []

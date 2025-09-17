@@ -29,6 +29,7 @@
 
 \title{Neural Focused Ant Colony Optimization for Traveling Salesman Problem}
 \IEEEoverridecommandlockouts
+\IEEEoverridecommandlockouts
 \author{%
   \IEEEauthorblockN{ 
     Tran Thanh Dat\IEEEauthorrefmark{1}\IEEEauthorrefmark{3}, 
@@ -36,7 +37,13 @@
     Tran Quang Khai\IEEEauthorrefmark{1}\textsuperscript{1},
     Do Duc Dong\IEEEauthorrefmark{3}\textsuperscript{2},
     and Vu Van Khu\IEEEauthorrefmark{1}\textsuperscript{2}}
+    Tran Thanh Dat\IEEEauthorrefmark{1}\IEEEauthorrefmark{3}, 
+    Pham Anh Khoi\IEEEauthorrefmark{2}\textsuperscript{1},
+    Tran Quang Khai\IEEEauthorrefmark{1}\textsuperscript{1},
+    Do Duc Dong\IEEEauthorrefmark{3}\textsuperscript{2},
+    and Vu Van Khu\IEEEauthorrefmark{1}\textsuperscript{2}}
   \IEEEauthorblockA{\IEEEauthorrefmark{1}%
+                    College of Engineering and Computer Science, VinUniversity, Hanoi, Vietnam\\
                     College of Engineering and Computer Science, VinUniversity, Hanoi, Vietnam\\
                     \IEEEauthorrefmark{2}%
                     School of Information and Communications Technology, Hanoi University of Science and Technology, Hanoi, Vietnam\\
@@ -44,13 +51,24 @@
                     University of Engineering and Technology, Vietnam National University, Hanoi, Vietnam\\
                     }                
   \IEEEauthorblockA{\IEEEauthorrefmark{1}\{dat.tt3,23khai.tq,khu.vv\}@vinuni.edu.vn \quad
+                    University of Engineering and Technology, Vietnam National University, Hanoi, Vietnam\\
+                    }                
+  \IEEEauthorblockA{\IEEEauthorrefmark{1}\{dat.tt3,23khai.tq,khu.vv\}@vinuni.edu.vn \quad
                      \IEEEauthorrefmark{2}khoi.pa230043@sis.hust.edu.vn \quad
+                     \IEEEauthorrefmark{3}dongdoduc@vnu.edu.vn
                      \IEEEauthorrefmark{3}dongdoduc@vnu.edu.vn
                      }
                      \thanks{\textsuperscript{1}Equal contribution.}
                      \thanks{\textsuperscript{2}Corresponding authors.}
+                     \thanks{\textsuperscript{1}Equal contribution.}
+                     \thanks{\textsuperscript{2}Corresponding authors.}
 }
 
+\renewcommand{\footnoterule}{%
+  \vspace*{-0.8em}% space above
+  \hrule width 0.4\columnwidth % rule length
+  \vspace*{0.6em}% space below
+}
 \renewcommand{\footnoterule}{%
   \vspace*{-0.8em}% space above
   \hrule width 0.4\columnwidth % rule length
@@ -126,6 +144,11 @@ where $\rho\in(0,1]$ is the evaporation rate, and $\Delta\tau_{ij}^k$ represents
 \end{figure}
 
 \subsection{Neural Combinatorial Optimization}
+Neural Combinatorial Optimization (NCO) employs deep learning to derive heuristics for NP-hard problems such as the Traveling Salesman Problem (TSP) \cite{MLCO}. Unlike handcrafted approaches, NCO learns directly from data via supervised imitation of high-quality solutions or reinforcement learning on reward signals such as negative tour length. Architectures explored include pointer networks \cite{pointernetwork}, GNNs \cite{gnn}, and more recently Transformers \cite{transformer} and diffusion models \cite{difusco}.
+
+NCO methods are generally categorized as constructive, incrementally generating solutions, or improvement-based, refining initial ones with techniques like 2-opt \cite{NCO}. Non-autoregressive (NAR) variants follow a hybrid paradigm: neural encoders extract heuristic signals that metaheuristics exploit for solution construction, contrasting with end-to-end autoregressive models \cite{RL4CO}.
+
+In Ant Colony Optimization (ACO), classical heuristics are handcrafted and domain-dependent, limiting scalability and adaptability. NAR methods overcome these issues by learning heuristics from data and embedding them into the ACO pipeline. Early implementations relied on REINFORCE \cite{REINFORCE}, but its high variance and slow convergence hindered performance, motivating more stable reinforcement learning techniques.
 Neural Combinatorial Optimization (NCO) employs deep learning to derive heuristics for NP-hard problems such as the Traveling Salesman Problem (TSP) \cite{MLCO}. Unlike handcrafted approaches, NCO learns directly from data via supervised imitation of high-quality solutions or reinforcement learning on reward signals such as negative tour length. Architectures explored include pointer networks \cite{pointernetwork}, GNNs \cite{gnn}, and more recently Transformers \cite{transformer} and diffusion models \cite{difusco}.
 
 NCO methods are generally categorized as constructive, incrementally generating solutions, or improvement-based, refining initial ones with techniques like 2-opt \cite{NCO}. Non-autoregressive (NAR) variants follow a hybrid paradigm: neural encoders extract heuristic signals that metaheuristics exploit for solution construction, contrasting with end-to-end autoregressive models \cite{RL4CO}.
