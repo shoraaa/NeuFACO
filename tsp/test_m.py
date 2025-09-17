@@ -27,7 +27,9 @@ def infer_instance(model, pyg_data, distances, n_ants, t_aco_diff, k_sparse, n_r
         heu_mat = model.reshape(pyg_data, heu_vec) + EPS
         heu_mat = heu_mat.cpu()
 
-    return 0, 0, time.time() - start_time
+    elapsed_time = time.time() - start_time
+
+    return torch.zeros(size=(len(t_aco_diff),)), torch.zeros(size=(len(t_aco_diff),)), elapsed_time
 
     all_results = []
     all_diversities = []
