@@ -1,109 +1,126 @@
-PWD d:/Research/NeuFACO/table_latex
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf.cnf
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/web2c/texmf.cnf
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT d:/Research/NeuFACO/table_latex/figure.tex
+PWD c:\Coding\NeuFACO\table_latex
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT c:\Coding\NeuFACO\table_latex\figure.tex
 OUTPUT figure.log
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/bm.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/bm.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/adjustbox.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/adjustbox.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/adjcalc.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/adjcalc.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/trimclip.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/trimclip.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/collectbox/collectbox.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/collectbox/collectbox.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/arydshln/arydshln.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/arydshln/arydshln.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-INPUT ./figure.aux
-INPUT ./figure.aux
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\size10.clo
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\size10.clo
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\base\size10.clo
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphicx.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphicx.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\keyval.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\keyval.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphics.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphics.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\trig.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\trig.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics-cfg\graphics.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics-def\pdftex.def
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\tools\bm.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\tools\bm.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\pdflscape\pdflscape.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\pdflscape\pdflscape.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\pdflscape\pdflscape-nometadata.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\pdflscape\pdflscape-nometadata.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\iftex\iftex.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\iftex\iftex.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\lscape.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\graphics\lscape.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\makecell\makecell.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\makecell\makecell.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\tools\array.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\tools\array.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\multirow\multirow.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\multirow\multirow.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\float\float.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\booktabs\booktabs.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\booktabs\booktabs.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\adjustbox.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\adjustbox.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\xkeyval\xkeyval.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\xkeyval\xkeyval.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\xkeyval\xkeyval.tex
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\xkeyval\xkvutils.tex
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\adjcalc.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\adjcalc.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\trimclip.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\trimclip.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\collectbox\collectbox.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\collectbox\collectbox.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\tc-pdftex.def
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\tc-pdftex.def
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\adjustbox\tc-pdftex.def
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\ifoddpage\ifoddpage.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\ifoddpage\ifoddpage.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\ifoddpage\ifoddpage.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\varwidth\varwidth.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\varwidth\varwidth.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\varwidth\varwidth.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\arydshln\arydshln.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\arydshln\arydshln.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT .\figure.aux
+INPUT .\figure.aux
 INPUT figure.aux
 OUTPUT figure.aux
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib7.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib5.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmbx6.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib8.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib6.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy8.tfm
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\context\base\mkii\supp-pdf.mkii
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\epstopdf-pkg\epstopdf-base.sty
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\tex\latex\00miktex\epstopdf-sys.cfg
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx10.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx7.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx5.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmib10.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmmib7.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmmib5.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbsy10.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmbsy7.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmbsy5.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr8.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr6.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi8.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi6.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy8.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy6.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx8.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmbx6.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmmib8.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmmib6.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmbsy8.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmbsy6.tfm
 OUTPUT figure.pdf
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr12.tfm
 INPUT figure.aux
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
-INPUT c:/Users/Shora/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx10.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx8.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx8.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi10.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr10.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr8.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmr8.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy6.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy6.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
+INPUT C:\Users\LAPTOP Thai Hoa\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmsy8.pfb
