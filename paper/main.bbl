@@ -7,8 +7,7 @@
 \providecommand{\BIBentrySTDinterwordspacing}{\spaceskip=0pt\relax}
 \providecommand{\BIBentryALTinterwordstretchfactor}{4}
 \providecommand{\BIBentryALTinterwordspacing}{\spaceskip=\fontdimen2\font plus
-\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
-  \fontdimen4\font\relax}
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus \fontdimen4\font\relax}
 \providecommand{\BIBforeignlanguage}[2]{{%
 \expandafter\ifx\csname l@#1\endcsname\relax
 \typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
@@ -22,226 +21,117 @@
 \BIBdecl
 
 \bibitem{Applications}
-R.~Matai, S.~P. Singh, and M.~L. Mittal, \emph{Traveling salesman problem: an
-  overview of applications, formulations, and solution approaches}.\hskip 1em
-  plus 0.5em minus 0.4em\relax InTech Rijeka, 2010, vol.~1, no.~1, pp. 1--25.
+R.~Matai, S.~P. Singh, and M.~L. Mittal, \emph{Traveling salesman problem: an overview of applications, formulations, and solution approaches}.\hskip 1em plus 0.5em minus 0.4em\relax InTech Rijeka, 2010, vol.~1, no.~1, pp. 1--25.
 
 \bibitem{LP}
-H.~Crowder and M.~W. Padberg, ``Solving large-scale symmetric travelling
-  salesman problems to optimality,'' \emph{Management Science}, vol.~26, no.~5,
-  pp. 495--509, 1980.
+H.~Crowder and M.~W. Padberg, ``Solving large-scale symmetric travelling salesman problems to optimality,'' \emph{Management Science}, vol.~26, no.~5, pp. 495--509, 1980.
 
 \bibitem{TSP2}
-S.~Lin, ``Computer solutions of the traveling salesman problem,'' \emph{Bell
-  System Technical Journal}, vol.~44, no.~10, pp. 2245--2269, 1965.
+S.~Lin, ``Computer solutions of the traveling salesman problem,'' \emph{Bell System Technical Journal}, vol.~44, no.~10, pp. 2245--2269, 1965.
 
 \bibitem{Nature-inspired}
-X.-S. Yang, \emph{Nature-inspired optimization algorithms}.\hskip 1em plus
-  0.5em minus 0.4em\relax Academic Press, 2020.
+X.-S. Yang, \emph{Nature-inspired optimization algorithms}.\hskip 1em plus 0.5em minus 0.4em\relax Academic Press, 2020.
 
 \bibitem{MLCO}
-Y.~Bengio, A.~Lodi, and A.~Prouvost, ``Machine learning for combinatorial
-  optimization: a methodological tour d’horizon,'' pp. 405--421, 2021.
+Y.~Bengio, A.~Lodi, and A.~Prouvost, ``Machine learning for combinatorial optimization: a methodological tour d’horizon,'' pp. 405--421, 2021.
 
 \bibitem{NCO}
-F.~Luo, X.~Lin, F.~Liu, Q.~Zhang, and Z.~Wang, ``Neural combinatorial
-  optimization with heavy decoder: toward large scale generalization,'' in
-  \emph{Proceedings of the 37th International Conference on Neural Information
-  Processing Systems}, ser. NIPS '23.\hskip 1em plus 0.5em minus 0.4em\relax
-  Red Hook, NY, USA: Curran Associates Inc., 2023.
+F.~Luo, X.~Lin, F.~Liu, Q.~Zhang, and Z.~Wang, ``Neural combinatorial optimization with heavy decoder: toward large scale generalization,'' in \emph{Proceedings of the 37th International Conference on Neural Information Processing Systems}, ser. NIPS '23, 2023.
 
 \bibitem{DeepACO}
-\BIBentryALTinterwordspacing
-H.~Ye, J.~Wang, Z.~Cao, H.~Liang, and Y.~Li, ``Deepaco: Neural-enhanced ant
-  systems for combinatorial optimization,'' pp. 43\,706--43\,728, 2023.
-  [Online]. Available:
-  \url{https://proceedings.neurips.cc/paper_files/paper/2023/file/883105b282fe15275991b411e6b200c5-Paper-Conference.pdf}
-\BIBentrySTDinterwordspacing
+H.~Ye, J.~Wang, Z.~Cao, H.~Liang, and Y.~Li, ``Deepaco: Neural-enhanced ant systems for combinatorial optimization,'' pp. 43\,706--43\,728, 2023.
 
 \bibitem{RL4CO}
-F.~Berto, C.~Hua, J.~Park, L.~Luttmann, Y.~Ma, F.~Bu, J.~Wang, H.~Ye, M.~Kim,
-  S.~Choi \emph{et~al.}, ``Rl4co: an extensive reinforcement learning for
-  combinatorial optimization benchmark,'' in \emph{Proceedings of the 31st ACM
-  SIGKDD Conference on Knowledge Discovery and Data Mining V. 2}, ser. KDD
-  ’25, 2025, pp. 5278--5289.
+F.~Berto, C.~Hua, J.~Park, L.~Luttmann, Y.~Ma, F.~Bu, J.~Wang, H.~Ye, M.~Kim, S.~Choi \emph{et~al.}, ``Rl4co: an extensive reinforcement learning for combinatorial optimization benchmark,'' in \emph{Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining V. 2}, ser. KDD ’25, 2025, pp. 5278--5289.
 
 \bibitem{ACO3}
-T.~St{\"u}tzle, M.~Dorigo \emph{et~al.}, ``Aco algorithms for the traveling
-  salesman problem,'' \emph{Evolutionary algorithms in engineering and computer
-  science}, vol.~4, pp. 163--183, 1999.
+T.~St{\"u}tzle, M.~Dorigo \emph{et~al.}, ``Aco algorithms for the traveling salesman problem,'' \emph{Evolutionary algorithms in engineering and computer science}, vol.~4, pp. 163--183, 1999.
 
 \bibitem{PPO}
-\BIBentryALTinterwordspacing
-J.~Schulman, F.~Wolski, P.~Dhariwal, A.~Radford, and O.~Klimov, ``Proximal
-  policy optimization algorithms.'' \emph{CoRR}, vol. abs/1707.06347, 2017.
-  [Online]. Available:
-  \url{http://dblp.uni-trier.de/db/journals/corr/corr1707.html#SchulmanWDRK17}
-\BIBentrySTDinterwordspacing
-
-\bibitem{FACO2022}
-\BIBentryALTinterwordspacing
-R.~Skinderowicz, ``Improving ant colony optimization efficiency for solving
-  large tsp instances,'' \emph{Applied Soft Computing}, vol. 120, p. 108653,
-  May 2022. [Online]. Available:
-  \url{http://dx.doi.org/10.1016/j.asoc.2022.108653}
-\BIBentrySTDinterwordspacing
-
-\bibitem{branch}
-M.~Padberg and G.~Rinaldi, ``A branch-and-cut algorithm for the resolution of
-  large-scale symmetric traveling salesman problems,'' \emph{SIAM review},
-  vol.~33, no.~1, pp. 60--100, 1991.
-
-\bibitem{MetaHeuristic}
-T.~Dokeroglu, E.~Sevinc, T.~Kucukyilmaz, and A.~Cosar, ``A survey on new
-  generation metaheuristic algorithms,'' \emph{Computers \& Industrial
-  Engineering}, vol. 137, p. 106040, 2019.
-
-\bibitem{twoopt}
-\BIBentryALTinterwordspacing
-G.~A. Croes, ``A method for solving traveling-salesman problems,''
-  \emph{Operations Research}, vol.~6, pp. 791--812, 1958. [Online]. Available:
-  \url{https://api.semanticscholar.org/CorpusID:123646893}
-\BIBentrySTDinterwordspacing
-
-\bibitem{LKH}
-K.~Helsgaun, ``An effective implementation of the lin--kernighan traveling
-  salesman heuristic,'' \emph{European journal of operational research}, vol.
-  126, no.~1, pp. 106--130, 2000.
-
-\bibitem{ACO}
-M.~Dorigo and T.~St{\"u}tzle, \emph{Ant colony optimization: overview and
-  recent advances}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2019.
-
-\bibitem{GA}
-M.~Mitchell, \emph{An introduction to genetic algorithms}.\hskip 1em plus 0.5em
-  minus 0.4em\relax MIT press, 1998.
-
-\bibitem{pointernetwork}
-\BIBentryALTinterwordspacing
-O.~Vinyals, M.~Fortunato, and N.~Jaitly, ``Pointer networks,'' in
-  \emph{Advances in Neural Information Processing Systems}, C.~Cortes,
-  N.~Lawrence, D.~Lee, M.~Sugiyama, and R.~Garnett, Eds., vol.~28.\hskip 1em
-  plus 0.5em minus 0.4em\relax Curran Associates, Inc., 2015. [Online].
-  Available:
-  \url{https://proceedings.neurips.cc/paper_files/paper/2015/file/29921001f2f04bd3baee84a12e98098f-Paper.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{gnn}
-\BIBentryALTinterwordspacing
-J.~Zhou, G.~Cui, S.~Hu, Z.~Zhang, C.~Yang, Z.~Liu, L.~Wang, C.~Li, and M.~Sun,
-  ``Graph neural networks: A review of methods and applications,'' pp. 57--81,
-  2020. [Online]. Available:
-  \url{https://www.sciencedirect.com/science/article/pii/S2666651021000012}
-\BIBentrySTDinterwordspacing
-
-\bibitem{transformer}
-\BIBentryALTinterwordspacing
-W.~Kool, H.~van Hoof, and M.~Welling, ``Attention, learn to solve routing
-  problems!'' 2018. [Online]. Available:
-  \url{https://api.semanticscholar.org/CorpusID:59608816}
-\BIBentrySTDinterwordspacing
-
-\bibitem{difusco}
-Z.~Sun and Y.~Yang, ``Difusco: Graph-based diffusion solvers for combinatorial
-  optimization,'' pp. 3706--3731, 2023.
-
-\bibitem{REINFORCE}
-\BIBentryALTinterwordspacing
-R.~J. Williams, ``Simple statistical gradient-following algorithms for
-  connectionist reinforcement learning,'' \emph{Machine learning}, vol.~8, no.
-  3–4, p. 229–256, May 1992. [Online]. Available:
-  \url{https://doi.org/10.1007/BF00992696}
-\BIBentrySTDinterwordspacing
-
-\bibitem{MMAS}
-T.~St{\"u}tzle and H.~H. Hoos, ``Max--min ant system,'' \emph{Future generation
-  computer systems}, vol.~16, no.~8, pp. 889--914, 2000.
-
-\bibitem{ACOTSP-MF}
-\BIBentryALTinterwordspacing
-P.~A. Martínez and J.~M. García, ``Acotsp-mf: A memory-friendly and highly
-  scalable acotsp approach,'' \emph{Engineering Applications of Artificial
-  Intelligence}, vol.~99, p. 104131, 2021. [Online]. Available:
-  \url{https://www.sciencedirect.com/science/article/pii/S0952197620303687}
-\BIBentrySTDinterwordspacing
+J.~Schulman, F.~Wolski, P.~Dhariwal, A.~Radford, and O.~Klimov, ``Proximal policy optimization algorithms.'' \emph{CoRR}, vol. abs/1707.06347, 2017.
 
 \bibitem{FACO2023}
-\BIBentryALTinterwordspacing
-R.~Skinderowicz, ``Focused aco with node relocation procedure for solving large
-  tsp instances,'' \emph{Procedia Computer Science}, vol. 225, pp. 2992--3000,
-  2023, 27th International Conference on Knowledge Based and Intelligent
-  Information and Engineering Sytems (KES 2023). [Online]. Available:
-  \url{https://www.sciencedirect.com/science/article/pii/S1877050923014503}
-\BIBentrySTDinterwordspacing
+R.~Skinderowicz, ``Focused aco with node relocation procedure for solving large tsp instances,'' \emph{Procedia Computer Science}, vol. 225, pp. 2992--3000, 2023, 27th International Conference on Knowledge Based and Intelligent Information and Engineering Sytems (KES 2023).
+
+\bibitem{branch}
+M.~Padberg and G.~Rinaldi, ``A branch-and-cut algorithm for the resolution of large-scale symmetric traveling salesman problems,'' \emph{SIAM review}, vol.~33, no.~1, pp. 60--100, 1991.
+
+\bibitem{MetaHeuristic}
+T.~Dokeroglu, E.~Sevinc, T.~Kucukyilmaz, and A.~Cosar, ``A survey on new generation metaheuristic algorithms,'' \emph{Computers \& Industrial Engineering}, vol. 137, p. 106040, 2019.
+
+\bibitem{twoopt}
+G.~A. Croes, ``A method for solving traveling-salesman problems,'' \emph{Operations Research}, vol.~6, pp. 791--812, 1958.
+
+\bibitem{LKH}
+K.~Helsgaun, ``An effective implementation of the lin--kernighan traveling salesman heuristic,'' \emph{European journal of operational research}, vol. 126, no.~1, pp. 106--130, 2000.
+
+\bibitem{ACO}
+M.~Dorigo and T.~St{\"u}tzle, \emph{Ant colony optimization: overview and recent advances}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2019.
+
+\bibitem{GA}
+M.~Mitchell, \emph{An introduction to genetic algorithms}.\hskip 1em plus 0.5em minus 0.4em\relax MIT press, 1998.
+
+\bibitem{pointernetwork}
+O.~Vinyals, M.~Fortunato, and N.~Jaitly, ``Pointer networks,'' in \emph{Advances in Neural Information Processing Systems}, C.~Cortes, N.~Lawrence, D.~Lee, M.~Sugiyama, and R.~Garnett, Eds., vol.~28.\hskip 1em plus 0.5em minus 0.4em\relax Curran Associates, Inc., 2015.
+
+\bibitem{gnn}
+J.~Zhou, G.~Cui, S.~Hu, Z.~Zhang, C.~Yang, Z.~Liu, L.~Wang, C.~Li, and M.~Sun, ``Graph neural networks: A review of methods and applications,'' pp. 57--81, 2020.
+
+\bibitem{transformer}
+W.~Kool, H.~van Hoof, and M.~Welling, ``Attention, learn to solve routing problems!'' 2018.
+
+\bibitem{difusco}
+Z.~Sun and Y.~Yang, ``Difusco: Graph-based diffusion solvers for combinatorial optimization,'' pp. 3706--3731, 2023.
+
+\bibitem{REINFORCE}
+R.~J. Williams, ``Simple statistical gradient-following algorithms for connectionist reinforcement learning,'' \emph{Machine learning}, vol.~8, no. 3–4, p. 229–256, May 1992.
+
+\bibitem{MMAS}
+T.~St{\"u}tzle and H.~H. Hoos, ``Max--min ant system,'' \emph{Future generation computer systems}, vol.~16, no.~8, pp. 889--914, 2000.
+
+\bibitem{ACOTSP-MF}
+P.~A. Martínez and J.~M. García, ``Acotsp-mf: A memory-friendly and highly scalable acotsp approach,'' \emph{Engineering Applications of Artificial Intelligence}, vol.~99, p. 104131, 2021.
 
 \bibitem{GFACS}
-\BIBentryALTinterwordspacing
-M.~Kim, S.~Choi, H.~Kim, J.~Son, J.~Park, and Y.~Bengio, ``Ant colony sampling
-  with gflownets for combinatorial optimization,'' in \emph{Proceedings of The
-  28th International Conference on Artificial Intelligence and Statistics},
-  ser. Proceedings of Machine Learning Research, Y.~Li, S.~Mandt, S.~Agrawal,
-  and E.~Khan, Eds., vol. 258.\hskip 1em plus 0.5em minus 0.4em\relax PMLR,
-  03--05 May 2025, pp. 469--477. [Online]. Available:
-  \url{https://proceedings.mlr.press/v258/kim25a.html}
-\BIBentrySTDinterwordspacing
+M.~Kim, S.~Choi, H.~Kim, J.~Son, J.~Park, and Y.~Bengio, ``Ant colony sampling with gflownets for combinatorial optimization,'' in \emph{Proceedings of The 28th International Conference on Artificial Intelligence and Statistics}, ser. Proceedings of Machine Learning Research, Y.~Li, S.~Mandt, S.~Agrawal, and E.~Khan, Eds., vol. 258.\hskip 1em plus 0.5em minus 0.4em\relax PMLR, 03--05 May 2025, pp. 469--477.
 
 \bibitem{tsplib}
-\BIBentryALTinterwordspacing
-G.~Reinelt, ``Tsplib - a traveling salesman problem library,'' pp. 376--384,
-  1991. [Online]. Available:
-  \url{https://api.semanticscholar.org/CorpusID:207225504}
-\BIBentrySTDinterwordspacing
+G.~Reinelt, ``Tsplib - a traveling salesman problem library,'' \emph{INFORMS J. Comput.}, vol.~3, pp. 376--384, 1991.
 
 \bibitem{pomo}
-Y.-D. Kwon, J.~Choo, B.~Kim, I.~Yoon, Y.~Gwon, and S.~Min, ``Pomo: Policy
-  optimization with multiple optima for reinforcement learning,'' pp.
-  21\,188--21\,198, 2020.
-
-\bibitem{symaco}
-I.~Bello, H.~Pham, Q.~V. Le, M.~Norouzi, and S.~Bengio, ``Neural combinatorial
-  optimization with reinforcement learning,'' 2016.
+Y.-D. Kwon, J.~Choo, B.~Kim, I.~Yoon, Y.~Gwon, and S.~Min, ``Pomo: Policy optimization with multiple optima for reinforcement learning,'' pp. 21\,188--21\,198, 2020.
 
 \bibitem{pointerformer}
-\BIBentryALTinterwordspacing
-Y.~Jin, Y.~Ding, X.~Pan, K.~He, L.~Zhao, T.~Qin, L.~Song, and J.~Bian,
-  ``Pointerformer: Deep reinforced multi-pointer transformer for the traveling
-  salesman problem,'' vol.~37, no.~7, Jun. 2023, pp. 8132--8140. [Online].
-  Available: \url{https://ojs.aaai.org/index.php/AAAI/article/view/25982}
-\BIBentrySTDinterwordspacing
+Y.~Jin, Y.~Ding, X.~Pan, K.~He, L.~Zhao, T.~Qin, L.~Song, and J.~Bian, ``Pointerformer: Deep reinforced multi-pointer transformer for the traveling salesman problem,'' vol.~37, no.~7, Jun. 2023, pp. 8132--8140.
 
 \bibitem{dimes}
-R.~Qiu, Z.~Sun, and Y.~Yang, ``Dimes: A differentiable meta solver for
-  combinatorial optimization problems,'' pp. 25\,531--25\,546, 2022.
+R.~Qiu, Z.~Sun, and Y.~Yang, ``Dimes: A differentiable meta solver for combinatorial optimization problems,'' pp. 25\,531--25\,546, 2022.
 
 \bibitem{SelectAndOptimize}
-\BIBentryALTinterwordspacing
-H.~Cheng, H.~Zheng, Y.~Cong, W.~Jiang, and S.~Pu, ``Select and optimize:
-  Learning to aolve large-scale tsp instances,'' ser. Proceedings of Machine
-  Learning Research, F.~Ruiz, J.~Dy, and J.-W. van~de Meent, Eds., vol.
-  206.\hskip 1em plus 0.5em minus 0.4em\relax PMLR, 25--27 Apr 2023, pp.
-  1219--1231. [Online]. Available:
-  \url{https://proceedings.mlr.press/v206/cheng23a.html}
-\BIBentrySTDinterwordspacing
-
-\bibitem{glop}
-H.~Ye, J.~Wang, H.~Liang, Z.~Cao, Y.~Li, and F.~Li, ``Glop: Learning global
-  partition and local construction for solving large-scale routing problems in
-  real-time,'' pp. 20\,284--20\,292, 2024.
+H.~Cheng, H.~Zheng, Y.~Cong, W.~Jiang, and S.~Pu, ``Select and optimize: Learning to aolve large-scale tsp instances,'' ser. Proceedings of Machine Learning Research, F.~Ruiz, J.~Dy, and J.-W. van~de Meent, Eds., vol. 206.\hskip 1em plus 0.5em minus 0.4em\relax PMLR, 25--27 Apr 2023, pp. 1219--1231.
 
 \bibitem{htsp}
-\BIBentryALTinterwordspacing
-X.~Pan, Y.~Jin, Y.~Ding, M.~Feng, L.~Zhao, L.~Song, and J.~Bian, ``H-tsp:
-  hierarchically solving the large-scale traveling salesman problem,'' 2023.
-  [Online]. Available: \url{https://doi.org/10.1609/aaai.v37i8.26120}
-\BIBentrySTDinterwordspacing
+X.~Pan, Y.~Jin, Y.~Ding, M.~Feng, L.~Zhao, L.~Song, and J.~Bian, ``H-tsp: hierarchically solving the large-scale traveling salesman problem,'' 2023.
+
+\bibitem{glop}
+H.~Ye, J.~Wang, H.~Liang, Z.~Cao, Y.~Li, and F.~Li, ``Glop: Learning global partition and local construction for solving large-scale routing problems in real-time,'' pp. 20\,284--20\,292, 2024.
+
+\bibitem{invit}
+H.~Fang, Z.~Song, P.~Weng, and Y.~Ban, ``Invit: A generalizable routing problem solver with invariant nested view transformer,'' 2024.
+
+\bibitem{lehd}
+F.~Luo, X.~Lin, F.~Liu, Q.~Zhang, and Z.~Wang, ``Neural combinatorial optimization with heavy decoder: toward large scale generalization,'' in \emph{Proceedings of the 37th International Conference on Neural Information Processing Systems}, ser. NIPS '23, 2023.
+
+\bibitem{bq}
+D.~Drakulic, S.~Michel, F.~Mai, A.~Sors, and J.-M. Andreoli, ``Bq-nco: bisimulation quotienting for efficient neural combinatorial optimization,'' in \emph{Proceedings of the 37th International Conference on Neural Information Processing Systems}, ser. NIPS '23, 2023.
+
+\bibitem{sigd}
+J.~Pirnay and D.~G. Grimm, ``Self-improvement for neural combinatorial optimization: Sample without replacement, but improvement,'' \emph{Transactions on Machine Learning Research}, 2024, featured Certification.
 
 \bibitem{sit}
-\BIBentryALTinterwordspacing
-F.~Luo, X.~Lin, Y.~Wu, Z.~Wang, T.~Xialiang, M.~Yuan, and Q.~Zhang, ``Boosting
-  neural combinatorial optimization for large-scale vehicle routing problems,''
-  in \emph{The Thirteenth International Conference on Learning
-  Representations}, 2025. [Online]. Available:
-  \url{https://openreview.net/forum?id=TbTJJNjumY}
-\BIBentrySTDinterwordspacing
+F.~Luo, X.~Lin, Y.~Wu, Z.~Wang, T.~Xialiang, M.~Yuan, and Q.~Zhang, ``Boosting neural combinatorial optimization for large-scale vehicle routing problems,'' in \emph{The Thirteenth International Conference on Learning Representations}, 2025.
+
+\bibitem{att-gcn}
+M.~Li, S.~Tu, and L.~Xu, ``Generalizing graph network models for the traveling salesman problem with lin-kernighan-helsgaun heuristics,'' in \emph{Neural Information Processing: 30th International Conference, ICONIP 2023, Changsha, China, November 20–23, 2023, Proceedings, Part I}.\hskip 1em plus 0.5em minus 0.4em\relax Berlin, Heidelberg: Springer-Verlag, 2023, p. 528–539.
 
 \end{thebibliography}
