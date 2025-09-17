@@ -138,70 +138,81 @@ NCO methods are generally categorized as constructive, incrementally generating 
 In Ant Colony Optimization (ACO), classical heuristics are handcrafted and domain-dependent, limiting scalability and adaptability. NAR methods overcome these issues by learning heuristics from data and embedding them into the ACO pipeline. Early implementations relied on REINFORCE \cite{REINFORCE}, but its high variance and slow convergence hindered performance, motivating more stable reinforcement learning techniques.
 
 \section{Methodology}
-\subsection{Training method}
-\subsubsection{Markov Decision Process (MDP) formulation}
-We formulate the solution construction procedure of TSP as a Markov Decision Process (MDP). Each state $s_t\in\mathcal{S}$ represents a partial solution after $t$ steps of construction. The entire state space is defined over a set of discrete decision variables $\{X_1,\dots,X_n\}$ with domains $D_i$, and constraints define which combinations are valid.
 
-\subsubsection{Neural Heuristic Formulation}
+\subsection{Markov Decision Process (MDP) formulation}
+We formulate the solution construction procedure of TSP as a Markov Decision Process (MDP). At step $t$, the state $s_t=(\mathcal{X}, S_t, i_t)$ comprises the instance $\mathcal{X}$, the set of visited nodes $S_t$, and the current node $i_t$.
+The action is the next city $a_t\in \mathcal{N}_{i_t}\setminus S_t$ sampled from $\pi_\theta(\cdot\mid i_t)$ under feasibility masking.
+Transitions deterministically append $a_t$ to the tour and update $(S_{t+1}, i_{t+1})$; the episode terminates after visiting all nodes with a single terminal reward $R=-C(\pi;\mathcal{X})$.
+
+\subsection{Policy Parameterization}
 A graph neural network $f_{\theta}$ parameterized by $\theta$ takes the graph data $\mathcal{X}$ as input and outputs:
 \begin{itemize}
   \item Heuristic matrix $H\in\RR^{n\times n}$ representing a learned prior over edge transitions.
   \item Value prediction $  V_{\theta}(\mathcal{X})\in\RR$ estimating expected return for the given instance.
 \end{itemize}
 
-\subsection{Ant Colony Optimization with Neural Guidance}
-The ACO constructs a probability distribution over transitions:
+\subsection{Rollouts and Rewards}
+For each instance $\mathcal{X}$, we sample a batch of $M$ tours
+$\{\pi^{(m)}\}_{m=1}^{M}$ by chaining the policy over the shrinking feasible set:
+\[
+\pi^{(m)}_{t+1} \sim \pi_\theta(\cdot \mid \pi^{(m)}_t), 
+\qquad t=1,\dots,n-1.
+\]
+Each tour receives a scalar terminal reward equal to the negative tour length:
 \begin{equation}
-p_{ij} \propto \tau_{ij}^\alpha \cdot H_{ij},
+R^{(m)} \;=\; -\, C(\pi^{(m)};\mathcal{X}), 
+\qquad m=1,\dots,M.
 \end{equation}
-where $\tau_{ij}$ is the pheromone and $H_{ij}$ is the learned heuristic, and $\alpha$ is a weighting parameter. Each of the $M$ ants sample a tour $\pi^{(m)}$ with cost $C(\pi^{(m)})$. The corresponding reward is defined as $R^{(m)} = -C(\pi^{(m)})$, which is then normalized using baseline subtraction:
+We use a per-instance, per-batch baseline $\bar R = \frac{1}{M}\sum_{m=1}^M R^{(m)}$ for variance reduction and to normalize reward and calculated advantage:
 \begin{equation}
-\hat{R}^{(m)} = R^{(m)} - \frac{1}{M}\sum_{m=1}^M R^{(m)}.
+\tilde R^{(m)} \;=\; R^{(m)} - \bar R, 
+\qquad
+A^{(m)} \;=\; \tilde R^{(m)} - V_\theta(X).
 \end{equation}
 
-\subsection{Advantage Estimation}
-The baseline value is expanded to all ants: $V^{(m)} = v, \forall m=1,\dots,M$. The advantage is then:
+\subsection{PPO Objective}
+For each sampled path $\pi^{(m)}$, let $\log p_{\theta}(\pi^{(m)})$ denote the log probability of sampling under the current policy, and $\log p_{\theta_{\text{old}}}(\pi^{(m)})$ under the previous policy.
+The log-probability of a sampled tour factorizes as:
 \begin{equation}
-A^{(m)} = \hat{R}^{(m)} - V^{(m)}.
+\log p_\theta\!\big(\pi^{(m)}\big)
+= \sum_{t=1}^{n-1} \log \pi_\theta\!\big(\pi^{(m)}_{t+1}\mid \pi^{(m)}_{t}\big).
 \end{equation}
-
-\subsection{Proximal Policy Optimization Objective}
-For each sampled path $\pi^{(m)}$, let $\log p_{\theta}(\pi^{(m)})$ denote the log probability of sampling under the current policy, and $\log p_{\theta_{\text{old}}}(\pi^{(m)})$ under the previous policy. The probability ratio is:
+Then the probability ratio is:
 \begin{equation}
 r^{(m)}(\theta) = \frac{p_{\theta}(\pi^{(m)})}{p_{\theta_{\text{old}}}(\pi^{(m)})}.
 \end{equation}
-The clipped PPO surrogate objective is:
+And the clipped PPO surrogate objective is:
 \begin{equation}
 \begin{aligned}
 \mathcal{L}_{\text{policy}}(\theta) = -\frac{1}{M}\sum_{m=1}^M \min\big(&r^{(m)}A^{(m)}, \\
 &\text{clip}(r^{(m)},1-\eps,1+\eps)A^{(m)}\big).
 \end{aligned}
 \end{equation}
-
-\subsection{Value Function Loss}
-The value network is trained with mean squared error (MSE):
+The value losses calculated using mean squared error (MSE):
 \begin{equation}
-\mathcal{L}_{\text{value}}(\theta) = \frac{1}{M}\sum_{m=1}^M (V^{(m)} - \hat{R}^{(m)})^2.
+\mathcal{L}_{\text{value}}(\theta)
+= \frac{1}{M}\sum_{m=1}^{M}\!\left(V_\theta(X) - \tilde R^{(m)}\right)^2
 \end{equation}
 
-\subsection{Entropy Regularization}
 To promote exploration, entropy is computed on the normalized heuristic distribution: $\tilde{H}_{ij} = H_{ij} / (\sum_k H_{ik})$ and
 \begin{equation}
 \calH(\tilde{H}) = -\frac{1}n \sum_{i=1}^n\sum_{j=1}^n \tilde{H}_{ij}\log(\tilde{H}_{ij}+\eps).
 \end{equation}
-The entropy loss is:
+
+Then we define the entropy loss as:
 \begin{equation}
 \mathcal{L}_{\text{entropy}} = -\beta\calH(\tilde{H}),
 \end{equation}
-with entropy coefficient $\beta>0$.
 
-\subsection{Final Training Objective}
-The overall training loss combines the three components:
-\begin{equation}
-\mathcal{L}(\theta) = \mathcal{L}_{\text{policy}} + \mathcal{L}_{\text{value}} + \mathcal{L}_{\text{entropy}}.
-\end{equation}
+and we minimize $\mathcal{L}=\mathcal{L}_{\text{policy}}+\mathcal{L}_{\text{value}}+\mathcal{L}_{\text{entropy}}$.
 
 \section{Solution sampling}
+The ACO constructs a probability distribution over transitions:
+\begin{equation}
+p_{ij} \propto \tau_{ij}^\alpha \cdot H_{ij},
+\end{equation}
+where $\tau_{ij}$ is the pheromone and $H_{ij}$ is the learned heuristic, and $\alpha$ is a weighting parameter.
+
 Our method incorporates multiple state-of-the-art enhancements aimed at improving both the computational efficiency and solution quality of ACO algorithms. These improvements address three key aspects of solution construction: efficient node selection, focused modifications to high-quality tours, and scalable local search. Figure~\ref{fig:FACO} demonstrates the final algorithm for solution sampling.
 
 \subsection{Incorporating the Min--Max Ant System}
@@ -355,10 +366,10 @@ This section presents experimental results to validate the effectiveness of our 
 \subsection{Setup}
 
 \subsubsection{Training}
-We train and evaluate NeuFACO against two baseline models, DeepACO and GFACS. NeuFACO is trained with 30 ants, 20 PPO steps per epoch, a batch size of 20, a learning rate of 0.001, a clip ratio of 0.2, and an entropy coefficient of 0.01. All experiments are conducted on a machine with an AMD RX6800 GPU and an Intel i5-13400 CPU at \SI{2.50}{GHz}. For fair comparison, DeepACO and GFACS are re-trained using their originally reported parameters, with the sole adjustment being the number of epochs, aligned to ours. Figure~\ref{fig:over_iterations} presents the model sampling cost over training steps on the validation and test datasets, respectively.
+We train and evaluate NeuFACO against two baseline models, DeepACO and GFACS. NeuFACO is trained with 20 PPO steps per epoch, a batch size of 20, a learning rate of 0.001, a clip ratio of 0.2, and an entropy coefficient of 0.01. All experiments are conducted on a machine with an AMD RX6800 GPU and an Intel i5-13400 CPU at \SI{2.50}{GHz}. For fair comparison, DeepACO and GFACS are re-trained using their originally reported parameters, with the sole adjustment being the number of epochs, aligned to ours. Figure~\ref{fig:over_iterations} presents the model sampling cost over training steps on the validation and test datasets, respectively.
 
 \subsubsection{Benchmark}
-We evaluate NeuFACO on two benchmark datasets: randomized TSP instances with size 200, 500 and 1000, each with 128 instances \cite{DeepACO}, and TSPLib \cite{tsplib} with up to 1500 nodes. Each experiment is repeated $R=10$ times, and results are reported as averages. For other baseline methods, results are taken directly from their respective papers. Errors are computed as $E=(\text{cost}-\text{optimal}) / \text{cost}\times100\%$. The optimal values for gap calculation are obtained using an exact solver.
+We evaluate NeuFACO on two benchmark datasets: randomized TSP instances with size 200, 500 and 1000, each with 128 instances \cite{DeepACO}, and TSPLib \cite{tsplib} with up to 1500 nodes. Each experiment is repeated $R=10$ times, and results are reported as averages. For other baseline methods, results are taken directly from their respective papers. Errors are computed as $E=(\text{cost}-\text{optimal}) / \text{optimal}\times100\%$. The optimal values for gap calculation are obtained using an exact solver.
 
 \subsection{Comparison with other NAR solvers}
 We compare NeuFACO with previously proposed non-autoregressive methods, DeepACO and GFACS, both of which outperform the classical ACO without neural guidance \cite{DeepACO,GFACS}. For all compared NAR models, the number of ants is fixed at $M=100$, and each run consists of $I=100$ ACO iterations. Unlike these methods, which employ neural-guided perturbation, NeuFACO does not rely on this technique; instead, it applies scalable local search at every iteration, providing effective refinement without additional perturbation mechanisms.
