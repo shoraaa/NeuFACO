@@ -1,0 +1,319 @@
+% LaTeX translation of Typst source for NeuFACO
+\documentclass[a4paper,conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage{siunitx}
+\usepackage{courier}
+
+% Short macros
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\eps}{\varepsilon}
+
+\title{Neural Focused Ant Colony Optimization for Travelling Salesman Problem}
+
+\author{%
+  \IEEEauthorblockN{Tran Thanh Dat\IEEEauthorrefmark{1}, Pham Anh Khoi\IEEEauthorrefmark{2}, Tran Quang Khai\IEEEauthorrefmark{3}}
+  \\vspace{1mm}
+  \IEEEauthorblockA{\IEEEauthorrefmark{1}University of Engineering and Technology, VNU, Vietnam\\
+    Ha Noi, Vietnam\\
+    Email: ttdat.vnu@gmail.com}
+  \IEEEauthorblockA{\IEEEauthorrefmark{2}School of Information and Communications Technology, Hanoi University of Science and Technology (HUST)\\
+    Ha Noi, Vietnam\\
+    Email: khoi.pa230043@sis.hust.edu.vn}
+  \IEEEauthorblockA{\IEEEauthorrefmark{3}VinUniversity\\
+    Ha Noi, Vietnam\\
+    Email: 23khai.tq@vinuni.edu.vn}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This study introduces Neural Focused Ant Colony Optimization (NeuFACO), a non-autoregressive framework designed to address the Traveling Salesman Problem (TSP) by integrating advanced reinforcement learning methods with enhanced Ant Colony Optimization (ACO) techniques. Unlike prior neural-augmented ACO methods that rely on simplistic training schemes, NeuFACO adapts Proximal Policy Optimization (PPO) to train a graph neural network for generating instance-specific heuristic guidance. This learned heuristic is integrated into a highly optimized ACO framework that incorporates several state-of-the-art enhancements—such as candidate lists, focused tour modification, and scalable local search. By jointly exploiting amortized inference and the parallel stochastic exploration characteristic of ACO, NeuFACO delivers efficient and high-quality solutions over a diverse set of TSP instances.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Ant Colony Optimization, Traveling Salesman Problem, Proximal Policy Optimization, Graph Neural Networks, Neural Combinatorial Optimization
+\end{IEEEkeywords}
+
+\section{Introduction}
+The Traveling Salesman Problem (TSP) is a classical combinatorial optimization problem (COP) that seeks the shortest Hamiltonian tour visiting each city once and returning to the start. Due to its relevance in logistics, production planning, and circuit design, it serves as a benchmark for evaluating optimization algorithms \cite{Applications}.
+
+Exact approaches like integer linear programming guarantee optimality but scale poorly due to exponential complexity \cite{LP}. Heuristic and metaheuristic methods offer efficient near-optimal solutions but often lack problem-specific knowledge, rely on handcrafted heuristics, and risk premature convergence to local optima \cite{TSP2,Nature-inspired}.
+
+Deep learning has inspired data-driven approaches to COPs such as TSP \cite{MLCO}. Supervised methods train neural networks to imitate solvers for fast inference but depend on labeled solutions, limiting generalization. Reinforcement learning (RL) avoids this by directly optimizing solution quality through interaction, yet RL-based methods still suffer from weak local refinement, poor scalability, and high sample complexity \cite{NCO}.
+
+To address these issues, hybrid frameworks combine neural models with metaheuristics. Non-autoregressive (NAR) “learn-to-predict” methods use neural networks to generate heuristics that guide metaheuristics, rather than directly constructing solutions \cite{DeepACO,RL4CO}. However, current approaches face high variance and low sample efficiency due to simplistic training, while refinement often relies on standard Ant Colony Optimization (ACO) \cite{ACO3}, which exploits TSP structure inefficiently and limits scalability to larger or heterogeneous instances.
+
+\subsection{Paper overview}
+We introduce Neural Focused Ant Colony Optimization (NeuFACO), a hybrid framework that integrates deep reinforcement learning with a refined variant of ACO. NeuFACO employs Proximal Policy Optimization (PPO) \cite{PPO} to train a neural policy, offering greater stability and sample efficiency than prior approaches.
+
+For refinement, NeuFACO adapts Focused ACO (FACO) \cite{FACO2022}, an advanced extension that performs targeted modifications around a reference solution. Unlike conventional ACO, which rebuilds full tours each iteration, FACO selectively relocates a few nodes, preserving strong substructures while improving weaker regions. This focused search narrows exploration to promising areas, enhancing efficiency.
+
+By combining neural priors with adaptive refinement, NeuFACO balances global guidance and local exploitation. This reduces disruption to near-optimal tours, accelerates convergence, and scales effectively to large TSP instances.
+
+Experiments show that NeuFACO outperforms neural and classical baselines on random TSPs and TSPLIB benchmarks, solving problems with up to 1,500 nodes. Results also confirm the advantage of PPO in producing high-quality heuristic priors, establishing NeuFACO as a robust and generalizable framework for neural-augmented combinatorial optimization.
+
+\section{Literature Review}\label{sec:methods}
+\subsection{Travelling Salesman Problem}
+The Traveling Salesman Problem (TSP) is a classical NP-hard problem in combinatorial optimization \cite{TSP1,TSP3}. It can be formally defined on a complete graph $G=(V,E)$, where the vertex set $V=\{v_1,v_2,\dots,v_{|V|}\}$ corresponds to the $n$ cities and the edge set $E$ denotes all pairwise connections among them. Each edge $(i,j)\in E$ has an associated non-negative cost $d_{i,j}$, often representing distance or travel time. For simplicity, this paper focuses on the two-dimensional Euclidean TSP as an illustrative example, where each edge $(i,j)\in E$ has a distance feature:
+\begin{equation}
+d_{ij} = \|v_i - v_j\|^2.
+\end{equation}
+The task is to determine a Hamiltonian tour $\pi = (\pi_1, \pi_2, \dots, \pi_{|V|})$ that traverses every city once before returning to the origin, with the goal of minimizing the aggregate travel distance or cost:
+\begin{equation}
+C(\pi) = \sum_{i=1}^{|V|} d_{\pi_i,\pi_{i+1}},
+\end{equation}
+where $\pi$ is a permutation of $V$ representing the visiting order of the cities and $\pi_{|V|+1}=\pi_1$.
+
+\subsection{Traditional Methods}
+Classical approaches to the Traveling Salesman Problem (TSP) fall into two categories: exact and heuristic-based \cite{TSP2}. Exact methods—such as branch-and-bound \cite{branch} and Integer Linear Programming \cite{LP}—guarantee optimality but suffer factorial time complexity, making them impractical for large instances.
+
+To improve scalability, heuristic and metaheuristic algorithms provide near-optimal solutions in reasonable time \cite{MetaHeuristic}. Local search methods like 2-opt, 3-opt, and Lin–Kernighan \cite{twoopt,LKH} refine tours by replacing subpaths to reduce cost, while metaheuristics such as Ant Colony Optimization \cite{ACO2} and Genetic Algorithms \cite{GA} stochastically explore the solution space by simulating natural processes.
+
+\subsection{Ant Colony Optimization}
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{ACO.png}
+  \caption{Original Ant Colony Optimization.}
+  \label{fig:ACO}
+\end{figure}
+
+Ant Colony Optimization is a bio-inspired metaheuristic that emulates the collective foraging behavior of natural ant colonies \cite{ACO}. In the context of the TSP, artificial ants construct solutions by probabilistically choosing the next city according to two key factors: the pheromone trail $\tau_{ij}$, which encodes the learned desirability of selecting edge $(i,j)$, and the heuristic desirability $\eta_{ij}=1/d_{ij}$, which favors shorter edges. The probability $p_{ij}^k$ that ant $k$ moves from city $i$ to city $j$ is typically defined as
+\begin{equation}
+ p_{ij}^k = \begin{cases}
+ \dfrac{\tau_{ij}^\alpha \eta_{ij}^\beta}{\sum_{l\in\calN_i^k} \tau_{il}^\alpha \eta_{il}^\beta} & \text{if } j\in\calN_i^k, \\
+ 0 & \text{otherwise,}
+ \end{cases}
+\end{equation}
+where $\calN_i^k$ denotes the set of cities not yet visited by ant $k$, and $\alpha$ and $\beta$ determine the relative weighting of pheromone intensity and heuristic desirability. Once all ants have completed their tours, pheromone trails are updated both to reinforce high-quality paths and to allow for evaporation, which encourages exploration:
+\begin{equation}
+\tau_{ij} \leftarrow (1-\rho)\tau_{ij} + \sum_{k=1}^m \Delta\tau_{ij}^k,
+\end{equation}
+where $\rho\in(0,1]$ is the evaporation rate, and $\Delta\tau_{ij}^k$ represents the pheromone deposited by ant $k$ proportional to the quality of its solution. Over time, ACO converges toward promising regions of the solution space, but it may encounter slow convergence or premature stagnation.
+
+\subsection{Learning-based Methods}
+Neural Combinatorial Optimization (NCO) is an emerging paradigm that employs deep learning to automatically derive heuristics for NP-hard problems in combinatorial optimization, such as the TSP \cite{NCO}. Unlike traditional methods reliant on handcrafted rules, NCO learns from data or environmental interaction, typically through supervised learning—imitating optimal or high-quality solutions—or reinforcement learning, optimizing a reward signal such as negative tour length.
+
+Neural architectures explored include pointer networks for sequential construction \cite{pointernetwork}, graph neural networks (GNNs) for relational encoding \cite{gnn}, and more recently, Transformer \cite{transformer} and diffusion models \cite{difusco} for enhanced scalability and generalization. NCO approaches are broadly divided into constructive methods, which build solutions incrementally, and improvement heuristics, which iteratively refine initial solutions, often with classical local search such as 2-opt.
+
+In contrast to constructive autoregressive methods, which generate solutions end-to-end via encoder-decoder architectures, constructive non-autoregressive (NAR) methods adopt a hybrid paradigm \cite{RL4CO}. Neural encoders extract heuristic information from problem instances, which metaheuristics then exploit for solution generation.
+
+Classical ACO customization has relied on manually crafted, knowledge-driven heuristics, but this approach suffers from several drawbacks: (1) intensive expert effort limits scalability and adaptability; (2) performance depends heavily on domain-specific insight and extensive parameter tuning; and (3) applicability is restricted for novel or underexplored problems lacking reliable expertise.
+
+To address these issues, NAR approaches learn heuristics directly from data, typically through a two-stage pipeline: (1) training a neural model to map problem instances to heuristic signals, and (2) integrating the learned heuristics into the ACO framework to guide solution construction and local search.
+
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{DACO.png}
+  \caption{NAR training procedure.}
+  \label{fig:DACO}
+\end{figure}
+
+GNNs are widely employed to encode instance structure and capture context-sensitive heuristics. Early implementations often relied on simple policy gradient algorithms, such as REINFORCE, that estimate gradients via Monte Carlo sampling \cite{REINFORCE}. Despite its simplicity, such gradients suffer from high variance and slow convergence, limiting suitability for the complex Markov Decision Process (MDP) underlying ACO-based solution generation.
+
+\section{Methodology}
+\subsection{Training method}
+\subsubsection{Markov Decision Process (MDP) formulation}
+We formulate the solution construction procedure of TSP as a Markov Decision Process (MDP). Each state $s_t\in\mathcal{S}$ represents a partial solution after $t$ steps of construction. The entire state space is defined over a set of discrete decision variables $\{X_1,\dots,X_n\}$ with domains $D_i$, and constraints define which combinations are valid.
+
+\subsubsection{Neural Heuristic Formulation}
+A graph neural network $f_{\theta}$ parameterized by $\theta$ takes the graph data $\mathcal{X}$ as input and outputs:
+\begin{itemize}
+  \item Heuristic vector $h = f_{\theta}(\mathcal{X})$ which is then reshaped into heuristic matrix $H\in\RR^{|V|\times|V|}$ representing a learned prior over edge transitions.
+  \item Value prediction $v = V_{\theta}(\mathcal{X})\in\RR$ estimating expected return for the given instance.
+\end{itemize}
+
+\subsection{Ant Colony Optimization with Neural Guidance}
+The ACO constructs a probability distribution over transitions:
+\begin{equation}
+p_{ij} \propto \tau_{ij}^\alpha \cdot H_{ij},
+\end{equation}
+where $\tau_{ij}$ is the pheromone and $H_{ij}$ is the learned heuristic, and $\alpha$ is a weighting parameter. Each of the $M$ ants sample a tour $\pi^{(m)}$ with cost $C(\pi^{(m)})$. The corresponding reward is defined as $R^{(m)} = -C(\pi^{(m)})$, which is then normalized using shared entropy:
+\begin{equation}
+\tilde{R}^{(m)} = R^{(m)} - \frac{1}{M}\sum_{m=1}^M R^{(m)}.
+\end{equation}
+
+\subsection{Advantage Estimation}
+The baseline value is expanded to all ants: $V^{(m)} = v, \forall m=1,\dots,M$. The advantage is then:
+\begin{equation}
+A^{(m)} = \hat{R}^{(m)} - V^{(m)}.
+\end{equation}
+
+\subsection{Proximal Policy Optimization Objective}
+For each sampled path $\pi^{(m)}$, let $\log p_{\theta}(\pi^{(m)})$ denote the log probability of sampling under the current policy, and $\log p_{\theta_{\text{old}}}(\pi^{(m)})$ under the previous policy. The probability ratio is:
+\begin{equation}
+r^{(m)}(\theta) = \frac{p_{\theta}(\pi^{(m)})}{p_{\theta_{\text{old}}}(\pi^{(m)})}.
+\end{equation}
+The clipped PPO surrogate objective is:
+\begin{equation}
+\mathcal{L}_{\text{policy}}(\theta) = -\frac{1}{M}\sum_{m=1}^M \min\left(r^{(m)}A^{(m)},\, \text{clip}(r^{(m)},1-\epsilon,1+\epsilon)A^{(m)}\right).
+\end{equation}
+
+\subsection{Value Function Loss}
+The value network is trained with mean squared error (MSE):
+\begin{equation}
+\mathcal{L}_{\text{value}}(\theta) = \frac{1}{M}\sum_{m=1}^M (V^{(m)} - \hat{R}^{(m)})^2.
+\end{equation}
+
+\subsection{Entropy Regularization}
+To promote exploration, entropy is computed on the normalized heuristic distribution: $\tilde{H}_{ij} = H_{ij} / (\sum_k H_{ik})$ and
+\begin{equation}
+\calH(\tilde{H}) = -\frac{1}{|V|} \sum_{i=1}^{|V|}\sum_{j=1}^{|V|} \tilde{H}_{ij}\log(\tilde{H}_{ij}+\eps).
+\end{equation}
+The entropy loss is:
+\begin{equation}
+\mathcal{L}_{\text{entropy}} = \beta\calH(\tilde{H}),
+\end{equation}
+with entropy coefficient $\beta>0$.
+
+\subsection{Final Training Objective}
+The overall training loss combines the three components:
+\begin{equation}
+\mathcal{L}(\theta) = \mathcal{L}_{\text{policy}} + \mathcal{L}_{\text{value}} + \mathcal{L}_{\text{entropy}}.
+\end{equation}
+
+\section{Solution sampling}
+Our method incorporates multiple state-of-the-art enhancements aimed at improving both the computational efficiency and solution quality of ACO algorithms. These improvements address three key aspects of solution construction: efficient node selection, focused modifications to high-quality tours, and scalable local search. Figure~\ref{fig:FACO} demonstrates the final algorithm for solution sampling.
+
+\subsection{Incorporating the Min--Max Ant System}
+To enhance solution quality and stabilize the search process, NeuFACO adopts the Min--Max Ant System (MMAS) \cite{MMAS} for pheromone updates. MMAS modifies the classical Ant System in two key aspects: (1) pheromone trails are restricted to the interval $[\tau_{\min},\tau_{\max}]$ to prevent premature convergence, and (2) updates rely solely on the best-so-far or iteration-best solution, rather than aggregating contributions from all ants.
+
+In our implementation, pheromone updates follow the standard MMAS rule:
+\begin{equation}
+\tau_{ij} \leftarrow \begin{cases}
+(1-\rho)\tau_{ij} + \Delta\tau_{ij}^{\text{best}} & \text{if edge }(i,j) \text{ chosen},\\
+(1-\rho)\tau_{ij} & \text{otherwise},
+\end{cases}
+\end{equation}
+\begin{equation}
+\tau_{ij} \leftarrow \operatorname{clamp}(\tau_{ij},\tau_{\min},\tau_{\max}).
+\end{equation}
+
+This mechanism is particularly critical when combined with neural-guided heuristics, as it prevents the learned model from prematurely dominating the search dynamics.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{FACO.png}
+  \caption{State-of-the-art Ant Colony Optimization.}
+  \label{fig:FACO}
+\end{figure}
+
+\subsection{Node Selection via Candidate and Backup Lists}
+Candidate lists are widely used in ACO to restrict node selection to the $k$-nearest neighbors, thereby reducing complexity. Formally, for current node $i$, the candidate set is
+\begin{equation}
+\calC_i = \{u_{i,j} \mid j\le k,\; \texttt{visited}(u_{i,j})=0\}.
+\end{equation}
+
+When $\calC_i=\varnothing$, classical ACO scans all unvisited nodes, an $O(n)$ operation. To avoid this, we adopt the backup strategy of \cite{ACOTSP-MF}: each node maintains a precomputed backup list $\text{BKP}_i$, from which the first unvisited neighbor is selected. Only if both $\calC_i$ and $\text{BKP}_i$ are empty do we fall back to
+\begin{equation}
+J = \arg\min_{u:\texttt{visited}(u)=0} d(i,u).
+\end{equation}
+
+This hierarchical rule preserves stochastic exploration early on while substantially reducing overhead in the later stages of tour construction.
+
+\subsection{Node Relocation to maintain path structure}
+We adopt the focused modification strategy introduced in \cite{FACO2023}, which aims to explore the solution space by making minimal impactful changes to existing high-quality tours. At the start of construction, each ant stochastically copies a complete tour from either the iteration-best or the global-best candidate and subsequently modifies it by introducing new nodes based on the standard transition rule.
+
+From the selected edge $(u,v)$ and the original tour $\pi$, a relocate move produces a new tour $\pi'$ by removing $v$ from its current position and reinserting it immediately after $u$. Let $p=\operatorname{pred}(v)$ be the predecessor of $v$ in $\pi$, $s=\operatorname{succ}(v)$ be the successor of $v$, and $s_u$ be the successor of $u$. Then the cost change from performing such a move is
+\begin{equation}
+\Delta C = -d_{p,v} - d_{v,s} - d_{u,s_u} + d_{p,u} + d_{u,v} + d_{v,s_u}.
+\end{equation}
+
+To maintain structural similarity to the reference tour, modification is limited: once a predefined minimum number of new edges (MNE) is introduced (we set \texttt{MNE}=8), the ant stops altering the route and continues following the remaining portion of the original tour. This strategy restricts the number of relocated nodes, thereby concentrating the search effort on promising subregions of the solution space while avoiding the computational burden of constructing tours entirely from scratch.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{image(1).png}
+  \caption{Node relocation procedure when edge $(b,e)$ is chosen.}
+  \label{fig:relocate}
+\end{figure}
+
+\subsection{Scalable Local Search for Every Constructed Solution}
+Local search, particularly the 2-opt heuristic, is highly effective for improving ACO-generated solutions but is often applied sparingly due to its computational cost.
+
+To enable frequent refinement, our algorithm incorporates two optimizations from \cite{FACO2022}. First, it tracks modified edges in each constructed tour and applies 2-opt only to those differing from the previously optimized tour. Second, it restricts 2-opt to candidate edges, thereby reducing the search space.
+
+With a constant-size candidate list and a limited set of modified edges, this optimized 2-opt can be applied to every solution efficiently, fully exploiting high-quality tours without prohibitive overhead.
+
+\section{Experiments}
+\hypersetup{citecolor=blue}
+This section presents experimental results to validate the effectiveness of our algorithm. We compare it against other ACO-based methods as well as state-of-the-art neural approaches for solving the TSP. Our source code is built upon codebases of previous ACO-based methods: DeepACO (NeurIPS 2023) \cite{DeepACO} and GFACS (ATSTATS 2025) \cite{GFACS}; code is publicly available on GitHub\footnote{\url{https://github.com/shoraaa/NeuFACO}}.
+
+\subsection{Setup}
+\subsubsection{Training}
+We train and evaluate NeuFACO against two baseline models, DeepACO and GFACS. NeuFACO is trained with 30 ants, 20 PPO steps per epoch, a batch size of 20, a learning rate of 0.2, a clip ratio of 0.2, and an entropy coefficient of 0.01. All experiments are conducted on a machine with an AMD RX6800 GPU and an Intel i5-13400 CPU at 2.50 GHz. For fair comparison, DeepACO and GFACS are re-trained using their originally reported parameters, with the sole adjustment being the number of epochs, aligned to ours. Figure~\ref{fig:val} presents the model sampling cost over training steps on the validation and test datasets, respectively.
+
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[width=\linewidth]{TSP200_vs_TSP500_Val.png}
+  \caption{Validation and Test objective cost over training step.}
+  \label{fig:val}
+\end{figure}
+
+\subsubsection{Benchmark}
+We evaluate NeuFACO on two benchmark datasets: randomized TSP instances with size 200, 500 and 1000, each with 128 instances \cite{DeepACO}, and TSPLib \cite{tsplib} with up to 1500 nodes. Each experiment is repeated $R=10$ times, and results are reported as averages. For other baseline methods, results are taken directly from their respective papers. Errors are computed as $E=\frac{\text{cost}-\text{optimal}}{\text{cost}}\times100\%$. For TSPLib, optimal values are obtained from the original dataset, while for randomized TSP, they are taken from \cite{GFACS}, which employed an exact solver.
+
+\subsection{Comparison with other NAR solvers}
+We compare NeuFACO with previously proposed non-autoregressive methods, DeepACO and GFACS, both of which outperform the classical ACO without neural guidance \cite{DeepACO,GFACS}. For all compared NAR models, the number of ants is fixed at $M=100$, and each run consists of $I=100$ ACO iterations. Unlike these methods, which employ neural-guided perturbation, NeuFACO does not rely on this technique; instead, it applies scalable local search at every iteration, providing effective refinement without additional perturbation mechanisms.
+
+\begin{figure*}[!htb]
+  \centering
+  \includegraphics[width=\textwidth]{two col.png}
+  \caption{Different prior comparison.}
+  \label{fig:NAR}
+\end{figure*}
+
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[width=1.2\linewidth]{TSPOverview.png}
+  \caption{Minimum, maximum and average errors comparison.}
+  \label{fig:candle}
+\end{figure}
+
+Figure~\ref{fig:NAR} shows that among DeepACO, GFACS, and NeuFACO, our model achieves the best solution quality across nearly all datasets. NeuFACO delivers these improvements with a 5--100$\times$ runtime reduction relative to prior methods, primarily due to the refined sampler that leverages neural heuristics while incurring minimal quality loss. Moreover, the use of PPO with entropy regularization alleviates policy degradation, ensuring solution quality on par with or superior to existing models. The gains are particularly pronounced on large-scale instances, such as TSPLib graphs with up to 1500 nodes, demonstrating NeuFACO’s suitability for efficiently solving large TSP instances without sacrificing accuracy.
+
+Figure~\ref{fig:over_iterations} further illustrates the evolution of average objective costs over iterations, confirming NeuFACO’s rapid convergence compared to other baselines.
+
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{TSP200_vs_TSP500_3lines.png}
+  \caption{Objective cost over iterations between different priors.}
+  \label{fig:over_iterations}
+\end{figure}
+
+\subsection{Comparison with other RL solvers}
+In this section, we present experimental results comparing NeuFACO with problem-specific RL approaches for the TSP. Baselines include RL-based constructive methods (AM \cite{am}, POMO \cite{pomo}, SymNCO \cite{symaco}, Pointerformer \cite{pointerformer}), heatmap-based DIMES \cite{dimes}, improvement-based SO (Select-and-Optimize) \cite{SelectAndOptimize}, and enhanced POMO variants using EAS and SGBS.
+
+\begin{figure}[!tb]
+  \centering
+  \includegraphics[width=\linewidth]{rlsolvers.png}
+  \caption{Comparison with RL-based solvers (placeholder).}
+  \label{fig:rlsolvers}
+\end{figure}
+
+Results show that NeuFACO consistently delivers superior or highly competitive performance against all baselines. It outperforms fast zero-shot methods such as AM and POMO, even with search enhancements like EAS or SGBS, and surpasses similarly paced approaches including DIMES and Pointerformer.
+
+\section{Conclusion}
+In conclusion, NeuFACO integrates deep reinforcement learning with a refined ACO framework to address limitations of non-autoregressive models for the TSP. By combining PPO-based policy learning with targeted refinement around high-quality solutions, it achieves a strong balance between global guidance and local exploitation. This synergy preserves solution structure, accelerates convergence, and scales effectively to large instances. Experiments show NeuFACO consistently outperforms state-of-the-art RL neural baselines on both randomized and benchmark datasets, highlighting the effectiveness of PPO-guided priors in enhancing ACO. Overall, NeuFACO provides a robust and generalizable framework for neural-augmented combinatorial optimization.
+
+\section*{Acknowledgment}
+The authors would like to thank contributors of prior codebases and reviewers for helpful comments.
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\end{document}

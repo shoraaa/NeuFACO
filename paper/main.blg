@@ -1,0 +1,66 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: refs.bib
+Repeated entry---line 1423 of file refs.bib
+ : @inproceedings{selectandoptimize
+ :                                 ,
+I'm skipping whatever remains of this entry
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--missing publisher in Applications
+Warning--empty journal in ACOTSP-MF
+Warning--empty journal in tsplib
+Warning--empty year in tsplib
+Warning--empty booktitle in SelectAndOptimize
+
+Done.
+You've used 36 entries,
+            4087 wiz_defined-function locations,
+            1057 strings with 13795 characters,
+and the built_in function-call counts, 23327 in all, are:
+= -- 1897
+> -- 587
+< -- 128
++ -- 305
+- -- 118
+* -- 1100
+:= -- 3670
+add.period$ -- 74
+call.type$ -- 36
+change.case$ -- 35
+chr.to.int$ -- 270
+cite$ -- 41
+duplicate$ -- 1734
+empty$ -- 1875
+format.name$ -- 145
+if$ -- 5356
+int.to.chr$ -- 0
+int.to.str$ -- 36
+missing$ -- 341
+newline$ -- 175
+num.names$ -- 38
+pop$ -- 881
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 1817
+stack$ -- 0
+substring$ -- 738
+swap$ -- 1323
+text.length$ -- 38
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 36
+warning$ -- 5
+while$ -- 84
+width$ -- 38
+write$ -- 398
+(There was 1 error message)
