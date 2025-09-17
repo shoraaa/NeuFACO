@@ -367,6 +367,48 @@ NeuFACO    & \textbf{1.66} & \textbf{0.28s}  & \textbf{1.50} & \textbf{0.74s}  &
 \end{table}
 \restoregeometry
 
+%-----------------------------------
+
+\newgeometry{margin=1in}
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.2}
+
+\begin{minipage}[t]{0.5\textwidth}
+\vspace*{0pt}
+\centering
+\begin{tabular}{l ccc ccc}
+\toprule[1pt]
+& \multicolumn{3}{c}{TSP500} & \multicolumn{3}{c}{TSP1000}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
+\midrule[1pt]
+Concorde           & 16.55 & --    & 10.7s & 23.12 & --   & 108s \\
+LKH-3              & 16.55 & 0.02  & 31.7s & 23.14 & 0.10 & 102s \\
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+AM                 & 21.46 & 29.07 & 0.6s & 33.55 & 45.10 & 1.5s \\
+POMO               & 20.57 & 24.40 & 0.6s & 32.90 & 42.30 & 4.1s \\
+\quad +EAS         & 18.25 & 10.29 & 300s & 30.77 & 33.06 & 600s \\
+\quad +SGBS        & 18.86 & 13.98 & 318s & 28.58 & 23.61 & 605s \\
+DIMES              & 17.01 & 2.78  & 11s  & 24.45 & 5.75  & 32s \\
+SO                 & 16.94 & 2.40  & 15s  & 23.77 & 2.80  & 26s \\
+Pointerformer      & 17.14 & 3.56  & 14s  & 24.80 & 7.90  & 40s \\
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+ACO                & 17.38 & 5.04 & \textbf{14s} & 24.76 & 7.09 & 57s \\
+DeepACO            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 66s \\
+GFACS              & 16.80 & 1.56 & 15s & 23.72 & 2.63 & 66s \\
+NeuFACO            & \textbf{16.38} & \textbf{1.52} & 32.6s
+                   & \textbf{23.34} & \textbf{1.16} & \textbf{41s} \\
+\bottomrule[1pt]
+\end{tabular}
+\end{minipage}
+
+\end{table}
+\restoregeometry
+
+
 
 \end{document}
 
