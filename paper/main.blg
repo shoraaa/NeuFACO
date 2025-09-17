@@ -18,45 +18,45 @@ Warning--empty year in tsplib
 Warning--empty booktitle in SelectAndOptimize
 
 Done.
-You've used 36 entries,
+You've used 39 entries,
             4087 wiz_defined-function locations,
-            1057 strings with 13795 characters,
-and the built_in function-call counts, 23327 in all, are:
-= -- 1897
-> -- 587
-< -- 128
-+ -- 305
-- -- 118
-* -- 1100
-:= -- 3670
-add.period$ -- 74
-call.type$ -- 36
-change.case$ -- 35
-chr.to.int$ -- 270
-cite$ -- 41
-duplicate$ -- 1734
-empty$ -- 1875
-format.name$ -- 145
-if$ -- 5356
+            1075 strings with 14832 characters,
+and the built_in function-call counts, 25593 in all, are:
+= -- 2050
+> -- 682
+< -- 141
++ -- 359
+- -- 144
+* -- 1208
+:= -- 3973
+add.period$ -- 79
+call.type$ -- 39
+change.case$ -- 38
+chr.to.int$ -- 306
+cite$ -- 44
+duplicate$ -- 1885
+empty$ -- 2049
+format.name$ -- 168
+if$ -- 5874
 int.to.chr$ -- 0
-int.to.str$ -- 36
-missing$ -- 341
-newline$ -- 175
-num.names$ -- 38
-pop$ -- 881
+int.to.str$ -- 39
+missing$ -- 378
+newline$ -- 188
+num.names$ -- 41
+pop$ -- 997
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1817
+skip$ -- 1975
 stack$ -- 0
-substring$ -- 738
-swap$ -- 1323
-text.length$ -- 38
+substring$ -- 841
+swap$ -- 1447
+text.length$ -- 39
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 36
+type$ -- 39
 warning$ -- 5
-while$ -- 84
-width$ -- 38
-write$ -- 398
+while$ -- 91
+width$ -- 41
+write$ -- 425
 (There were 5 warnings)

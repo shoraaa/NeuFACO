@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.9.17)  18 SEP 2025 02:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.9.17)  18 SEP 2025 03:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -806,20 +806,12 @@ Underfull \vbox (badness 4391) has occurred while \output is active []
 
 
 
-Overfull \hbox (2.50833pt too wide) in paragraph at lines 410--440
- [][] 
- []
-
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 407--441
- [][] 
- []
-
-
 
 [5 <./TSP200_TSP500_Test.pdf> <./TSPOverview.pdf> <./TSP200_vs_TSP500_3lines.pdf>] (./main.bbl
 
-)
+
+
+[6])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -833,7 +825,11 @@ Before submitting the final camera ready copy, remember to:
 
 
 
-[6] (./main.aux)
+
+
+[7
+
+] (./main.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-08-13>
@@ -842,18 +838,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: C492996BE8D5A7E920FA5A1C7223A7AF;5242.
  ) 
 Here is how much of TeX's memory you used:
- 29932 strings out of 467800
- 599563 string characters out of 5436061
- 984265 words of memory out of 5000000
- 57743 multiletter control sequences out of 15000+600000
- 760301 words of font info for 366 fonts, out of 8000000 for 9000
+ 29940 strings out of 467800
+ 599579 string characters out of 5436061
+ 985345 words of memory out of 5000000
+ 57744 multiletter control sequences out of 15000+600000
+ 760431 words of font info for 368 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,14n,91p,1027b,1293s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 5078508 bytes).
+<d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (7 pages, 5071628 bytes).
 PDF statistics:
- 14780 PDF objects out of 15390 (max. 8388607)
- 9958 compressed objects within 100 object streams
- 102 named destinations out of 1000 (max. 500000)
+ 14790 PDF objects out of 15390 (max. 8388607)
+ 9969 compressed objects within 100 object streams
+ 106 named destinations out of 1000 (max. 500000)
  66331 words of extra memory for PDF output out of 74296 (max. 10000000)
 

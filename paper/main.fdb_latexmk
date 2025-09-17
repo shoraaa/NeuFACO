@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1758131523.05945 "main.aux" "main.bbl" "main" 1758138201.77071 0
+["bibtex main"] 1758143121.28001 "main.aux" "main.bbl" "main" 1758143122.14651 0
   "./IEEEtran.bst" 1440604570 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "./refs.bib" 1758098641 28873 a600fc96ccf98215cd5c44e310a82ffe ""
-  "main.aux" 1758138199 8190 9e03f7f9817f9fa063359718dacc2bfe "pdflatex"
+  "./refs.bib" 1758143119 31979 b2f1cbde9847dfc922923ad7451e81f3 ""
+  "main.aux" 1758142160 8277 ddbe640cd14e5a35785dbac728a70775 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1758138196.65098 "d:/Research/NeuFACO/paper/main.tex" "main.pdf" "main" 1758138201.77152 0
+["pdflatex"] 1758142157.14855 "d:/Research/NeuFACO/paper/main.tex" "main.pdf" "main" 1758143122.14684 0
   "ACO.pdf" 1758116588 1574980 b62b2dfd71a4a6f9f568c5a01cbc68c2 ""
   "DACO.pdf" 1758116563 1575001 934b3a9e66bd1fd1abb1c504786f6457 ""
   "FACO.pdf" 1758116571 1575006 89fb75efe3f63b1494301f29a3e254a5 ""
@@ -15,7 +15,7 @@
   "TSP200_TSP500_Test.pdf" 1758114539 28977 38a3adc226d423574f5a03ba023d4001 ""
   "TSP200_vs_TSP500_3lines.pdf" 1758114548 16634 2ce88ecc50eb78b1fe1d493c0b66b8a4 ""
   "TSPOverview.pdf" 1758114805 16779 eef73d29308b497361e40d8a56eaba76 ""
-  "d:/Research/NeuFACO/paper/main.tex" 1758138195 30430 dac4f505b0f9acc42ed3d28275b72e47 ""
+  "d:/Research/NeuFACO/paper/main.tex" 1758142019 30490 e182393a8ad9226ee8bde3ba99001f15 ""
   "d:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1758099655 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "d:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1758100718 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1758099219 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -59,7 +59,6 @@
   "d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1758097288 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1758097288 32762 7fee39e011c23b3589931effd97b9702 ""
   "d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1758097288 32569 5e5ddc8df908dea60932f3c484a54c0d ""
-  "d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1758097288 32587 65067f817f408bc71a7312f3d9828a9b ""
   "d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1758097288 32716 08e384dc442464e7285e891af9f45947 ""
   "d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1758097288 32626 5abc8bb2f28aa647d4c70f8ea38cc0d3 ""
   "d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1758097288 34694 870c211f62cb72718a00e353f14f254d ""
@@ -213,10 +212,10 @@
   "d:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1758108338 5574045 31c70adfd225bf86458fbde5ef80c86e ""
   "d:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1758108859 3605782 d57568351d53bcd8c15cca16db7b2c7b ""
   "d:/texlive/2025/texmf.cnf" 1758108301 713 e69b156964470283e0530f5060668171 ""
-  "main.aux" 1758138199 8190 9e03f7f9817f9fa063359718dacc2bfe "pdflatex"
-  "main.bbl" 1758131523 9954 a8cde09b33d21e53cb80551d311c3a12 "bibtex main"
-  "main.out" 1758138199 5242 c492996be8d5a7e920fa5a1c7223a7af "pdflatex"
-  "main.tex" 1758138195 30430 dac4f505b0f9acc42ed3d28275b72e47 ""
+  "main.aux" 1758142160 8277 ddbe640cd14e5a35785dbac728a70775 "pdflatex"
+  "main.bbl" 1758143122 10708 3f30c6c744b307c089abba684894f100 "bibtex main"
+  "main.out" 1758142160 5242 c492996be8d5a7e920fa5a1c7223a7af "pdflatex"
+  "main.tex" 1758142019 30490 e182393a8ad9226ee8bde3ba99001f15 ""
   (generated)
   "main.aux"
   "main.log"

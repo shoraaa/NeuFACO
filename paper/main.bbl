@@ -159,7 +159,7 @@ M.~Kim, J.~Park, and J.~Park, ``Sym-nco: Leveraging symmetricity for neural comb
 
 \bibitem{pointerformer}
 \BIBentryALTinterwordspacing
-Y.~Jin, Y.~Ding, X.~Pan, K.~He, L.~Zhao, T.~Qin, L.~Song, and J.~Bian, ``Pointerformer: deep reinforced multi-pointer transformer for the traveling salesman problem,'' in \emph{Proceedings of the 37th AAAI Conference}, ser. AAAI'23/IAAI'23/EAAI'23.\hskip 1em plus 0.5em minus 0.4em\relax AAAI Press, 2023. [Online]. Available: \url{https://doi.org/10.1609/aaai.v37i7.25982}
+Y.~Jin, Y.~Ding, X.~Pan, K.~He, L.~Zhao, T.~Qin, L.~Song, and J.~Bian, ``Pointerformer: deep reinforced multi-pointer transformer for the traveling salesman problem,'' 2023. [Online]. Available: \url{https://doi.org/10.1609/aaai.v37i7.25982}
 \BIBentrySTDinterwordspacing
 
 \bibitem{dimes}
@@ -170,6 +170,19 @@ R.~Qiu, Z.~Sun, and Y.~Yang, ``Dimes: A differentiable meta solver for combinato
 \bibitem{SelectAndOptimize}
 \BIBentryALTinterwordspacing
 H.~Cheng, H.~Zheng, Y.~Cong, W.~Jiang, and S.~Pu, ``Select and optimize: Learning to aolve large-scale tsp instances,'' ser. Proceedings of Machine Learning Research, F.~Ruiz, J.~Dy, and J.-W. van~de Meent, Eds., vol. 206.\hskip 1em plus 0.5em minus 0.4em\relax PMLR, 25--27 Apr 2023, pp. 1219--1231. [Online]. Available: \url{https://proceedings.mlr.press/v206/cheng23a.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{glop}
+H.~Ye, J.~Wang, H.~Liang, Z.~Cao, Y.~Li, and F.~Li, ``Glop: Learning global partition and local construction for solving large-scale routing problems in real-time,'' pp. 20\,284--20\,292, 2024.
+
+\bibitem{htsp}
+\BIBentryALTinterwordspacing
+X.~Pan, Y.~Jin, Y.~Ding, M.~Feng, L.~Zhao, L.~Song, and J.~Bian, ``H-tsp: hierarchically solving the large-scale traveling salesman problem,'' 2023. [Online]. Available: \url{https://doi.org/10.1609/aaai.v37i8.26120}
+\BIBentrySTDinterwordspacing
+
+\bibitem{sit}
+\BIBentryALTinterwordspacing
+F.~Luo, X.~Lin, Y.~Wu, Z.~Wang, T.~Xialiang, M.~Yuan, and Q.~Zhang, ``Boosting neural combinatorial optimization for large-scale vehicle routing problems,'' in \emph{The Thirteenth International Conference on Learning Representations}, 2025. [Online]. Available: \url{https://openreview.net/forum?id=TbTJJNjumY}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}

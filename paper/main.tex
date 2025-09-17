@@ -397,16 +397,15 @@ In this section, we present experimental results comparing NeuFACO with problem-
 %   \label{fig:rlsolvers}
 % \end{figure}
 
+
 \begin{figure}[!tb]
 \centering
-\footnotesize
-\setlength{\tabcolsep}{2pt}
-\renewcommand{\arraystretch}{1.2}
+\small % smaller font
+\setlength{\tabcolsep}{3pt} % reduce horizontal padding
+\renewcommand{\arraystretch}{1.05} % slightly tighter rows
 
-\footnotesize $^{*}$ Time is measured on a high-performance GPU. \\[3pt]
-\begin{minipage}[t]{0.5\textwidth}
-\vspace*{0pt}
-\centering
+\footnotesize Results are taken from \cite{GFACS,glop,htsp,sit} \\[3pt]
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{l ccc ccc}
 \toprule[1pt]
 & \multicolumn{3}{c}{TSP500} & \multicolumn{3}{c}{TSP1000}\\
@@ -422,22 +421,23 @@ DIMES              & 17.01 & 2.78  & 11s  & 24.45 & 5.75  & 32s \\
 SO                 & 16.94 & 2.40  & 15s  & 23.77 & 2.80  & 26s \\
 Pointerformer      & 17.14 & 3.56  & 14s  & 24.80 & 7.90  & 40s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-H-TSP (AAAI 2023)             & 17.55 & 6.22  & 0.18s  & 24.65 & 6.62  & 0.33s\\
-GLOP  (AAAI 2024)             & 16.91 & 1.99 & 1.5m  & 23.84 & 3.11  & 3.0m\\
-INViT-3V+Greedy (ICML 2024)    & 16.78 & 1.56 & 11.7m & 24.66 & 6.66  & N/A$^{*}$ \\
-LEHD+Greedy (NeurIPS 2023)             & 16.78 & 1.56 &16s & 23.84 & -- & -- \\
-BQ+Greedy (NeurIPS 2023)             & 16.72 & 1.18 & 46s & 23.65 & 2.30  & N/A$^{*}$\\
-SIGD+Greedy (NeurIPS 2023)             & 16.71 & 1.17 & 29s & 23.57 & 1.96  & N/A$^{*}$\\
-SIT+Greedy (NeurIPS 2025)                   & 16.7 & 1.08 & 16s & 23.57 & 1.95 & N/A$^{*}$ \\
+H-TSP (AAAI 23)             & 17.55 & 6.22  & 0.18s  & 24.65 & 6.62  & 0.33s\\
+GLOP  (AAAI 24)             & 16.91 & 1.99 & 1.5m  & 23.84 & 3.11  & 3.0m\\
+INViT-3V+Greedy (ICML 24)    & 16.78 & 1.56 & 5.48s & 24.66 & 6.66  & 9.0s \\
+LEHD+Greedy (NeurIPS 23)             & 16.78 & 1.56 & 0.13s & 23.84 & -- & 0.8s \\
+BQ+Greedy (NeurIPS 23)             & 16.72 & 1.18 & 0.36s & 23.65 & 2.30  & 0.9s\\
+SIGD+Greedy (NeurIPS 23)             & 16.71 & 1.17 & 0.23s & 23.57 & 1.96  & 1.2s\\
+SIT+Greedy (NeurIPS 25)                   & 16.7 & 1.08 & 14.95s & 23.57 & 1.95 & 0.2s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 DeepACO            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 66s \\
 GFACS              & 16.80 & 1.56 & 15s & 23.72 & 2.63 & 66s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-NeuFACO            & 16.43 & 1.33 & 15.9s & 23.34 & 1.16 & 41s \\
+NeuFACO            & 16.43 & 1.33 & 0.91s & 23.34 & 1.16 & 0.98s \\
+            &  &  & +14.95s &  &  & +40.03s \\
 
 \bottomrule[1pt]
 \end{tabular}
-\end{minipage}
+}% end resizebox
 
 \caption{Performance comparison on TSP500 and TSP1000 instances.}
 \label{fig:tsp-results}
