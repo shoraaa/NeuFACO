@@ -403,7 +403,8 @@ In this section, we present experimental results comparing NeuFACO with problem-
 \setlength{\tabcolsep}{2pt}
 \renewcommand{\arraystretch}{1.2}
 
-\begin{minipage}[t]{\linewidth}
+\footnotesize $^{*}$ Time is measured on a high-performance GPU. \\[3pt]
+\begin{minipage}[t]{0.5\textwidth}
 \vspace*{0pt}
 \centering
 \begin{tabular}{l ccc ccc}
@@ -413,21 +414,27 @@ In this section, we present experimental results comparing NeuFACO with problem-
 Method & Obj. & Gap(\%) & Time & Obj. & Gap(\%) & Time \\
 \midrule[1pt]
 Concorde           & 16.55 & --    & 10.7s & 23.12 & --   & 108s \\
-LKH-3              & 16.55 & 0.02  & 31.7s & 23.14 & 0.10 & 102s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 AM                 & 21.46 & 29.07 & 0.6s & 33.55 & 45.10 & 1.5s \\
-POMO               & 20.57 & 24.40 & 0.6s & 32.90 & 42.30 & 4.1s \\
-\quad +EAS         & 18.25 & 10.29 & 300s & 30.77 & 33.06 & 600s \\
-\quad +SGBS        & 18.86 & 13.98 & 318s & 28.58 & 23.61 & 605s \\
+POMO+EAS           & 18.25 & 10.29 & 300s & 30.77 & 33.06 & 600s \\
+POMO+SGBS          & 18.86 & 13.98 & 318s & 28.58 & 23.61 & 605s \\
 DIMES              & 17.01 & 2.78  & 11s  & 24.45 & 5.75  & 32s \\
 SO                 & 16.94 & 2.40  & 15s  & 23.77 & 2.80  & 26s \\
 Pointerformer      & 17.14 & 3.56  & 14s  & 24.80 & 7.90  & 40s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-ACO                & 17.38 & 5.04 & \textbf{14s} & 24.76 & 7.09 & 57s \\
+H-TSP (AAAI 2023)             & 17.55 & 6.22  & 0.18s  & 24.65 & 6.62  & 0.33s\\
+GLOP  (AAAI 2024)             & 16.91 & 1.99 & 1.5m  & 23.84 & 3.11  & 3.0m\\
+INViT-3V+Greedy (ICML 2024)    & 16.78 & 1.56 & 11.7m & 24.66 & 6.66  & N/A$^{*}$ \\
+LEHD+Greedy (NeurIPS 2023)             & 16.78 & 1.56 &16s & 23.84 & -- & -- \\
+BQ+Greedy (NeurIPS 2023)             & 16.72 & 1.18 & 46s & 23.65 & 2.30  & N/A$^{*}$\\
+SIGD+Greedy (NeurIPS 2023)             & 16.71 & 1.17 & 29s & 23.57 & 1.96  & N/A$^{*}$\\
+SIT+Greedy (NeurIPS 2025)                   & 16.7 & 1.08 & 16s & 23.57 & 1.95 & N/A$^{*}$ \\
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 DeepACO            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 66s \\
 GFACS              & 16.80 & 1.56 & 15s & 23.72 & 2.63 & 66s \\
-NeuFACO            & \textbf{16.43} & \textbf{1.33} & 15.9s
-                   & \textbf{23.34} & \textbf{1.16} & \textbf{41s} \\
+\cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+NeuFACO            & 16.43 & 1.33 & 15.9s & 23.34 & 1.16 & 41s \\
+
 \bottomrule[1pt]
 \end{tabular}
 \end{minipage}
