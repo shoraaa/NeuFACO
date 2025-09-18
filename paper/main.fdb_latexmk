@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1758153238.51748 "main.aux" "main.bbl" "main" 1758153244.25092 0
+["bibtex main"] 1758155562.06883 "main.aux" "main.bbl" "main" 1758155568.00047 0
   "./IEEEtran.bst" 1440604570 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
   "./refs.bib" 1758147638 27851 9f44d50f9e13ddce558611fae1a76d3b ""
-  "main.aux" 1758153242 8172 d3727d3ab4ee976be7c8fd56622716c8 "pdflatex"
+  "main.aux" 1758155566 7914 acdde7ec2a4c6ebc6d6c390dc151b082 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1758153239.35464 "d:/Research/NeuFACO/paper/main.tex" "main.pdf" "main" 1758153244.25169 0
+["pdflatex"] 1758155562.90804 "d:/Research/NeuFACO/paper/main.tex" "main.pdf" "main" 1758155568.00123 0
   "ACO.pdf" 1758116588 1574980 b62b2dfd71a4a6f9f568c5a01cbc68c2 ""
   "DACO.pdf" 1758116563 1575001 934b3a9e66bd1fd1abb1c504786f6457 ""
   "FACO.pdf" 1758116571 1575006 89fb75efe3f63b1494301f29a3e254a5 ""
@@ -15,7 +15,7 @@
   "TSP200_TSP500_Test.pdf" 1758114539 28977 38a3adc226d423574f5a03ba023d4001 ""
   "TSP200_vs_TSP500_3lines.pdf" 1758114548 16634 2ce88ecc50eb78b1fe1d493c0b66b8a4 ""
   "TSPOverview.pdf" 1758114805 16779 eef73d29308b497361e40d8a56eaba76 ""
-  "d:/Research/NeuFACO/paper/main.tex" 1758153232 31736 a64c997ff531e289b24674561609625a ""
+  "d:/Research/NeuFACO/paper/main.tex" 1758155555 31951 e83646e5e272e8ec02034359f4e00cf6 ""
   "d:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1758099655 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "d:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1758100718 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1758099219 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -27,6 +27,7 @@
   "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmbi8r.tfm" 1758106978 4480 10409ed8bab5aea9ec9a78028b763919 ""
   "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmbi8t.tfm" 1758106978 6784 37b32cc10800b5afa030d935c393695a ""
   "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm" 1758106978 2124 2601a75482e9426d33db523edf23570a ""
+  "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8c.tfm" 1758106978 1352 fa28a7e6d323c65ce7d13d5342ff6be2 ""
   "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm" 1758106978 4408 25b74d011a4c66b7f212c0cc3c90061b ""
   "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8t.tfm" 1758106978 6672 e3ab9e37e925f3045c9005e6d1473d56 ""
   "d:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmrc8t.tfm" 1758106978 16648 7e91c60ebf91b9c60e16ef52b3070f9c ""
@@ -74,6 +75,7 @@
   "d:/texlive/2025/texmf-dist/fonts/vf/adobe/courier/pcrr8t.vf" 1758099219 2184 8475af1b9cfa983db5f46f5ed4b8f9f7 ""
   "d:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf" 1758106978 2340 df9c920cc5688ebbf16a93f45ce7bdd3 ""
   "d:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmbi8t.vf" 1758106978 2324 51908dae6e03953a90119973962f0e4d ""
+  "d:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf" 1758106978 3556 8a9a6dcbcd146ef985683f677f4758a6 ""
   "d:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf" 1758106978 2348 91706c542228501c410c266421fbe30c ""
   "d:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmrc8t.vf" 1758106978 3608 eb048a634708cbf5eda8def0ce93c7bb ""
   "d:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri8t.vf" 1758106978 2328 6cd7df782b09b29cfc4d93e55b6b9a59 ""
@@ -204,6 +206,7 @@
   "d:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd" 1758104970 961 15056f4a61917ceed3a44e4ac11fcc52 ""
   "d:/texlive/2025/texmf-dist/tex/latex/psnfss/t1pcr.fd" 1758104970 798 d5895e9edc628f2be019beb2c0ec66df ""
   "d:/texlive/2025/texmf-dist/tex/latex/psnfss/t1ptm.fd" 1758104970 774 61d7da1e9f9e74989b196d147e623736 ""
+  "d:/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd" 1758104970 619 96f56dc5d1ef1fe1121f1cfeec70ee0c ""
   "d:/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty" 1758105551 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "d:/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1758105592 9684 a33a14b82ce60d6e77cb9be689d79ee6 ""
   "d:/texlive/2025/texmf-dist/tex/latex/siunitx/siunitx.sty" 1758106080 344221 f0c98c737eca26294f5039e8afde731f ""
@@ -216,10 +219,10 @@
   "d:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1758108338 5574045 31c70adfd225bf86458fbde5ef80c86e ""
   "d:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1758108859 3605782 d57568351d53bcd8c15cca16db7b2c7b ""
   "d:/texlive/2025/texmf.cnf" 1758108301 713 e69b156964470283e0530f5060668171 ""
-  "main.aux" 1758153242 8172 d3727d3ab4ee976be7c8fd56622716c8 "pdflatex"
-  "main.bbl" 1758153239 9008 45ea9d1e07ed2fd349d150a888485af0 "bibtex main"
-  "main.out" 1758153242 4123 0efc8e6f41b7a8afa2caa79a4e285245 "pdflatex"
-  "main.tex" 1758153232 31736 a64c997ff531e289b24674561609625a ""
+  "main.aux" 1758155566 7914 acdde7ec2a4c6ebc6d6c390dc151b082 "pdflatex"
+  "main.bbl" 1758155562 9008 45ea9d1e07ed2fd349d150a888485af0 "bibtex main"
+  "main.out" 1758155566 4123 6e4b2341709f3d9e4015b8c7ce1f46ec "pdflatex"
+  "main.tex" 1758155555 31951 e83646e5e272e8ec02034359f4e00cf6 ""
   (generated)
   "main.aux"
   "main.log"
