@@ -107,10 +107,12 @@ lgd = legend(ph, methods, 'Interpreter','latex', ...
 set(lgd,'Color','w','EdgeColor','k','TextColor','k');
 gd = legend(ph, methods, 'Interpreter','latex', ...
     'Location','northoutside','Orientation','horizontal');
-lgd.FontSize = 18;                            % cỡ chữ legend
+lgd.FontSize = 25;                            % cỡ chữ legend
 lgd.ItemTokenSize = [18,8];                   % ô màu trong legend to hơn
 
 hold off;
 
 % ================== Autosave ==================
-print(gcf,'TSPOverview','-dpng','-r300');
+exportgraphics(gcf, 'TSPOverview.pdf', ...
+    'ContentType', 'vector', ...
+    'BackgroundColor', 'w');
