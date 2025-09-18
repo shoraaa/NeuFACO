@@ -36,7 +36,7 @@ X.-S. Yang, \emph{Nature-inspired optimization algorithms}.\hskip 1em plus 0.5em
 Y.~Bengio, A.~Lodi, and A.~Prouvost, ``Machine learning for combinatorial optimization: a methodological tour d’horizon,'' pp. 405--421, 2021.
 
 \bibitem{NCO}
-F.~Luo, X.~Lin, F.~Liu, Q.~Zhang, and Z.~Wang, ``Neural combinatorial optimization with heavy decoder: toward large scale generalization,'' in \emph{Proceedings of the 37th International Conference on Neural Information Processing Systems}, ser. NIPS '23, 2023.
+A.~I. Garmendia, J.~Ceberio, and A.~Mendiburu, ``Neural combinatorial optimization: a new player in the field,'' 2022.
 
 \bibitem{DeepACO}
 H.~Ye, J.~Wang, Z.~Cao, H.~Liang, and Y.~Li, ``Deepaco: Neural-enhanced ant systems for combinatorial optimization,'' pp. 43\,706--43\,728, 2023.
@@ -97,6 +97,11 @@ M.~Kim, S.~Choi, H.~Kim, J.~Son, J.~Park, and Y.~Bengio, ``Ant colony sampling w
 
 \bibitem{tsplib}
 G.~Reinelt, ``Tsplib - a traveling salesman problem library,'' \emph{INFORMS J. Comput.}, vol.~3, pp. 376--384, 1991.
+
+\bibitem{Concorde}
+\BIBentryALTinterwordspacing
+D.~Applegate, R.~Bixby, V.~Chvátal, and W.~J. Cook, ``Concorde tsp solver,'' 2006. [Online]. Available: \url{https://www.math.uwaterloo.ca/tsp/concorde.html}
+\BIBentrySTDinterwordspacing
 
 \bibitem{pomo}
 Y.-D. Kwon, J.~Choo, B.~Kim, I.~Yoon, Y.~Gwon, and S.~Min, ``Pomo: Policy optimization with multiple optima for reinforcement learning,'' pp. 21\,188--21\,198, 2020.

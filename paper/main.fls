@@ -467,11 +467,6 @@ INPUT ./TSPOverview.pdf
 INPUT ./TSPOverview.pdf
 INPUT ./TSPOverview.pdf
 INPUT ./TSPOverview.pdf
-INPUT d:/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-INPUT d:/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-INPUT d:/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-INPUT d:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8c.tfm
-INPUT d:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf
 INPUT ./main.bbl
 INPUT ./main.bbl
 INPUT main.bbl

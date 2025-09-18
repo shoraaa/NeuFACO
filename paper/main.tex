@@ -60,12 +60,11 @@
 
 \maketitle
 
-\begin{abstract}
-This study introduces Neural Focused Ant Colony Optimization (NeuFACO), a non-autoregressive framework designed to address the Traveling Salesman Problem (TSP) by integrating advanced reinforcement learning methods with enhanced Ant Colony Optimization (ACO) techniques. Unlike prior neural-augmented ACO methods that rely on simplistic training schemes, NeuFACO adapts Proximal Policy Optimization (PPO) to train a graph neural network for generating instance-specific heuristic guidance. This learned heuristic is integrated into a highly optimized ACO framework that incorporates several state-of-the-art enhancements, such as candidate lists, focused tour modification, and scalable local search. By jointly exploiting amortized inference and the parallel stochastic exploration characteristic of ACO, NeuFACO delivers efficient and high-quality solutions over a diverse set of TSP instances. Code is available at \url{https://github.com/shoraaa/NeuFACO}.
+\begin{abstract}This study presents Neural Focused Ant Colony Optimization (NeuFACO), a non-autoregressive framework for the Traveling Salesman Problem (TSP) that combines advanced reinforcement learning with enhanced Ant Colony Optimization (ACO). NeuFACO employs Proximal Policy Optimization (PPO) with entropy regularization to train a graph neural network for instance-specific heuristic guidance, which is integrated into an optimized ACO framework featuring candidate lists, restricted tour refinement, and scalable local search. By leveraging amortized inference alongside ACO’s stochastic exploration, NeuFACO efficiently produces high-quality solutions across diverse TSP instances. Code is available at \url{https://github.com/shoraaa/NeuFACO}
 \end{abstract}
 
 \begin{IEEEkeywords}
-Ant Colony Optimization, Traveling Salesman Problem, Proximal Policy Optimization, Graph Neural Networks, Neural Combinatorial Optimization
+Neural Combinatorial Optimization, Traveling Salesman Problem, Ant Colony Optimization, Proximal Policy Optimization, Graph Neural Networks
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -137,7 +136,7 @@ NCO methods are generally categorized as constructive, incrementally generating 
 
 In Ant Colony Optimization (ACO), classical heuristics are handcrafted and domain-dependent, limiting scalability and adaptability. NAR methods overcome these issues by learning heuristics from data and embedding them into the ACO pipeline. Early implementations relied on REINFORCE \cite{REINFORCE}, but its high variance and slow convergence hindered performance, motivating more stable reinforcement learning techniques.
 
-\section{Methodology}
+\section{Training Methodology}
 
 \subsection{Markov Decision Process (MDP) formulation}
 We model TSP solution construction as an MDP. At step $t$, the state $s_t=(\mathcal{X}, S_t, i_t)$ includes the instance, visited set, and current node. The action $a_t\in \mathcal{N}{i_t}\setminus S_t$ is chosen from $\pi\theta(\cdot\mid i_t)$ with feasibility masking. Transitions append $a_t$ to the tour, and the episode ends after all nodes are visited, yielding reward $R=-C(\pi;\mathcal{X})$.
@@ -198,16 +197,16 @@ Then we define the entropy loss as:
 \mathcal{L}_{\text{entropy}} = -\beta\calH(\tilde{H}),
 \end{equation}
 
-and we minimize $\mathcal{L}=\mathcal{L}_{\text{policy}}+\mathcal{L}_{\text{value}}+\mathcal{L}_{\text{entropy}}$.
+and the final loss to minimize is $\mathcal{L}=\mathcal{L}_{\text{policy}}+\mathcal{L}_{\text{value}}+\mathcal{L}_{\text{entropy}}$.
 
 \section{Solution sampling}
-The ACO constructs a probability distribution over transitions:
+When inference, the ACO constructs a probability distribution over transitions:
 $
-p_{ij} \propto \tau_{ij}^\alpha \cdot H_{ij},
+p_{ij} \propto \tau_{ij}^\alpha \cdot H_{ij}^\beta,
 $
-where $\tau_{ij}$ is the pheromone and $H_{ij}$ is the learned heuristic, and $\alpha$ is a weighting parameter.
+where $\tau_{ij}$ is the pheromone and $H_{ij}$ is the learned heuristic, $\alpha$ and $\beta$ are weighting parameters.
 
-Our method incorporates multiple state-of-the-art enhancements aimed at improving both the computational efficiency and solution quality of ACO algorithms. These improvements address three key aspects of solution construction: efficient node selection, focused modifications to high-quality tours, and scalable local search. Figure~\ref{fig:FACO} demonstrates the final algorithm for solution sampling.
+Our method incorporates multiple state-of-the-art enhancements aimed at improving both the computational efficiency and solution quality of ACO algorithms. These improvements address three key aspects of solution construction: efficient node selection, focused modifications to high-quality tours, and scalable local search. Fig.~\ref{fig:FACO} demonstrates the final algorithm for solution sampling.
 
 \subsection{Incorporating the Min--Max Ant System}
 To enhance solution quality and stabilize the search process, NeuFACO adopts the Min--Max Ant System (MMAS) \cite{MMAS} for pheromone updates. MMAS modifies the classical Ant System in two key aspects: (1) pheromone trails are restricted to the interval $[\tau_{\min},\tau_{\max}]$ to prevent premature convergence, and (2) updates rely solely on the best-so-far or iteration-best solution, rather than aggregating contributions from all ants.
@@ -220,7 +219,7 @@ In our implementation, pheromone updates follow the standard MMAS rule:
 \end{cases}
 \end{equation}
 \begin{equation}
-\tau_{ij} \leftarrow \operatorname{clamp}(\tau_{ij},\tau_{\min},\tau_{\max}).
+\tau_{ij} \leftarrow \operatorname{clip}(\tau_{ij},\tau_{\min},\tau_{\max}).
 \end{equation}
 
 This mechanism is particularly critical when combined with neural-guided heuristics, as it prevents the learned model from prematurely dominating the search dynamics.
@@ -238,7 +237,7 @@ Candidate lists are widely used in ACO to restrict node selection to the $k$-nea
 \calC_i = \{u_{i,j} \mid j\le k,\; \texttt{visited}(u_{i,j})=0\}.
 \end{equation}
 
-When $\calC_i=\varnothing$, classical ACO scans all unvisited nodes, an $O(n)$ operation. To avoid this, we adopt the backup strategy of \cite{ACOTSP-MF}: each node maintains a precomputed backup list $\text{BKP}_i$, from which the first unvisited neighbor is selected. Only if both $\calC_i$ and $\text{BKP}_i$ are empty do we fall back to
+When $\calC_i=\varnothing$, classical ACO scans all unvisited nodes, an $O(n)$ operation. To avoid this, we adopt the backup strategy of \cite{ACOTSP-MF}: each node maintains a precomputed backup list $\mathrm{BKP}_i$, from which the first unvisited neighbor is selected. Only if both $\calC_i$ and $\mathrm{BKP}_i$ are empty do we fall back to
 \begin{equation}
 J = \arg\min_{u:\texttt{visited}(u)=0} d(i,u).
 \end{equation}
@@ -246,14 +245,14 @@ J = \arg\min_{u:\texttt{visited}(u)=0} d(i,u).
 This hierarchical rule preserves stochastic exploration early on while substantially reducing overhead in the later stages of tour construction.
 
 \subsection{Node Relocation to maintain path structure}
-We adopt the focused modification strategy introduced in \cite{FACO2023}, which aims to explore the solution space by making minimal impactful changes to existing high-quality tours. At the start of construction, each ant stochastically copies a complete tour from either the global-best (with probability $p = 0.01$) or the iteration-best candidate and subsequently modifies it by introducing new nodes based on the standard transition rule.
+We adopt the focused modification strategy introduced in \cite{FACO2023}, which aims to explore the solution space by making minimal impactful changes to existing high-quality tours. At the start of construction, each ant stochastically copies a complete tour from either the global-best (with probability $p_g$) or the iteration-best candidate and subsequently modifies it by introducing new nodes based on the standard transition rule.
 
 From the selected edge $(u,v)$ and the original tour $\pi$, a relocate move produces a new tour $\pi'$ by removing $v$ from its current position and reinserting it immediately after $u$. Let $p=\operatorname{pred}(v)$ be the predecessor of $v$ in $\pi$, $s=\operatorname{succ}(v)$ be the successor of $v$, and $s_u$ be the successor of $u$. Then the cost change from performing such a move is
 \begin{equation}
 \Delta C = -d_{p,v} - d_{v,s} - d_{u,s_u} + d_{p,u} + d_{u,v} + d_{v,s_u}.
 \end{equation}
 
-To maintain structural similarity to the reference tour, modification is limited: once a predefined minimum number of new edges (MNE) is introduced (we set \texttt{MNE}=8), the ant stops altering the route and continues following the remaining portion of the original tour. This strategy restricts the number of relocated nodes, thereby concentrating the search effort on promising subregions of the solution space while avoiding the computational burden of constructing tours entirely from scratch. Figure \ref{fig:perm-swap} demonstrates an example of a node relocation operation.
+To maintain structural similarity to the reference tour, modification is limited: once a predefined minimum number of new edges (MNE) is introduced (we set $\mathrm{MNE}=8$), the ant stops altering the route and continues following the remaining portion of the original tour. This strategy restricts the number of relocated nodes, thereby concentrating the search effort on promising subregions of the solution space while avoiding the computational burden of constructing tours entirely from scratch. Fig. \ref{fig:perm-swap} demonstrates an example of a node relocation operation.
 
 \begin{figure}[ht]
     \centering
@@ -301,7 +300,7 @@ To maintain structural similarity to the reference tour, modification is limited
 \end{tikzpicture}
 
     }
-    \caption{Illustration of node relocation.}
+    \caption{Example of a node relocation procedure for edge $(a, b)$.}
     \label{fig:perm-swap}
 \end{figure}
 
@@ -314,7 +313,13 @@ With a constant-size candidate list and a limited set of modified edges, this op
 
 \section{Experiments}
 \hypersetup{citecolor=blue}
-This section presents experimental results to validate the effectiveness of our algorithm. We compare it against other ACO-based methods as well as state-of-the-art neural approaches for solving the TSP. Our source code is built upon codebases of previous ACO-based methods: DeepACO (NeurIPS 2023) \cite{DeepACO} and GFACS (AISTATS 2025) \cite{GFACS}.
+This section presents experimental results to validate the effectiveness of our algorithm. We compare it against other ACO-based methods as well as state-of-the-art neural approaches for solving the TSP. Our source code is built upon codebases of previous ACO-based methods: GFACS (AISTATS 2025) \cite{GFACS}, which itself builds upon DeepACO (NeurIPS 2023) \cite{DeepACO}.
+
+\subsection{Setup}
+
+\subsubsection{Training}
+We evaluate NeuFACO against DeepACO and GFACS. Training uses 20 PPO steps per epoch, batch size 20, learning rate $\text{lr}=0.001$, clip ratio $\epsilon=0.2$, and entropy coefficient 0.01. Experiments run on an AMD RX6800 GPU and Intel i5-13400 CPU (\SI{2.50}{\giga\hertz}). Fig.~\ref{fig:val} shows test objective cost over training steps, illustrating convergence across instance sizes.
+
 
 \begin{figure}[H]
   \centering
@@ -323,11 +328,7 @@ This section presents experimental results to validate the effectiveness of our 
   \label{fig:val}
 \end{figure}
 
-\subsection{Setup}
-
-\subsubsection{Training}
-We train and evaluate NeuFACO against two baseline models, DeepACO and GFACS. NeuFACO is trained with 20 PPO steps per epoch, a batch size of 20, a learning rate of 0.001, a clip ratio of 0.2, and an entropy coefficient of 0.01. All experiments are conducted on a machine with an AMD RX6800 GPU and an Intel i5-13400 CPU at \SI{2.50}{GHz}. For fair comparison, DeepACO and GFACS are re-trained using their originally reported parameters, with the sole adjustment being the number of epochs, aligned to ours. Figure~\ref{fig:val} presents the model sampling cost over training steps on the validation and test datasets, respectively.
-\subsubsection{Benchmark}We evaluate NeuFACO on randomized TSP instances of size 200, 500, and 1000 (128 each) \cite{DeepACO}, and on TSPLib \cite{tsplib} with up to 1500 nodes. Results are averaged over $R=10$ runs for TSPLib and over 128 instances for randomized TSP; baseline results are taken from prior papers. Errors are computed as $E=(\text{cost}-\text{optimal})/\text{optimal}\times100\%$, with optimal values obtained using Concorde.  
+\subsubsection{Benchmark}We evaluate NeuFACO on randomized TSP instances of size 200, 500, and 1000 (128 each) \cite{DeepACO}, and on TSPLib \cite{tsplib} with up to 1500 nodes. Results are averaged over $R=10$ runs for TSPLib and over 128 instances for randomized TSP; baseline results are taken from prior papers. Errors are computed as $E=(\text{cost}-\text{optimal})/\text{optimal}\times100\%$, with optimal values obtained using Concorde \cite{Concorde}.  
 
 Our evaluation consists of two parts: (1) controlled comparison with NAR baselines under identical hyperparameters and hardware, reporting runtime and quality; and (2) literature comparison, compiling solution quality and reported runtimes. As experimental setups vary, runtimes are indicative, while solution quality is emphasized as the primary metric.
 
@@ -374,7 +375,14 @@ NeuFACO    & \textbf{1.66} & \textbf{0.28s}  & \textbf{1.50} & \textbf{0.74s}  &
   \label{fig:over_iterations}
 \end{figure}
 
-We compare NeuFACO with previously proposed non-autoregressive methods, DeepACO and GFACS, both of which surpass classical ACO without neural guidance \cite{DeepACO,GFACS}. For all NAR models, we fix the number of ants at $M=100$ and run $I=100$ ACO iterations. Unlike DeepACO and GFACS, which employ neural-guided perturbation, NeuFACO leverages scalable local search at every iteration, providing effective refinement without additional perturbation mechanisms.
+We compare NeuFACO to two non-autoregressive baselines, DeepACO and GFACS, both of which outperform classical ACO without neural guidance \cite{DeepACO,GFACS}. For all NAR models we fix the number of ants $M=100$, run $I=100$ ACO iterations, $\alpha = 1$, $\beta = 1$, and an evaporation rate of $\rho=0.1$. Unlike DeepACO and GFACS, which employ neural-guided perturbation, NeuFACO applies scalable local search at every iteration, providing effective refinement without additional perturbation mechanisms. NeuFACO-specific hyperparameters are: global path probability $p_g=0.01$, minimum new edges per iteration $\mathrm{MNE}=8$, candidate list size $k=20$, backup list size $\mathrm{BKP}=64$,
+$$
+\tau_{\max}=\frac{1}{(1-\rho)\,g_b},
+\qquad
+\tau_{\min}=\min\!\left(\tau_{\max},\;\frac{\tau_{\max}\,(1-p_{\text{best}}^{1/k})}{(k-1)\,p_{\text{best}}^{1/k}}\right),
+$$
+with $g_b$ denoting the global-best objective and $p_{\text{best}}=0.1$ as suggested in \cite{FACO2023}.
+
 
 
 \begin{figure}[h]
@@ -384,9 +392,10 @@ We compare NeuFACO with previously proposed non-autoregressive methods, DeepACO 
   \label{fig:candle}
 \end{figure}
 
-Figure~\ref{fig:NAR} shows that among DeepACO, GFACS, and NeuFACO, our model achieves the best solution quality across nearly all datasets. NUnder identical settings on our setup, NeuFACO attains up to ~100× lower wall-clock than prior NAR methods, primarily due to the refined sampler that leverages neural heuristics while incurring minimal quality loss. Moreover, the use of PPO with entropy regularization alleviates policy degradation, ensuring solution quality on par with or superior to existing models. The gains are particularly pronounced on large-scale instances, such as TSPLib graphs with up to 1500 nodes, demonstrating NeuFACO’s suitability for efficiently solving large TSP instances without sacrificing accuracy.
+Fig.~\ref{fig:NAR} shows that NeuFACO achieves the highest solution quality among DeepACO, GFACS, and itself across nearly all datasets. Under identical settings, NeuFACO attains up to ~60$\times$ lower wall-clock time than prior NAR methods, thanks to a refined sampler that exploits neural heuristics with minimal quality loss. PPO with entropy regularization further mitigates policy degradation, ensuring solution quality comparable to or exceeding existing models. Gains are most pronounced on large instances, such as TSPLib graphs with up to 1500 nodes, highlighting NeuFACO’s efficiency on large-scale TSPs.
 
-Figure~\ref{fig:over_iterations} illustrates the evolution of average objective costs, confirming NeuFACO’s faster convergence relative to baselines. Figure~\ref{fig:candle} compares error distributions across instance sizes, showing NeuFACO’s consistently lower variance and superior performance.  
+Fig.~\ref{fig:over_iterations} confirms faster convergence of average objective costs, while Fig.~\ref{fig:candle} shows consistently lower variance and superior performance across instance sizes.
+
 
 
 \subsection{Comparison with other RL solvers}
@@ -424,16 +433,16 @@ DIMES              & 17.01 & 2.78  & 11s  & 24.45 & 5.75  & 32s \\
 SO                 & 16.94 & 2.40  & 15s  & 23.77 & 2.80  & 26s \\
 Pointerformer      & 17.14 & 3.56  & 14s  & 24.80 & 7.90  & 40s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-H-TSP (AAAI 23)             & 17.55 & 6.22  & 0.18s  & 24.65 & 6.62  & 0.33s\\
-GLOP  (AAAI 24)             & 16.91 & 1.99 & 1.5m  & 23.84 & 3.11  & 3.0m\\
-INViT-3V+Greedy (ICML 24)    & 16.78 & 1.56 & 5.48s & 24.66 & 6.66  & 9.0s \\
-LEHD+Greedy (NeurIPS 23)             & 16.78 & 1.56 & 0.13s & 23.84 & 3.11 & 0.8s \\
-BQ+Greedy (NeurIPS 23)             & 16.72 & 1.18 & 0.36s & 23.65 & 2.30  & 0.9s\\
-SIGD+Greedy (NeurIPS 23)             & 16.71 & 1.17 & 0.23s & 23.57 & 1.96  & 1.2s\\
-SIT+Greedy (NeurIPS 25)                   & 16.7 & 1.08 & 14.95s & 23.57 & 1.95 & 0.2s \\
+H-TSP (AAAI'23)             & 17.55 & 6.22  & 0.18s  & 24.65 & 6.62  & 0.33s\\
+GLOP  (AAAI'24)             & 16.91 & 1.99 & 1.5m  & 23.84 & 3.11  & 3.0m\\
+INViT-3V+Greedy (ICML'24)    & 16.78 & 1.56 & 5.48s & 24.66 & 6.66  & 9.0s \\
+LEHD+Greedy (NeurIPS'23)             & 16.78 & 1.56 & 0.13s & 23.84 & 3.11 & 0.8s \\
+BQ+Greedy (NeurIPS'23)             & 16.72 & 1.18 & 0.36s & 23.65 & 2.30  & 0.9s\\
+SIGD+Greedy (NeurIPS'23)             & 16.71 & 1.17 & 0.23s & 23.57 & 1.96  & 1.2s\\
+SIT+Greedy (NeurIPS'25)                   & 16.7 & 1.08 & 14.95s & 23.57 & 1.95 & 0.2s \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-DeepACO            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 1.1m \\
-GFACS              & 16.80 & 1.56 & 15s & 23.72 & 2.63 & 1.1m \\
+DeepACO (NeurIPS'23)            & 16.84 & 1.77 & 15s & 23.78 & 2.87 & 1.1m \\
+GFACS (AISTATS'25)             & 16.80 & 1.56 & 15s & 23.72 & 2.63 & 1.1m \\
 \cmidrule(lr){1-1}\cmidrule(lr){2-4}\cmidrule(lr){5-7}
 NeuFACO            & 16.43 & 1.33 & 0.91s & 23.34 & 1.16 & 0.98s \\
             &  &  & +14.95s &  &  & +40.03s \\
@@ -442,17 +451,17 @@ NeuFACO            & 16.43 & 1.33 & 0.91s & 23.34 & 1.16 & 0.98s \\
 \end{tabular}
 }% end resizebox
 
-\caption{Broader landscape (literature) comparison on TSP500 and TSP1000.}
+\caption{Broader literature comparison on TSP500 and TSP1000.}
 \label{fig:tsp-results}
 \end{figure}
 
 Results demonstrate that NeuFACO consistently achieves superior or highly competitive performance across all baselines. It surpasses every established methods and remains competitive with recently proposed approaches, often delivering better solution quality at the cost of slightly longer runtimes. The experiments also highlight a key bottleneck of NAR methods, including ours: solution sampling remains CPU-bound, leading to higher runtime despite comparable amortized inference. Nevertheless, NeuFACO marks a significant advance for both NAR and RL-based approaches to the TSP.
 
 \section{Conclusion}
-In conclusion, NeuFACO integrates deep reinforcement learning with a refined ACO framework to address limitations of non-autoregressive models for the TSP. By combining PPO-based policy learning with targeted refinement around high-quality solutions, it achieves a strong balance between global guidance and local exploitation. This synergy preserves solution structure, accelerates convergence, and scales effectively to large instances. Experiments show that NeuFACO consistently achieves superior or highly competitive performance compared to state-of-the-art neural baselines on both randomized and benchmark datasets. While runtimes are longer due to CPU-bound sampling, the method delivers higher solution quality, underscoring the effectiveness of PPO-guided priors in enhancing ACO and establishing NeuFACO as a robust and generalizable framework for neural-augmented combinatorial optimization.
+In conclusion, NeuFACO integrates deep reinforcement learning with a refined ACO framework to address limitations of non-autoregressive models for the TSP. By combining PPO-based policy learning with targeted refinement around high-quality solutions, it achieves a strong balance between global guidance and local exploitation. This synergy preserves solution structure, accelerates convergence, and scales effectively to large instances. Experiments show that NeuFACO consistently achieves superior or highly competitive performance compared to a wide range of neural baselines on both randomized and benchmark datasets. While runtimes are longer due to CPU-bound sampling, the method delivers higher solution quality, underscoring the effectiveness of PPO-guided priors in enhancing ACO and establishing NeuFACO as a robust and generalizable framework for neural-augmented combinatorial optimization.
 
-\section*{Acknowledgment}
-The authors would like to thank contributors of prior codebases and reviewers for helpful comments.
+% \section*{Acknowledgment}
+% The authors would like to thank the authors of \cite{DeepACO, GFACS} for providing their codebases, which facilitated this work.
 
 \bibliographystyle{IEEEtran}
 \bibliography{refs}

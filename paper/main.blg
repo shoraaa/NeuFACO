@@ -15,45 +15,45 @@ Warning--empty booktitle in pointerformer
 Warning--empty booktitle in SelectAndOptimize
 
 Done.
-You've used 38 entries,
+You've used 39 entries,
             4087 wiz_defined-function locations,
-            1072 strings with 14867 characters,
-and the built_in function-call counts, 30277 in all, are:
-= -- 2364
-> -- 828
+            1080 strings with 15146 characters,
+and the built_in function-call counts, 30562 in all, are:
+= -- 2384
+> -- 837
 < -- 236
-+ -- 467
-- -- 177
-* -- 1419
-:= -- 4282
-add.period$ -- 80
-call.type$ -- 38
-change.case$ -- 42
++ -- 471
+- -- 179
+* -- 1426
+:= -- 4332
+add.period$ -- 82
+call.type$ -- 39
+change.case$ -- 43
 chr.to.int$ -- 555
-cite$ -- 40
-duplicate$ -- 2160
-empty$ -- 2438
-format.name$ -- 186
-if$ -- 7103
+cite$ -- 41
+duplicate$ -- 2184
+empty$ -- 2457
+format.name$ -- 189
+if$ -- 7160
 int.to.chr$ -- 0
-int.to.str$ -- 38
-missing$ -- 409
-newline$ -- 137
-num.names$ -- 44
-pop$ -- 1016
+int.to.str$ -- 39
+missing$ -- 416
+newline$ -- 142
+num.names$ -- 45
+pop$ -- 1044
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 2343
+skip$ -- 2360
 stack$ -- 0
-substring$ -- 1455
-swap$ -- 1785
+substring$ -- 1456
+swap$ -- 1799
 text.length$ -- 51
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 38
+type$ -- 39
 warning$ -- 2
-while$ -- 124
-width$ -- 40
-write$ -- 372
+while$ -- 125
+width$ -- 41
+write$ -- 380
 (There were 2 warnings)
