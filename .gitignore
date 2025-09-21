@@ -3,13 +3,12 @@ __pycache__/
 .vscode
 wandb/
 lkh/
-pyvrp/
 pretrained/
 concorde/
 table_latex/
 plot_matlab/
 paper/
-result_test/
-result_testlib/
-result_test_final/
-result_testlib_final/
+tsp/result_test/
+tsp/result_testlib/
+tsp/result_test_final/
+tsp/result_testlib_final/
