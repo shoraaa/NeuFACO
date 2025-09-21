@@ -97,7 +97,13 @@ def train_instance(
         returns = final_rewards
 
         # PPO policy loss
-        new_log_probs = old_log_probs  # For standard paths
+        # Compute new log probabilities for the current policy
+        _, new_log_probs = aco.gen_path(
+            invtemp=invtemp,
+            require_prob=True,
+            paths=paths,
+            start_node=START_NODE,
+        )
         ratio = torch.exp(new_log_probs.sum(0) - old_log_probs.sum(0).detach())
         surr1 = ratio * advantages
         surr2 = torch.clamp(ratio, 1 - clip_ratio, 1 + clip_ratio) * advantages
