@@ -8,7 +8,7 @@ concorde/
 table_latex/
 plot_matlab/
 paper/
-tsp/result_test/
-tsp/result_testlib/
-tsp/result_test_final/
-tsp/result_testlib_final/
+tsp/results_test/
+tsp/results_testlib/
+tsp/results_test_final/
+tsp/results_testlib_final/
