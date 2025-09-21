@@ -9,3 +9,7 @@ concorde/
 table_latex/
 plot_matlab/
 paper/
+result_test/
+result_testlib/
+result_test_final/
+result_testlib_final/
