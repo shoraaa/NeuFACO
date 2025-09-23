@@ -2,6 +2,7 @@
 
 # Neural Focused Ant Colony Optimization
 Neural Focused Ant Colony Optimization (NeuFACO) is a non-autoregressive framework for solving the Traveling Salesman Problem (TSP). It combines reinforcement learning with advanced Ant Colony Optimization (ACO) techniques to achieve both efficiency and solution quality.
+The code is built upon the codebase of [GFACS](https://github.com/ai4co/gfacs), which itself is developed based on the [DeepACO](https://github.com/henry-yeh/DeepACO) codebase.
 
 ## Key Features
 
